@@ -5,23 +5,23 @@ import (
 	"math"
 )
 
-func Float32frombytes(bytes []byte) float32 {
+func Bytes4ToFloat32(bytes []byte) float32 {
 	bits := binary.BigEndian.Uint32(bytes)
 	float := math.Float32frombits(bits)
 	return float
 }
-func Float32bytes(float float32) []byte {
+func Float32Bytes4(float float32) []byte {
 	bits := math.Float32bits(float)
 	bytes := make([]byte, 4)
 	binary.BigEndian.PutUint32(bytes, bits)
 	return bytes
 }
-func Float64frombytes(bytes []byte) float64 {
+func Bytes8ToFloat64(bytes []byte) float64 {
 	bits := binary.LittleEndian.Uint64(bytes)
 	float := math.Float64frombits(bits)
 	return float
 }
-func Float64bytes(float float64) []byte {
+func Float64ToBytes8(float float64) []byte {
 	bits := math.Float64bits(float)
 	bytes := make([]byte, 8)
 	binary.LittleEndian.PutUint64(bytes, bits)
