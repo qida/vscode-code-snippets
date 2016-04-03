@@ -11,6 +11,7 @@ func Bytes2ToInt16(b []byte) int16 {
 	binary.Read(b_buf, binary.BigEndian, &x)
 	return x
 }
+
 func Bytes4ToInt32(b []byte) int32 {
 	b_buf := bytes.NewBuffer(b)
 	var x int32
