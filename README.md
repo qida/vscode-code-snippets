@@ -1,2 +1,1 @@
-# go-util
-tools for golang
+# go工具收集
