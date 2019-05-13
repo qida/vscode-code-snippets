@@ -1,4 +1,4 @@
-package util
+package strings
 
 import (
 	"math"
@@ -314,17 +314,17 @@ func AmountConvert(p_money float64, p_Round bool) string {
 		}
 	}
 
-	for i, _ := range regex {
+	for i := range regex {
 		reg := regexp.MustCompile(regex[i][0])
 		Str = reg.ReplaceAllString(Str, regex[i][1])
 	}
 
 	if string(Str[0:3]) == "元" {
-		Str = string(Str[3:len(Str)])
+		Str = string(Str[3:])
 	}
 
 	if string(Str[0:3]) == "零" {
-		Str = string(Str[3:len(Str)])
+		Str = string(Str[3:])
 	}
 	return Str
 }
