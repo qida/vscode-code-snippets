@@ -1,6 +1,7 @@
 package file
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -9,6 +10,7 @@ import (
 func GetFileExist(filepath string) bool {
 	if _, err := os.Stat(filepath); os.IsNotExist(err) {
 		// path/to/whatever does not exist
+		fmt.Printf("没有找到文件：%s\r\n", filepath)
 		return false
 	}
 	return true
