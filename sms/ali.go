@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"math/rand"
 	"time"
+
+	"github.com/qida/aliyun_sms"
 )
 
-func SendAliSMS(aliyunSMS *AliyunSms, mobile string) (code string, err error) {
+func SendAliSMS(aliyunSMS *aliyun_sms.AliyunSms, mobile string) (code string, err error) {
 	if !CheckRegexMobile(mobile) {
 		return "", errors.New("手机号码不正确！")
 	}

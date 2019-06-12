@@ -6,6 +6,7 @@ import (
 	"math/rand"
 	"time"
 
+	"github.com/qiniu/api.v7/auth"
 	"github.com/qiniu/api.v7/sms"
 )
 
@@ -14,7 +15,13 @@ type QiniuSMS struct {
 	TemplateID  string
 }
 
-func SendQiniuSMS(qiniuSMS QiniuSMS, mobile string) (code int, err error) {
+var manager *sms.Manager
+
+func InitQiniuSMS(accessKey, secretKey string) {
+	auth := auth.New(accessKey, secretKey)
+	manager = sms.NewManager(auth)
+}
+func SendQiniuSMS(qiniuSMS QiniuSMS, mobile string) (code string, err error) {
 	if !CheckRegexMobile(mobile) {
 		return "", errors.New("手机号码不正确！")
 	}
@@ -34,11 +41,18 @@ func SendQiniuSMS(qiniuSMS QiniuSMS, mobile string) (code int, err error) {
 			"code": code,
 		},
 	}
-	ret, err := manager.SendMessage(args)
-	if err != nil {
-		err = errors.New("SendMessage() error: %v\n", err)
+	if manager != nil {
+		ret, err1 := manager.SendMessage(args)
+		if err1 != nil {
+			err = err1
+			return
+		}
+		if len(ret.JobID) == 0 {
+			err = errors.New("SendMessage() error: The job id cannot be empty")
+		}
+	} else {
+		err = errors.New("manager is nil")
 	}
-	if len(ret.JobID) == 0 {
-		err = errors.New("SendMessage() error: The job id cannot be empty")
-	}
+
+	return
 }
