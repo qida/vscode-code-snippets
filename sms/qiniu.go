@@ -23,11 +23,13 @@ func InitQiniuSMS(accessKey, secretKey string) {
 }
 func SendQiniuSMS(qiniuSMS QiniuSMS, mobile string) (code string, err error) {
 	if !CheckRegexMobile(mobile) {
-		return "", errors.New("手机号码不正确！")
+		err = errors.New("手机号码不正确！")
+		return
 	}
 	if RequestRegLimit <= 0 {
 		RequestRegLimit = 0
-		return "", errors.New("您的请求太过频繁")
+		err = errors.New("您的请求太过频繁")
+		return
 	}
 	RequestRegLimit--
 	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
