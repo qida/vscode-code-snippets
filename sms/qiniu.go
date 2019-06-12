@@ -21,7 +21,7 @@ func InitQiniuSMS(accessKey, secretKey string) {
 	auth := auth.New(accessKey, secretKey)
 	manager = sms.NewManager(auth)
 }
-func SendQiniuSMS(mobile string) (code string, err error) {
+func SendQiniuSMS(qiniuSMS QiniuSMS, mobile string) (code string, err error) {
 	if !CheckRegexMobile(mobile) {
 		return "", errors.New("手机号码不正确！")
 	}
@@ -34,14 +34,13 @@ func SendQiniuSMS(mobile string) (code string, err error) {
 	code = fmt.Sprintf("%04d", rnd.Int31n(10000))
 	// SendMessage
 	args := sms.MessagesRequest{
-		SignatureID: "qiniuSMS.SignatureID",
-		TemplateID:  "qiniuSMS.TemplateID",
+		SignatureID: qiniuSMS.SignatureID,
+		TemplateID:  qiniuSMS.TemplateID,
 		Mobiles:     []string{mobile},
 		Parameters: map[string]interface{}{
 			"code": code,
 		},
 	}
-	fmt.Println(args)
 	if manager != nil {
 		ret, err1 := manager.SendMessage(args)
 		if err1 != nil {
