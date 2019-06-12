@@ -15,7 +15,7 @@ var (
 )
 
 func init() {
-	TimerAddPoolLimit()
+	go TimerAddPoolLimit()
 }
 
 func TimerAddPoolLimit() {
