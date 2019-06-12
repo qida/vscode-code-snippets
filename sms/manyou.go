@@ -1,4 +1,3 @@
-
 package sms
 
 import (
@@ -43,6 +42,4 @@ func SendManYouSMS(man_you ManYou, mobile string) (code string, vparam Verificat
 	}
 	err = json.Unmarshal([]byte(body), &vparam)
 	return
-
 }
-
