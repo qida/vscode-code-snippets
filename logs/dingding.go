@@ -6,8 +6,9 @@ import (
 
 var rb *robot.Robot
 
-func InitRobot(name string, webhook string) *robot.Robot {
+func InitRobot(name string, webhook string) {
 	rb = robot.New(name, webhook)
+	return
 }
 
 func SendDingDing(content string) (err error) {
