@@ -1,6 +1,8 @@
 package logs
 
 import (
+	"errors"
+
 	"github.com/ggicci/dingtalk/robot"
 )
 
@@ -12,6 +14,10 @@ func InitRobot(name string, webhook string) {
 }
 
 func SendDingDing(content string) (err error) {
+	if rb == nil || rb.Name == "" {
+		err = errors.New("没有初始化机器人！")
+		return
+	}
 	m := rb.NewTextMessage()
 	m.SetText(content)
 	m.AtAll(true)
