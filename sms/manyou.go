@@ -20,8 +20,9 @@ type ManYou struct {
 }
 
 func SendManYouSMS(man_you ManYou, mobile string) (code string, vparam VerificationParam, err error) {
-	if !CheckRegexMobile(mobile) {
-		return "", vparam, errors.New("手机号码不正确！")
+	if ok, err1 := CheckRegexMobile(mobile); !ok {
+		err = err1
+		return
 	}
 	if RequestRegLimit <= 0 {
 		RequestRegLimit = 0

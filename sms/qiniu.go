@@ -22,8 +22,8 @@ func InitQiniuSMS(accessKey, secretKey string) {
 	manager = sms.NewManager(auth)
 }
 func SendQiniuSMS(qiniuSMS QiniuSMS, mobile string, code string) (err error) {
-	if !CheckRegexMobile(mobile) {
-		err = errors.New("手机号码不正确！")
+	if ok, err1 := CheckRegexMobile(mobile); !ok {
+		err = err1
 		return
 	}
 	if RequestRegLimit <= 0 {

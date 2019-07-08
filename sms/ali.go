@@ -10,8 +10,9 @@ import (
 )
 
 func SendAliSMS(aliyunSMS *aliyun_sms.AliyunSms, mobile string) (code string, err error) {
-	if !CheckRegexMobile(mobile) {
-		return "", errors.New("手机号码不正确！")
+	if ok, err1 := CheckRegexMobile(mobile); !ok {
+		err = err1
+		return
 	}
 	if RequestRegLimit <= 0 {
 		RequestRegLimit = 0
