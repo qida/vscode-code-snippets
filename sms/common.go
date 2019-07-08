@@ -1,6 +1,7 @@
 package sms
 
 import (
+	"errors"
 	"fmt"
 	"regexp"
 	"time"
@@ -44,7 +45,10 @@ type VerificationParam struct {
 	SendMsgID string `json:"sendmsgid"`
 }
 
-func CheckRegexMobile(mobile string) bool {
+func CheckRegexMobile(mobile string) (bool, error) {
+	if mobile == "" {
+		return false, errors.New("手机号不能为空！")
+	}
 	reg := regexp.MustCompile(regular)
-	return reg.MatchString(mobile)
+	return reg.MatchString(mobile), errors.New("手机号不满足格式要求！")
 }
