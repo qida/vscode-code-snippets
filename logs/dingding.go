@@ -6,21 +6,21 @@ import (
 	"github.com/ggicci/dingtalk/robot"
 )
 
-var rb *robot.Robot
+var rb []*robot.Robot = make([]*robot.Robot, 0)
 
 func InitRobot(name string, webhook string) {
-	rb = robot.New(name, webhook)
+	rb = append(rb, robot.New(name, webhook))
 	return
 }
 
-func SendDingDing(content string) (err error) {
-	if rb == nil || rb.Name == "" {
+func SendDingDing(level int8, content string) (err error) {
+	if rb[level] == nil || rb[level].Name == "" {
 		err = errors.New("没有初始化机器人！")
 		return
 	}
-	m := rb.NewTextMessage()
+	m := rb[level].NewTextMessage()
 	m.SetText(content)
-	m.AtAll(true)
+	// m.AtAll(true)
 	err = m.Send()
 	return
 }
