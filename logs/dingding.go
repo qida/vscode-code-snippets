@@ -29,7 +29,7 @@ func init() {
 	MapRobot[Rb监控] = robot.New("监控", "https://oapi.dingtalk.com/robot/send?access_token=647c2211f593cf5b4713dfd8981f0a5ae581218efb1304a5b3470b4a2b435f1f")
 	MapRobot[Rb日常] = robot.New("日常", "https://oapi.dingtalk.com/robot/send?access_token=8aa4f1eb02c677ca56619b7f1ef1901783a0086af27475dec1cc32bfc8984f9b")
 	MapRobot[Rb工作] = robot.New("工作", "https://oapi.dingtalk.com/robot/send?access_token=192e63da2025b1ab579febc20200a8372318fb7b10e0e70fb0972bd57df1c777")
-	MapRobot[Rb打卡] = robot.New("打卡", "https: //oapi.dingtalk.com/robot/send?access_token=fb663ad34e7a3e71bf6169863734d7ddeb9058a8a66123bc8b66d45f5bac6083")
+	MapRobot[Rb打卡] = robot.New("打卡", "https://oapi.dingtalk.com/robot/send?access_token=fb663ad34e7a3e71bf6169863734d7ddeb9058a8a66123bc8b66d45f5bac6083")
 
 }
 
@@ -41,6 +41,7 @@ func SendDingDing(index int8, content ...string) (err error) {
 		err = m.Send()
 	} else {
 		err = errors.New("没有初始化机器人！")
+		panic(err)
 	}
 	return
 }
