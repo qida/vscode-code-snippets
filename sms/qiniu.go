@@ -18,8 +18,10 @@ type QiniuSMS struct {
 var manager *sms.Manager
 
 func InitQiniuSMS(accessKey, secretKey string) {
+	fmt.Println("=========InitQiniuSMS===========")
 	auth := auth.New(accessKey, secretKey)
 	manager = sms.NewManager(auth)
+	fmt.Println("============End=================")
 }
 func SendQiniuSMS(qiniuSMS QiniuSMS, mobile string, code string) (err error) {
 	if ok, err1 := CheckRegexMobile(mobile); !ok {
