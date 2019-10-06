@@ -1,4 +1,11 @@
-package util
+/*
+ * @Author: sunqida
+ * @Date: 2019-05-25 07:56:43
+ * @LastEditors: sunqida
+ * @LastEditTime: 2019-05-25 07:56:43
+ * @Description:
+ */
+package regexps
 
 import "regexp"
 
