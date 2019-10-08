@@ -1,3 +1,10 @@
+/*
+ * @Author: sunqida
+ * @Date: 2019-06-14 13:12:45
+ * @LastEditors: sunqida
+ * @LastEditTime: 2019-10-08 17:10:09
+ * @Description:
+ */
 package logs
 
 import (
@@ -11,24 +18,30 @@ import (
 )
 
 var (
+	DebugList map[string]*tcp_server.Client
+)
+var (
 	LogConn = logs.NewLogger(1000)
 	LogMail = logs.NewLogger(1000)
 	Enc     = mahonia.NewEncoder("gb18030")
 )
 
-func initLogConn() {
-	LogConn.SetLogger(logs.AdapterConn, fmt.Sprintf(`{"net":"tcp","addr":"127.0.0.1:%d","reconnect":true}`, DEBUG_PORT))
+func Server(port int) {
+	go ServerTcp(port)
+	logs.EnableFuncCallDepth(true)
+	logs.SetLogFuncCallDepth(3)
+	logs.Async(1e3)
 	LogConn.SetLevel(logs.LevelNotice)
+	LogConn.SetLogger(logs.AdapterConn, fmt.Sprintf(`{"net":"tcp","addr":"127.0.0.1:%d","reconnect":true}`, port))
 }
 
-func InitEmail() {
+func Email() {
 	LogMail.Async()
 	LogMail.EnableFuncCallDepth(true)
 	err := LogMail.SetLogger(logs.AdapterMail, `{"level":7,"username":"sunqida@126.com","password":"","fromAddress":"sunqida@126.com","subject":"", "host":"smtp.126.com:994","sendTos":["sunqida@foxmail.com"]}`) //654/994
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Println("ZXJY_API初始化邮件报警")
 	if beego.BConfig.RunMode == "dev" {
 		LogMail.Notice("Api Test系统开始运行：%v", time.Now())
 	} else {
@@ -36,19 +49,10 @@ func InitEmail() {
 	}
 }
 
-var (
-	DebugList map[string]*tcp_server.Client
-)
-var DEBUG_PORT = 8888
-
-func ServerTcpReplay() {
-	go serverTcpReplay()
-	initLogConn()
-}
-func serverTcpReplay() {
-	fmt.Printf("调试 在 %d 监听...\r\n", DEBUG_PORT)
+func ServerTcp(port int) {
+	fmt.Printf("调试 在 %d 监听...\r\n", port)
 	DebugList = make(map[string]*tcp_server.Client)
-	server := tcp_server.New(fmt.Sprintf("0.0.0.0:%d", DEBUG_PORT))
+	server := tcp_server.New(fmt.Sprintf("0.0.0.0:%d", port))
 	// utf-8=>gb18030
 	//dec := mahonia.NewDecoder("GB18030")
 	// gb18030=>utf-8
@@ -57,15 +61,15 @@ func serverTcpReplay() {
 		c.Send(fmt.Sprintf("Welcome %s \n", c.GetConn().RemoteAddr().String()))
 	})
 	server.OnNewMessage(func(c *tcp_server.Client, message string) {
-
-		// 中文处理 //
-		for _, v := range DebugList {
-			v.Send(message)
-		}
 		if message == "debug\r\n" {
 			fmt.Printf("A Debugger:%+v\r\n", c)
 			DebugList[c.GetConn().RemoteAddr().String()] = c
 			c.Send("Welcome Debugger\r\n")
+			return
+		}
+		// 中文处理 //
+		for _, v := range DebugList {
+			v.Send(message)
 		}
 	})
 	server.OnClientConnectionClosed(func(c *tcp_server.Client, err error) {
