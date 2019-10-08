@@ -2,7 +2,7 @@
  * @Author: sunqida
  * @Date: 2019-06-14 13:12:45
  * @LastEditors: sunqida
- * @LastEditTime: 2019-10-08 17:10:09
+ * @LastEditTime: 2019-10-08 17:20:01
  * @Description:
  */
 package logs
@@ -31,8 +31,8 @@ func Server(port int) {
 	logs.EnableFuncCallDepth(true)
 	logs.SetLogFuncCallDepth(3)
 	logs.Async(1e3)
-	LogConn.SetLevel(logs.LevelNotice)
-	LogConn.SetLogger(logs.AdapterConn, fmt.Sprintf(`{"net":"tcp","addr":"127.0.0.1:%d","reconnect":true}`, port))
+	LogConn.SetLevel(logs.LevelDebug)
+	LogConn.SetLogger(logs.AdapterConn, fmt.Sprintf(`{"net":"tcp","addr":"0.0.0.0:%d","reconnect":true}`, port))
 }
 
 func Email() {
@@ -62,7 +62,6 @@ func ServerTcp(port int) {
 	})
 	server.OnNewMessage(func(c *tcp_server.Client, message string) {
 		if message == "debug\r\n" {
-			fmt.Printf("A Debugger:%+v\r\n", c)
 			DebugList[c.GetConn().RemoteAddr().String()] = c
 			c.Send("Welcome Debugger\r\n")
 			return
