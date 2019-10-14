@@ -32,10 +32,11 @@ func AliSend(mobile string) (code string, err error) {
 	RequestRegLimit--
 	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
 	code = fmt.Sprintf("%04v", rnd.Int31n(10000))
+	request.PhoneNumbers = mobile
 	request.TemplateParam = fmt.Sprintf(`{"code":"%s"}`, code)
 	response, err := ali.SendSms(request)
 	if err != nil {
-		fmt.Print(err.Error())
+		return
 	}
 	fmt.Printf("response is %#v\n", response)
 	return
