@@ -6,10 +6,21 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/qida/aliyun_sms"
+	"github.com/aliyun/alibaba-cloud-sdk-go/services/dysmsapi"
 )
 
-func SendAliSMS(aliyunSMS *aliyun_sms.AliyunSms, mobile string) (code string, err error) {
+var ali *dysmsapi.Client
+
+var request *dysmsapi.SendSmsRequest
+
+func init() {
+	ali, _ = dysmsapi.NewClientWithAccessKey("cn-hangzhou", "LTAI4FfBkTvJuEFVbr7URrV3", "zqLXNCSWVrOSRKG5lg5AGySZHzUK9B")
+	request = dysmsapi.CreateSendSmsRequest()
+	request.Scheme = "https"
+	request.SignName = "UPM"
+	request.TemplateCode = "SMS_175475271"
+}
+func AliSend(mobile string) (code string, err error) {
 	if ok, err1 := CheckRegexMobile(mobile); !ok {
 		err = err1
 		return
@@ -21,6 +32,11 @@ func SendAliSMS(aliyunSMS *aliyun_sms.AliyunSms, mobile string) (code string, er
 	RequestRegLimit--
 	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
 	code = fmt.Sprintf("%04v", rnd.Int31n(10000))
-	err = aliyunSMS.Send(mobile, fmt.Sprintf(`{"code":"%s"}`, code))
+	request.TemplateParam = fmt.Sprintf(`{"code":"%s"}`, code)
+	response, err := ali.SendSms(request)
+	if err != nil {
+		fmt.Print(err.Error())
+	}
+	fmt.Printf("response is %#v\n", response)
 	return
 }

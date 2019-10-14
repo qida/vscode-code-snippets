@@ -19,6 +19,11 @@ type ManYou struct {
 	Password string
 }
 
+type VerificationParam struct {
+	CodeType  string `json:"codetype"`
+	SendMsgID string `json:"sendmsgid"`
+}
+
 func SendManYouSMS(man_you ManYou, mobile string) (code string, vparam VerificationParam, err error) {
 	if ok, err1 := CheckRegexMobile(mobile); !ok {
 		err = err1

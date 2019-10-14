@@ -40,11 +40,6 @@ const (
 	duration = time.Minute * 10 //手机验证码超时时间
 )
 
-type VerificationParam struct {
-	CodeType  string `json:"codetype"`
-	SendMsgID string `json:"sendmsgid"`
-}
-
 func CheckRegexMobile(mobile string) (bool, error) {
 	if mobile == "" {
 		return false, errors.New("手机号不能为空！")
