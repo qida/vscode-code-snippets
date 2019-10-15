@@ -26,13 +26,12 @@ var (
 	Enc     = mahonia.NewEncoder("gb18030")
 )
 
-func Server(port int) {
-	go ServerTcp(port)
+func ClientDebug(ip string, port int) {
 	logs.EnableFuncCallDepth(true)
 	logs.SetLogFuncCallDepth(3)
 	logs.Async(1e3)
 	LogConn.SetLevel(logs.LevelDebug)
-	LogConn.SetLogger(logs.AdapterConn, fmt.Sprintf(`{"net":"tcp","addr":"0.0.0.0:%d","reconnect":true}`, port))
+	LogConn.SetLogger(logs.AdapterConn, fmt.Sprintf(`{"net":"tcp","addr":"%s:%d","reconnect":true}`, ip, port))
 }
 
 func Email() {
@@ -49,7 +48,7 @@ func Email() {
 	}
 }
 
-func ServerTcp(port int) {
+func ServerDebug(port int) {
 	fmt.Printf("调试 在 %d 监听...\r\n", port)
 	DebugList = make(map[string]*tcp_server.Client)
 	server := tcp_server.New(fmt.Sprintf("0.0.0.0:%d", port))
