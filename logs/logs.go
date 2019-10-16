@@ -61,10 +61,10 @@ func ServerDebug(port int) {
 		c.Send(fmt.Sprintf("Welcome %s \n", c.GetConn().RemoteAddr().String()))
 	})
 	server.OnNewMessage(func(c *tcp_server.Client, message string) {
-		if message == "debug\r\n" {
+		if message == "debug\n" {
 			DebugList[c.GetConn().RemoteAddr().String()] = c
 			c.Send("Welcome Debugger\r\n")
-		} else if message == "\r\n" {
+		} else if message == "\n" {
 			//不处理
 		} else {
 			for _, v := range DebugList {
