@@ -57,17 +57,19 @@ func ServerDebug(port int) {
 	// gb18030=>utf-8
 	//enc := mahonia.Newutil.Encoder("GB18030")
 	server.OnNewClient(func(c *tcp_server.Client) {
+		fmt.Printf("新的调试端\r\n")
 		c.Send(fmt.Sprintf("Welcome %s \n", c.GetConn().RemoteAddr().String()))
 	})
 	server.OnNewMessage(func(c *tcp_server.Client, message string) {
 		if message == "debug\r\n" {
 			DebugList[c.GetConn().RemoteAddr().String()] = c
 			c.Send("Welcome Debugger\r\n")
-			return
-		}
-		// 中文处理 //
-		for _, v := range DebugList {
-			v.Send(message)
+		} else if message == "\r\n" {
+			//不处理
+		} else {
+			for _, v := range DebugList {
+				v.Send(message)
+			}
 		}
 	})
 	server.OnClientConnectionClosed(func(c *tcp_server.Client, err error) {
