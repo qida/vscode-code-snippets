@@ -61,7 +61,7 @@ func ServerDebug(port int) {
 		c.Send(fmt.Sprintf("Welcome %s \n", c.GetConn().RemoteAddr().String()))
 	})
 	server.OnNewMessage(func(c *tcp_server.Client, message string) {
-		if message == "debug\n" {
+		if message == "debug\r\n" {
 			DebugList[c.GetConn().RemoteAddr().String()] = c
 			c.Send("Welcome Debugger\r\n")
 		} else if message == "\n" {
