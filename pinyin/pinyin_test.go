@@ -5,7 +5,7 @@ import (
 )
 
 func TestConvert(t *testing.T) {
-	str, err := New("我是中国人").Split("").Mode(InitialsInCapitals).Convert()
+	str, err := New("我是中国人ABced").Split("").Mode(InitialsInCapitals).Convert()
 	if err != nil {
 		t.Error(err)
 	} else {
@@ -32,4 +32,11 @@ func TestConvert(t *testing.T) {
 	} else {
 		t.Log(str)
 	}
+	str, err = New("我是中国人abcABC").Split("").Mode(Initials).Convert()
+	if err != nil {
+		t.Error(err)
+	} else {
+		t.Log(str)
+	}
+
 }

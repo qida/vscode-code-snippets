@@ -62,7 +62,6 @@ func init() {
 	f, err := getFileContent()
 	if err != nil {
 		initialized = false
-
 		return
 	}
 	defer f.Close()
@@ -93,7 +92,7 @@ func getFileContent() (io.ReadCloser, error) {
 
 func New(origin string) *pinyin {
 	return &pinyin{
-		origin: origin,
+		origin: strings.ToLower(origin),
 		split:  " ",
 		mode:   WithoutTone,
 	}
