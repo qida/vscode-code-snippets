@@ -81,7 +81,8 @@ func init() {
 }
 
 func getFileContent() (io.ReadCloser, error) {
-	resp, err := http.Get("https://raw.githubusercontent.com/chain-zhang/pinyin/master/pinyin.txt")
+	// resp, err := http.Get("https://raw.githubusercontent.com/chain-zhang/pinyin/master/pinyin.txt")
+	resp, err := http.Get("http://golang.cdn.sunqida.cn/golang/qida/pinyin/pinyin.txt")
 	if err != nil {
 		file, err1 := os.Open("./pinyin.txt")
 		return file, err1
