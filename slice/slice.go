@@ -81,14 +81,14 @@ func RemoveElementInt(arr []int, elem int) []int {
 	return arr
 }
 
-func removeZero(slice []interface{}) []interface{} {
+func RemoveZero(slice []interface{}) []interface{} {
 	if len(slice) == 0 {
 		return slice
 	}
 	for i, v := range slice {
 		if IfZero(v) {
 			slice = append(slice[:i], slice[i+1:]...)
-			return removeZero(slice)
+			return RemoveZero(slice)
 		}
 	}
 	return slice
