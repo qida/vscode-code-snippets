@@ -51,7 +51,7 @@ func Email() {
 func ServerDebug(port int) {
 	fmt.Printf("调试 在 %d 监听...\r\n", port)
 	DebugList = make(map[string]*tcp_server.Client)
-	server := tcp_server.New(fmt.Sprintf("0.0.0.0:%d", port))
+	server := tcp_server.New(fmt.Sprintf("0.0.0.0:%d", port), false)
 	// utf-8=>gb18030
 	//dec := mahonia.NewDecoder("GB18030")
 	// gb18030=>utf-8
