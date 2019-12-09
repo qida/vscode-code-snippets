@@ -41,3 +41,9 @@ func GetLastDateOfMonth(d time.Time) time.Time {
 func GetZeroTime(d time.Time) time.Time {
 	return time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, d.Location())
 }
+
+func GetFirstDateOfWeek(d time.Time) time.Time {
+	timeFirst := d.AddDate(0, 0, -1*(int(d.Weekday())-1))
+	timeFirst = GetZeroTime(timeFirst)
+	return timeFirst
+}

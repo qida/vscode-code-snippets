@@ -2,6 +2,7 @@ package times
 
 import (
 	"encoding/json"
+	"fmt"
 	"testing"
 	"time"
 )
@@ -25,4 +26,17 @@ func TestTimeJson(t *testing.T) {
 	t.Log(time.Time(p.Birthday))
 	js, _ := json.Marshal(p)
 	t.Log(string(js))
+}
+
+func TestTimeWeek(t *testing.T) {
+
+	l, _ := time.LoadLocation("Asia/Shanghai")
+	startTime, _ := time.ParseInLocation("2006-01-02", "2018-12-22", l)
+	endTime, _ := time.ParseInLocation("2006-01-02", "2019-05-17", l)
+
+	datas := GroupByWeekDate(startTime, endTime)
+	for _, d := range datas {
+		fmt.Println(d)
+	}
+
 }
