@@ -23,6 +23,7 @@ const (
 	Rb日常 = 5
 	Rb工作 = 6
 	Rb打卡 = 7
+	Rb服务 = 8
 
 	DingUrl = "https://oapi.dingtalk.com/robot/send?access_token="
 )
@@ -39,6 +40,8 @@ func init() {
 	MapRobot[Rb日常] = robot.New("日常", DingUrl+"8aa4f1eb02c677ca56619b7f1ef1901783a0086af27475dec1cc32bfc8984f9b")
 	MapRobot[Rb工作] = robot.New("工作", DingUrl+"192e63da2025b1ab579febc20200a8372318fb7b10e0e70fb0972bd57df1c777")
 	MapRobot[Rb打卡] = robot.New("打卡", DingUrl+"fc9b672e899bbe5ec5a26a22a817b58592d0591e4633abec25fa1488487ace94")
+	MapRobot[Rb服务] = robot.New("服务", DingUrl+"2ac60f0670075770953396dd0bbdbc9dc26ef1a733c803d25a1fb443b846861f")
+
 }
 
 func SendDingDing(index int8, content ...string) (err error) {
