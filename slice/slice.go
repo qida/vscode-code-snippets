@@ -83,19 +83,30 @@ func RemoveElement(arr []interface{}, elem interface{}) []interface{} {
 	}
 	return arr
 }
-func RemoveElementInt(arr []int, elem int) []int {
+func RemoveInt(arr []int, elem int) []int {
 	if len(arr) == 0 {
 		return arr
 	}
 	for i, v := range arr {
 		if v == elem {
 			arr = append(arr[:i], arr[i+1:]...)
-			return RemoveElementInt(arr, elem)
+			return RemoveInt(arr, elem)
 		}
 	}
 	return arr
 }
-
+func RemoveString(arr []string, elem string) []string {
+	if len(arr) == 0 {
+		return arr
+	}
+	for i, v := range arr {
+		if v == elem {
+			arr = append(arr[:i], arr[i+1:]...)
+			return RemoveString(arr, elem)
+		}
+	}
+	return arr
+}
 func RemoveZero(slice []interface{}) []interface{} {
 	if len(slice) == 0 {
 		return slice
