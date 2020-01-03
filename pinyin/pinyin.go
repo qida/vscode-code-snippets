@@ -201,7 +201,7 @@ func GetPY(src string) (py string) {
 	var err error
 	src = strings.Trim(src, " ")
 	if src != "" {
-		py, err = New(src).Split("").Mode(pinyin.Initials).Convert()
+		py, err = New(src).Split("").Mode(Initials).Convert()
 		if err != nil {
 			py = src
 			fmt.Printf("PinYin Error:%s\r\n", err)
