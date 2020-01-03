@@ -7,15 +7,19 @@
  */
 package regexps
 
-import "regexp"
-
-const (
-	regular = `(13[0-9]|14[57]|15[0-35-9]|18[07-9]|17[7])\d{8}`
+import (
+	"errors"
+	"regexp"
 )
 
-func GetTelphone(text string) (tel []string) {
+const (
+	regular = `(1\d{10}`
+)
 
+func IsTelephone(src string) (err error) {
 	reg := regexp.MustCompile(regular)
-	tel = reg.FindAllString(text, -1)
+	if !reg.MatchString(src) {
+		err = errors.New("手机号不正确")
+	}
 	return
 }
