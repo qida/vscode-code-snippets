@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	regular = `(1\d{10}`
+	regular = `1\d{10}`
 )
 
 func IsTelephone(src string) (err error) {
