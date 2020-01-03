@@ -2,6 +2,7 @@ package pinyin
 
 import (
 	"bufio"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -132,7 +133,6 @@ func getPinyin(hanzi rune, mode Mode) (string, error) {
 	if !initialized {
 		return "", ErrInitialize
 	}
-
 	switch mode {
 	case Tone:
 		return getTone(hanzi), nil
@@ -196,4 +196,16 @@ func getInitials(hanzi rune) string {
 		sr[0] = sr[0] - 32
 	}
 	return string(sr[0])
+}
+func GetPY(src string) (py string) {
+	var err error
+	src = strings.Trim(src, " ")
+	if src != "" {
+		py, err = New(src).Split("").Mode(pinyin.Initials).Convert()
+		if err != nil {
+			py = src
+			fmt.Printf("PinYin Error:%s\r\n", err)
+		}
+	}
+	return
 }
