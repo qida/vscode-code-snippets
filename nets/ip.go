@@ -29,16 +29,16 @@ func NewQQwry(file string) (qqwry *QQwry) {
 	qqwry = &QQwry{filepath: file}
 	return
 }
-func (this *QQwry) Find(ip string) {
+func (this *QQwry) Find(ip string) string {
 	if this.filepath == "" {
-		return
+		return ""
 	}
 	if this.file == nil {
 		file, err := os.OpenFile(this.filepath, os.O_RDONLY, 0400)
 		defer file.Close()
 		if err != nil {
 			log.Fatalf("打开QQwry.bat出错：%s", err.Error())
-			return
+			return ""
 		}
 		this.file = file
 	}
@@ -46,12 +46,10 @@ func (this *QQwry) Find(ip string) {
 	offset := this.searchIndex(binary.BigEndian.Uint32(net.ParseIP(ip).To4()))
 	// log.Println("loc offset:", offset)
 	if offset <= 0 {
-		return
+		return ""
 	}
-
 	var country []byte
 	var area []byte
-
 	mode := this.readMode(offset + 4)
 	// log.Println("mode", mode)
 	if mode == REDIRECT_MODE_1 {
@@ -75,11 +73,10 @@ func (this *QQwry) Find(ip string) {
 		country = this.readString(offset + 4)
 		area = this.readArea(offset + uint32(5+len(country)))
 	}
-
 	enc := mahonia.NewDecoder("gbk")
 	this.Address = enc.ConvertString(string(country))
 	this.Ips = enc.ConvertString(string(area))
-
+	return this.Address
 }
 
 func (this *QQwry) readMode(offset uint32) byte {
