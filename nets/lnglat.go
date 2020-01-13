@@ -8,7 +8,7 @@ import (
 
 func init() {
 	orm.RegisterDriver("sqlite", orm.DRSqlite)
-	err := orm.RegisterDataBase("china", "sqlite3", "go/nets/china.db")
+	err := orm.RegisterDataBase("china", "sqlite3", "github.com/qida/go/nets/china.db")
 	if err != nil {
 		panic(err)
 	}
