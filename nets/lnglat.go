@@ -8,7 +8,7 @@ import (
 
 func init() {
 	orm.RegisterDriver("sqlite", orm.DRSqlite)
-	orm.RegisterDataBase("default", "sqlite3", "china.db")
+	orm.RegisterDataBase("default", "sqlite3", "go/nets/china.db")
 	orm.RegisterModel(new(China))
 	// orm.RunSyncdb("default", false, true)
 
