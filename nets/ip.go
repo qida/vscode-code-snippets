@@ -2,10 +2,9 @@ package nets
 
 import (
 	"encoding/binary"
+	"log"
 	"net"
 	"os"
-
-	// "encoding/hex"
 
 	"github.com/yinheli/mahonia"
 )
@@ -38,6 +37,7 @@ func (this *QQwry) Find(ip string) {
 		file, err := os.OpenFile(this.filepath, os.O_RDONLY, 0400)
 		defer file.Close()
 		if err != nil {
+			log.Fatalf("打开QQwry.bat出错：%s", err.Error())
 			return
 		}
 		this.file = file
