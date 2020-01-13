@@ -30,6 +30,10 @@ func NewQQwry(file string) (qqwry *QQwry) {
 	return
 }
 func (this *QQwry) Find(ip string) string {
+	switch ip {
+	case "127.0.0.1", "localhost":
+		return ""
+	}
 	if this.filepath == "" {
 		return ""
 	}
