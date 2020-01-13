@@ -1,4 +1,4 @@
-package ip
+package nets
 
 import (
 	"encoding/binary"

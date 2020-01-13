@@ -1,4 +1,4 @@
-package net
+package nets
 
 import (
 	"encoding/json"

@@ -1,4 +1,4 @@
-package net
+package nets
 
 import (
 	"github.com/astaxie/beego/orm"
