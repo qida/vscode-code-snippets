@@ -8,7 +8,10 @@ import (
 
 func init() {
 	orm.RegisterDriver("sqlite", orm.DRSqlite)
-	orm.RegisterDataBase("china", "sqlite3", "go/nets/china.db")
+	err := orm.RegisterDataBase("china", "sqlite3", "go/nets/china.db")
+	if err != nil {
+		panic(err)
+	}
 	orm.RegisterModel(new(China))
 	// orm.RunSyncdb("default", false, true)
 
