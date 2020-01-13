@@ -1,4 +1,4 @@
-package ip
+package net
 
 import (
 	"github.com/astaxie/beego/orm"
