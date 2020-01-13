@@ -13,6 +13,7 @@ import (
 //初始化TAG
 func (this *QQwry) UpdateTag() (err error) {
 	o := orm.NewOrm()
+	o.Using("china")
 	fmt.Println("===========")
 	var addresses []China
 	var num int64
@@ -45,6 +46,7 @@ func (this *QQwry) UpdateTag() (err error) {
 }
 func (this *QQwry) UpdateLngLat() (err error) {
 	o := orm.NewOrm()
+	o.Using("china")
 	fmt.Println("===========")
 	var addresses []China
 	var num int64

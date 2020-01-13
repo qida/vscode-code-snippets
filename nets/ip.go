@@ -35,6 +35,7 @@ func (this *QQwry) GetLngLat(ip string) (lng float64, lat float64) {
 	this.Find(ip)
 	if this.Address != "" {
 		o := orm.NewOrm()
+		o.Using("china")
 		var address China
 		err := o.QueryTable(new(China)).Filter("Tag", this.Address).One(&address)
 		if err != nil {
