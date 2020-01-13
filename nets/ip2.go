@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-var q = NewQQwry("github.com/qida/go/nets/qqwry.dat")
+var q = NewQQwry("./go/nets/qqwry.dat")
 
 func GetAddressByIp(ip string) string {
 	q.Find(ip)
