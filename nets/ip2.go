@@ -6,7 +6,7 @@ import (
 	"github.com/yinheli/qqwry"
 )
 
-var q = qqwry.NewQQwry("go/nets/qqwry.dat")
+var q = qqwry.NewQQwry("github.com/qida/go/nets/qqwry.dat")
 
 func GetAddressByIp(ip string) string {
 	q.Find(ip)

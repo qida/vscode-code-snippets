@@ -2,13 +2,12 @@ package nets
 
 import (
 	"encoding/binary"
-
-	"github.com/astaxie/beego/orm"
-
-	"github.com/yinheli/mahonia"
-	// "encoding/hex"
 	"net"
 	"os"
+
+	// "encoding/hex"
+
+	"github.com/yinheli/mahonia"
 )
 
 const (
@@ -29,23 +28,6 @@ type QQwry struct {
 
 func NewQQwry(file string) (qqwry *QQwry) {
 	qqwry = &QQwry{filepath: file}
-	return
-}
-func (this *QQwry) GetLngLat(ip string) (lng float64, lat float64) {
-	this.Find(ip)
-	if this.Address != "" {
-		o := orm.NewOrm()
-		o.Using("china")
-		var address China
-		err := o.QueryTable(new(China)).Filter("Tag", this.Address).One(&address)
-		if err != nil {
-			return
-		}
-		lng = address.Lng
-		lat = address.Lat
-		this.Lng = address.Lng
-		this.Lat = address.Lat
-	}
 	return
 }
 func (this *QQwry) Find(ip string) {
