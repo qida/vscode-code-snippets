@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-var q = NewQQwry("qqwry.dat")
+var q = NewQQwry("./qqwry.dat")
 
 func GetAddressByIp(ip string) string {
 	q.Find(ip)
