@@ -46,10 +46,10 @@ func init() {
 	MapRobot[Rb正贤] = robot.New("正贤", DingUrl+"8fcb17718f3c525f5930ddea5fa175d10bc36368841f3bdb8603524c92b8396a")
 }
 
-func Send2Ding(index int8, content ...string) (err error) {
+func Send2Ding(index int8, content string) (err error) {
 	if robot, ok := MapRobot[index]; ok {
 		m := robot.NewTextMessage()
-		m.SetText(strings.Join(content, " "))
+		m.SetText(content))
 		// m.AtAll(true)
 		err = m.Send()
 	} else {
