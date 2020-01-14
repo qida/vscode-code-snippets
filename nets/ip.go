@@ -33,6 +33,8 @@ func (this *QQwry) Find(ip string) string {
 	switch ip {
 	case "127.0.0.1", "localhost":
 		return ""
+	default:
+		log.Printf("IP:%s\r\n", ip)
 	}
 	if this.filepath == "" {
 		return ""
