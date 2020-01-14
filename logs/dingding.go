@@ -9,6 +9,7 @@ package logs
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/ggicci/dingtalk/robot"
@@ -49,6 +50,18 @@ func Send2Ding(index int8, content ...string) (err error) {
 	if robot, ok := MapRobot[index]; ok {
 		m := robot.NewTextMessage()
 		m.SetText(strings.Join(content, " "))
+		// m.AtAll(true)
+		err = m.Send()
+	} else {
+		err = errors.New("没有初始化机器人！")
+		panic(err)
+	}
+	return
+}
+func Send2Dingf(index int8, format string, content ...string) (err error) {
+	if robot, ok := MapRobot[index]; ok {
+		m := robot.NewTextMessage()
+		m.SetText(fmt.Sprintf(format, content))
 		// m.AtAll(true)
 		err = m.Send()
 	} else {
