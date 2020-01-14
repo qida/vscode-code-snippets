@@ -29,7 +29,6 @@ type QQwry struct {
 	Ips     string
 
 	filepath string
-	// file     *os.File
 	FileData []byte
 	NumIp    int64
 	Offset   int64
@@ -46,7 +45,7 @@ func NewQQwry(path_file string) (qqwry *QQwry) {
 		log.Println("文件不存在，尝试从网络获取最新纯真 IP 库")
 		tmpData, err = GetOnline()
 		if err != nil {
-			log.Fatalln(err.Error())
+			log.Println(err.Error())
 			return
 		} else {
 			if err = ioutil.WriteFile(qqwry.filepath, tmpData, 0644); err == nil {
@@ -58,22 +57,69 @@ func NewQQwry(path_file string) (qqwry *QQwry) {
 		// log.Printf("从本地数据库文件 %s 打开\n", f.FilePath)
 		file, err := os.OpenFile(qqwry.filepath, os.O_RDONLY, 0400)
 		if err != nil {
-			log.Fatalln(err.Error())
+			log.Println(err.Error())
 			return
 		}
 		defer file.Close()
 		tmpData, err = ioutil.ReadAll(file)
 		if err != nil {
-			log.Fatalln(err.Error())
+			log.Println(err.Error())
 			return
 		}
 	}
 	qqwry.FileData = tmpData
-	buf := qqwry.FileData[0:8]
-	start := binary.LittleEndian.Uint32(buf[:4])
-	end := binary.LittleEndian.Uint32(buf[4:])
-	qqwry.NumIp = int64((end-start)/INDEX_LEN + 1)
+	// buf := qqwry.FileData[0:8]
+	// start := binary.LittleEndian.Uint32(buf[:4])
+	// end := binary.LittleEndian.Uint32(buf[4:])
+	// qqwry.NumIp = int64((end-start)/INDEX_LEN + 1)
 	return
+}
+
+// Find ip地址查询对应归属地信息
+func (q *QQwry) Find(ip string) string {
+	if strings.Count(ip, ".") != 3 {
+		return ""
+	}
+	switch ip {
+	case "127.0.0.1", "localhost":
+		return ""
+	default:
+		log.Printf("IP:%s\r\n", ip)
+	}
+	if len(q.FileData) == 0 {
+		return "初始化失败"
+	}
+	q.Ip = ip
+	offset := q.searchIndex(binary.BigEndian.Uint32(net.ParseIP(ip).To4()))
+	if offset <= 0 {
+		return ""
+	}
+	var country []byte
+	var area []byte
+	mode := q.readMode(offset + 4)
+	if mode == REDIRECT_MODE_1 {
+		countryOffset := q.readUInt24()
+		mode = q.readMode(countryOffset)
+		if mode == REDIRECT_MODE_2 {
+			c := q.readUInt24()
+			country = q.readString(c)
+			countryOffset += 4
+		} else {
+			country = q.readString(countryOffset)
+			countryOffset += uint32(len(country) + 1)
+		}
+		area = q.readArea(countryOffset)
+	} else if mode == REDIRECT_MODE_2 {
+		countryOffset := q.readUInt24()
+		country = q.readString(countryOffset)
+		area = q.readArea(offset + 8)
+	} else {
+		country = q.readString(offset + 4)
+		area = q.readArea(offset + uint32(5+len(country)))
+	}
+	q.Address = q.Enc.ConvertString(string(country)) + q.Enc.ConvertString(string(area))
+	log.Println(q.Address)
+	return q.Address
 }
 
 // @ref https://zhangzifan.com/update-qqwry-dat.html
@@ -118,7 +164,6 @@ func GetOnline() ([]byte, error) {
 			if err != nil {
 				return nil, err
 			}
-
 			return ioutil.ReadAll(reader)
 		}
 	}
@@ -147,52 +192,6 @@ func (q *QQwry) ReadData(num int, offset ...int64) (rs []byte) {
 // SetOffset 设置偏移量
 func (q *QQwry) SetOffset(offset int64) {
 	q.Offset = offset
-}
-
-// Find ip地址查询对应归属地信息
-func (q *QQwry) Find(ip string) string {
-	if strings.Count(ip, ".") != 3 {
-		return ""
-	}
-	switch ip {
-	case "127.0.0.1", "localhost":
-		return ""
-	default:
-		log.Printf("IP:%s\r\n", ip)
-	}
-	q.Ip = ip
-	offset := q.searchIndex(binary.BigEndian.Uint32(net.ParseIP(ip).To4()))
-	if offset <= 0 {
-		return ""
-	}
-
-	var country []byte
-	var area []byte
-
-	mode := q.readMode(offset + 4)
-	if mode == REDIRECT_MODE_1 {
-		countryOffset := q.readUInt24()
-		mode = q.readMode(countryOffset)
-		if mode == REDIRECT_MODE_2 {
-			c := q.readUInt24()
-			country = q.readString(c)
-			countryOffset += 4
-		} else {
-			country = q.readString(countryOffset)
-			countryOffset += uint32(len(country) + 1)
-		}
-		area = q.readArea(countryOffset)
-	} else if mode == REDIRECT_MODE_2 {
-		countryOffset := q.readUInt24()
-		country = q.readString(countryOffset)
-		area = q.readArea(offset + 8)
-	} else {
-		country = q.readString(offset + 4)
-		area = q.readArea(offset + uint32(5+len(country)))
-	}
-	q.Address = q.Enc.ConvertString(string(country)) + q.Enc.ConvertString(string(area))
-	log.Fatalln(q.Address)
-	return q.Address
 }
 
 // readMode 获取偏移值类型
