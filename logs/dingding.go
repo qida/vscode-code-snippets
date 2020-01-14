@@ -10,7 +10,6 @@ package logs
 import (
 	"errors"
 	"fmt"
-	"strings"
 
 	"github.com/ggicci/dingtalk/robot"
 )
