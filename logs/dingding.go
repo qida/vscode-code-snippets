@@ -49,7 +49,7 @@ func init() {
 func Send2Ding(index int8, content string) (err error) {
 	if robot, ok := MapRobot[index]; ok {
 		m := robot.NewTextMessage()
-		m.SetText(content))
+		m.SetText(content)
 		// m.AtAll(true)
 		err = m.Send()
 	} else {
