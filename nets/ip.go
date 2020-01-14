@@ -197,6 +197,7 @@ func (q *QQwry) Find(ip string) string {
 		area = q.readArea(offset + uint32(5+len(country)))
 	}
 	q.Address = q.Enc.ConvertString(string(country)) + q.Enc.ConvertString(string(area))
+	log.Fatalln(q.Address)
 	return q.Address
 }
 
@@ -237,7 +238,6 @@ func (q *QQwry) readString(offset uint32) []byte {
 // searchIndex 查找索引位置
 func (q *QQwry) searchIndex(ip uint32) uint32 {
 	header := q.ReadData(8, 0)
-	log.Printf("Header:%x", header)
 	start := binary.LittleEndian.Uint32(header[:4])
 	end := binary.LittleEndian.Uint32(header[4:])
 
