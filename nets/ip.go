@@ -153,7 +153,6 @@ func (q *QQwry) SetOffset(offset int64) {
 
 // Find ip地址查询对应归属地信息
 func (q *QQwry) Find(ip string) string {
-
 	if strings.Count(ip, ".") != 3 {
 		return ""
 	}
@@ -164,9 +163,6 @@ func (q *QQwry) Find(ip string) string {
 		log.Printf("IP:%s\r\n", ip)
 	}
 	q.Ip = ip
-	if strings.Count(ip, ".") != 3 {
-		return ""
-	}
 	offset := q.searchIndex(binary.BigEndian.Uint32(net.ParseIP(ip).To4()))
 	if offset <= 0 {
 		return ""
