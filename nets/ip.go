@@ -36,7 +36,8 @@ type QQwry struct {
 	Enc      mahonia.Decoder
 }
 
-func NewQQwry(path_file string) (qqwry *QQwry, err error) {
+func NewQQwry(path_file string) (qqwry *QQwry) {
+	var err error
 	qqwry = &QQwry{filepath: path_file, Enc: mahonia.NewDecoder("gbk")}
 	var tmpData []byte
 	// 判断文件是否存在
@@ -45,10 +46,11 @@ func NewQQwry(path_file string) (qqwry *QQwry, err error) {
 		log.Println("文件不存在，尝试从网络获取最新纯真 IP 库")
 		tmpData, err = GetOnline()
 		if err != nil {
+			log.Fatalln(err.Error())
 			return
 		} else {
 			if err = ioutil.WriteFile(qqwry.filepath, tmpData, 0644); err == nil {
-				log.Printf("已将最新的纯真 IP 库保存到本地 %s ", f.FilePath)
+				log.Printf("已将最新的纯真 IP 库保存到本地 %s ", qqwry.filepath)
 			}
 		}
 	} else {
@@ -56,12 +58,14 @@ func NewQQwry(path_file string) (qqwry *QQwry, err error) {
 		// log.Printf("从本地数据库文件 %s 打开\n", f.FilePath)
 		qqwry.file, err = os.OpenFile(qqwry.filepath, os.O_RDONLY, 0400)
 		if err != nil {
+			log.Fatalln(err.Error())
 			return
 		}
 		defer qqwry.file.Close()
 
 		tmpData, err = ioutil.ReadAll(qqwry.file)
 		if err != nil {
+			log.Fatalln(err.Error())
 			return
 		}
 	}
@@ -70,7 +74,6 @@ func NewQQwry(path_file string) (qqwry *QQwry, err error) {
 	buf := qqwry.FileData[0:8]
 	start := binary.LittleEndian.Uint32(buf[:4])
 	end := binary.LittleEndian.Uint32(buf[4:])
-
 	qqwry.NumIp = int64((end-start)/INDEX_LEN + 1)
 	return
 }
@@ -234,7 +237,7 @@ func (q *QQwry) readString(offset uint32) []byte {
 // searchIndex 查找索引位置
 func (q *QQwry) searchIndex(ip uint32) uint32 {
 	header := q.ReadData(8, 0)
-
+	log.Printf("Header:%x", header)
 	start := binary.LittleEndian.Uint32(header[:4])
 	end := binary.LittleEndian.Uint32(header[4:])
 
