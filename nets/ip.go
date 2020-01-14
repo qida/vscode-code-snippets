@@ -29,7 +29,7 @@ type QQwry struct {
 	Ips     string
 
 	filepath string
-	file     *os.File
+	// file     *os.File
 	FileData []byte
 	NumIp    int64
 	Offset   int64
@@ -56,20 +56,18 @@ func NewQQwry(path_file string) (qqwry *QQwry) {
 	} else {
 		// 打开文件句柄
 		// log.Printf("从本地数据库文件 %s 打开\n", f.FilePath)
-		qqwry.file, err = os.OpenFile(qqwry.filepath, os.O_RDONLY, 0400)
+		file, err := os.OpenFile(qqwry.filepath, os.O_RDONLY, 0400)
 		if err != nil {
 			log.Fatalln(err.Error())
 			return
 		}
-		defer qqwry.file.Close()
-
-		tmpData, err = ioutil.ReadAll(qqwry.file)
+		defer file.Close()
+		tmpData, err = ioutil.ReadAll(file)
 		if err != nil {
 			log.Fatalln(err.Error())
 			return
 		}
 	}
-
 	qqwry.FileData = tmpData
 	buf := qqwry.FileData[0:8]
 	start := binary.LittleEndian.Uint32(buf[:4])
