@@ -130,7 +130,7 @@ func GetOnline() ([]byte, error) {
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", "http://update.cz88.net/ip/qqwry.rar", strings.NewReader(""))
 	if err != nil {
-		// handle error
+		return nil, err
 	}
 	// req.Header.Set("Host", "update.cz88.net")
 	req.Header.Set("Accept", "text/html, */*")
@@ -141,9 +141,7 @@ func GetOnline() ([]byte, error) {
 	}
 	defer resp.Body.Close()
 	if body, err := ioutil.ReadAll(resp.Body); err == nil {
-		if key, err := getKey(); err != nil {
-			return nil, err
-		} else {
+		if key, err := getKey(); err == nil {
 			for i := 0; i < 0x200; i++ {
 				key = key * 0x805
 				key++
@@ -164,9 +162,9 @@ func getKey() (uint32, error) {
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", "http://update.cz88.net/ip/copywrite.rar", strings.NewReader(""))
 	if err != nil {
-		// handle error
+		return 0, err
 	}
-	// req.Header.Set("Host", "update.cz88.net")
+	req.Header.Set("Host", "update.cz88.net")
 	req.Header.Set("Accept", "text/html, */*")
 	req.Header.Set("User-Agent", "Mozilla/3.0 (compatible; Indy Library)")
 	resp, err := client.Do(req)
