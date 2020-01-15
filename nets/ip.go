@@ -168,8 +168,8 @@ func getKey() (uint32, error) {
 	if err != nil {
 		return 0, err
 	}
-	req.Header.Set("Accept", "text/html, */*")
-	req.Header.Set("User-Agent", "Mozilla/3.0 (compatible; Indy Library)")
+	req.Header.Set("Accept", `text/html, */*`)
+	req.Header.Set("User-Agent", `Mozilla/3.0 (compatible; Indy Library)`)
 	resp, err := client.Do(req)
 	if err != nil {
 		return 0, err
