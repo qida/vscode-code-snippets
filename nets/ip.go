@@ -50,6 +50,8 @@ func NewQQwry(path_file string) (qqwry *QQwry) {
 		} else {
 			if err = ioutil.WriteFile(qqwry.filepath, tmpData, 0644); err == nil {
 				log.Printf("已将最新的纯真 IP 库保存到本地 %s ", qqwry.filepath)
+			} else {
+				log.Printf("失败 最新的纯真 IP 库保存到本地 %s ", err.Error())
 			}
 		}
 	} else {
@@ -117,7 +119,8 @@ func (q *QQwry) Find(ip string) string {
 		country = q.readString(offset + 4)
 		area = q.readArea(offset + uint32(5+len(country)))
 	}
-	q.Address = q.Enc.ConvertString(string(country)) + q.Enc.ConvertString(string(area))
+	q.Address = q.Enc.ConvertString(string(country))
+	q.Ips = q.Enc.ConvertString(string(area))
 	log.Println(q.Address)
 	return q.Address
 }
@@ -125,12 +128,35 @@ func (q *QQwry) Find(ip string) string {
 // @ref https://zhangzifan.com/update-qqwry-dat.html
 
 func getKey() (uint32, error) {
-	resp, err := http.Get("http://update.cz88.net/ip/copywrite.rar")
+	// resp, err := http.Get("http://update.cz88.net/ip/copywrite.rar")
+	// if err != nil {
+	// 	return 0, err
+	// }
+	// defer resp.Body.Close()
+
+	// if body, err := ioutil.ReadAll(resp.Body); err != nil {
+	// 	return 0, err
+	// } else {
+	// 	// @see https://stackoverflow.com/questions/34078427/how-to-read-packed-binary-data-in-go
+	// 	return binary.LittleEndian.Uint32(body[5*4:]), nil
+	// }
+
+	client := &http.Client{}
+
+	// req, err := http.NewRequest("GET", "http://update.cz88.net/ip/copywrite.rar", strings.NewReader("name=cjb"))
+	req, err := http.NewRequest("GET", "http://update.cz88.net/ip/copywrite.rar", strings.NewReader(""))
+	if err != nil {
+		// handle error
+	}
+	req.Header.Set("Host", "update.cz88.net")
+	req.Header.Set("Accept", "text/html, */*")
+	req.Header.Set("User-Agent", "Mozilla/3.0 (compatible; Indy Library)")
+	req.Header.Set("Accept", " text/html, */*")
+	resp, err := client.Do(req)
 	if err != nil {
 		return 0, err
 	}
 	defer resp.Body.Close()
-
 	if body, err := ioutil.ReadAll(resp.Body); err != nil {
 		return 0, err
 	} else {
@@ -140,15 +166,21 @@ func getKey() (uint32, error) {
 }
 
 func GetOnline() ([]byte, error) {
-	resp, err := http.Get("http://update.cz88.net/ip/qqwry.rar")
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", "http://update.cz88.net/ip/qqwry.rar", strings.NewReader(""))
+	if err != nil {
+		// handle error
+	}
+	req.Header.Set("Host", "update.cz88.net")
+	req.Header.Set("Accept", "text/html, */*")
+	req.Header.Set("User-Agent", "Mozilla/3.0 (compatible; Indy Library)")
+	req.Header.Set("Accept", " text/html, */*")
+	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
 	defer resp.Body.Close()
-
-	if body, err := ioutil.ReadAll(resp.Body); err != nil {
-		return nil, err
-	} else {
+	if body, err := ioutil.ReadAll(resp.Body); err == nil {
 		if key, err := getKey(); err != nil {
 			return nil, err
 		} else {
@@ -156,10 +188,8 @@ func GetOnline() ([]byte, error) {
 				key = key * 0x805
 				key++
 				key = key & 0xff
-
 				body[i] = byte(uint32(body[i]) ^ key)
 			}
-
 			reader, err := zlib.NewReader(bytes.NewReader(body))
 			if err != nil {
 				return nil, err
@@ -167,6 +197,7 @@ func GetOnline() ([]byte, error) {
 			return ioutil.ReadAll(reader)
 		}
 	}
+	return nil, err
 }
 
 // ReadData 从文件中读取数据
