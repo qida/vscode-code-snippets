@@ -2,8 +2,8 @@
 package nets
 
 import (
-	"bytes"
-	"compress/zlib"
+	// "bytes"
+	// "compress/zlib"
 	"encoding/binary"
 	"io/ioutil"
 	"log"
