@@ -127,33 +127,36 @@ func (q *QQwry) Find(ip string) string {
 
 // @ref https://zhangzifan.com/update-qqwry-dat.html
 func GetOnline() ([]byte, error) {
-	client := &http.Client{}
-	req, err := http.NewRequest("GET", "http://update.cz88.net/ip/qqwry.rar", strings.NewReader(""))
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Set("Accept", "text/html, */*")
-	req.Header.Set("User-Agent", "Mozilla/3.0 (compatible; Indy Library)")
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if body, err := ioutil.ReadAll(resp.Body); err == nil {
-		if key, err := getKey(); err == nil {
-			for i := 0; i < 0x200; i++ {
-				key = key * 0x805
-				key++
-				key = key & 0xff
-				body[i] = byte(uint32(body[i]) ^ key)
-			}
-			reader, err := zlib.NewReader(bytes.NewReader(body))
-			if err != nil {
-				return nil, err
-			}
-			return ioutil.ReadAll(reader)
-		}
-	}
+
+	getKey()
+	// client := &http.Client{}
+	// req, err := http.NewRequest("GET", "http://update.cz88.net/ip/qqwry.rar", strings.NewReader(""))
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// req.Header.Set("Accept", "text/html, */*")
+	// req.Header.Set("User-Agent", "Mozilla/3.0 (compatible; Indy Library)")
+	// resp, err := client.Do(req)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// defer resp.Body.Close()
+	// if body, err := ioutil.ReadAll(resp.Body); err == nil {
+	// 	if key, err := getKey(); err == nil {
+	// 		for i := 0; i < 0x200; i++ {
+	// 			key = key * 0x805
+	// 			key++
+	// 			key = key & 0xff
+	// 			body[i] = byte(uint32(body[i]) ^ key)
+	// 		}
+	// 		reader, err := zlib.NewReader(bytes.NewReader(body))
+	// 		if err != nil {
+	// 			return nil, err
+	// 		}
+	// 		return ioutil.ReadAll(reader)
+	// 	}
+	// }
+	var err error
 	return nil, err
 }
 
