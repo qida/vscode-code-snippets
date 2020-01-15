@@ -128,22 +128,7 @@ func (q *QQwry) Find(ip string) string {
 // @ref https://zhangzifan.com/update-qqwry-dat.html
 
 func getKey() (uint32, error) {
-	// resp, err := http.Get("http://update.cz88.net/ip/copywrite.rar")
-	// if err != nil {
-	// 	return 0, err
-	// }
-	// defer resp.Body.Close()
-
-	// if body, err := ioutil.ReadAll(resp.Body); err != nil {
-	// 	return 0, err
-	// } else {
-	// 	// @see https://stackoverflow.com/questions/34078427/how-to-read-packed-binary-data-in-go
-	// 	return binary.LittleEndian.Uint32(body[5*4:]), nil
-	// }
-
 	client := &http.Client{}
-
-	// req, err := http.NewRequest("GET", "http://update.cz88.net/ip/copywrite.rar", strings.NewReader("name=cjb"))
 	req, err := http.NewRequest("GET", "http://update.cz88.net/ip/copywrite.rar", strings.NewReader(""))
 	if err != nil {
 		// handle error
@@ -151,18 +136,16 @@ func getKey() (uint32, error) {
 	req.Header.Set("Host", "update.cz88.net")
 	req.Header.Set("Accept", "text/html, */*")
 	req.Header.Set("User-Agent", "Mozilla/3.0 (compatible; Indy Library)")
-	req.Header.Set("Accept", " text/html, */*")
 	resp, err := client.Do(req)
 	if err != nil {
 		return 0, err
 	}
 	defer resp.Body.Close()
-	if body, err := ioutil.ReadAll(resp.Body); err != nil {
-		return 0, err
-	} else {
+	if body, err := ioutil.ReadAll(resp.Body); err == nil {
 		// @see https://stackoverflow.com/questions/34078427/how-to-read-packed-binary-data-in-go
 		return binary.LittleEndian.Uint32(body[5*4:]), nil
 	}
+	return 0, err
 }
 
 func GetOnline() ([]byte, error) {
@@ -174,7 +157,6 @@ func GetOnline() ([]byte, error) {
 	req.Header.Set("Host", "update.cz88.net")
 	req.Header.Set("Accept", "text/html, */*")
 	req.Header.Set("User-Agent", "Mozilla/3.0 (compatible; Indy Library)")
-	req.Header.Set("Accept", " text/html, */*")
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
