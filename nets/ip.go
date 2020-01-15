@@ -132,7 +132,6 @@ func GetOnline() ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	// req.Header.Set("Host", "update.cz88.net")
 	req.Header.Set("Accept", "text/html, */*")
 	req.Header.Set("User-Agent", "Mozilla/3.0 (compatible; Indy Library)")
 	resp, err := client.Do(req)
