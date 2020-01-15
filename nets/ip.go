@@ -133,7 +133,7 @@ func getKey() (uint32, error) {
 	if err != nil {
 		// handle error
 	}
-	req.Header.Set("Host", "update.cz88.net")
+	// req.Header.Set("Host", "update.cz88.net")
 	req.Header.Set("Accept", "text/html, */*")
 	req.Header.Set("User-Agent", "Mozilla/3.0 (compatible; Indy Library)")
 	resp, err := client.Do(req)
@@ -142,6 +142,7 @@ func getKey() (uint32, error) {
 	}
 	defer resp.Body.Close()
 	if body, err := ioutil.ReadAll(resp.Body); err == nil {
+		log.Printf("body len:%d\r\n", len(body))
 		// @see https://stackoverflow.com/questions/34078427/how-to-read-packed-binary-data-in-go
 		return binary.LittleEndian.Uint32(body[5*4:]), nil
 	}
@@ -154,7 +155,7 @@ func GetOnline() ([]byte, error) {
 	if err != nil {
 		// handle error
 	}
-	req.Header.Set("Host", "update.cz88.net")
+	// req.Header.Set("Host", "update.cz88.net")
 	req.Header.Set("Accept", "text/html, */*")
 	req.Header.Set("User-Agent", "Mozilla/3.0 (compatible; Indy Library)")
 	resp, err := client.Do(req)
