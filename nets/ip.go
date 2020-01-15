@@ -128,7 +128,10 @@ func (q *QQwry) Find(ip string) string {
 // @ref https://zhangzifan.com/update-qqwry-dat.html
 func GetOnline() ([]byte, error) {
 
-	getKey()
+	_, err := getKey()
+	if err != nil {
+		log.Println(err.Error())
+	}
 	// client := &http.Client{}
 	// req, err := http.NewRequest("GET", "http://update.cz88.net/ip/qqwry.rar", strings.NewReader(""))
 	// if err != nil {
@@ -156,7 +159,6 @@ func GetOnline() ([]byte, error) {
 	// 		return ioutil.ReadAll(reader)
 	// 	}
 	// }
-	var err error
 	return nil, err
 }
 
@@ -173,9 +175,8 @@ func getKey() (uint32, error) {
 		return 0, err
 	}
 	defer resp.Body.Close()
-	log.Printf("getKey")
 	if body, err := ioutil.ReadAll(resp.Body); err == nil {
-		log.Printf("body len:%d\r\n", len(body))
+		log.Printf("body len1:%d\r\n", len(body))
 		// @see https://stackoverflow.com/questions/34078427/how-to-read-packed-binary-data-in-go
 		return binary.LittleEndian.Uint32(body[5*4:]), nil
 	}
