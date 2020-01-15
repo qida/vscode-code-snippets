@@ -19,7 +19,7 @@ func TestQQwry_Find(t *testing.T) {
 		// TODO: Add test cases.
 		{
 			name: "test1",
-			q:    NewQQwry("112qqwry.dat"),
+			q:    NewQQwry("qqwry.dat"),
 			args: args{ip: "39.78.34.61"},
 			want: "山东省临沂市",
 		},
