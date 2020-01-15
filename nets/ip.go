@@ -44,6 +44,7 @@ func NewQQwry(path_file string) (qqwry *QQwry) {
 	if err != nil && os.IsNotExist(err) {
 		log.Println("文件不存在，尝试从网络获取最新纯真 IP 库")
 		tmpData, err = GetOnline()
+		log.Printf("临时Data Len %d \r\n", len(tmpData))
 		if err != nil {
 			log.Println(err.Error())
 			return
@@ -89,7 +90,7 @@ func (q *QQwry) Find(ip string) string {
 		log.Printf("IP:%s\r\n", ip)
 	}
 	if len(q.FileData) == 0 {
-		return "初始化失败"
+		return "网络库，初始化失败"
 	}
 	q.Ip = ip
 	offset := q.searchIndex(binary.BigEndian.Uint32(net.ParseIP(ip).To4()))
