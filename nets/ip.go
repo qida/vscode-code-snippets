@@ -42,7 +42,7 @@ func NewQQwry(path_file string) (qqwry *QQwry) {
 	// 判断文件是否存在
 	_, err = os.Stat(qqwry.filepath)
 	if err != nil && os.IsNotExist(err) {
-		log.Println("文件不存在，尝试从网络获取最新纯真 IP 库")
+		log.Printf("文件不存在: %s ，尝试从网络获取最新纯真 IP 库\r\n", path_file)
 		tmpData, err = GetOnline()
 		log.Printf("临时Data Len %d \r\n", len(tmpData))
 		if err != nil {
