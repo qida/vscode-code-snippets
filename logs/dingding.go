@@ -57,10 +57,10 @@ func Send2Ding(index int8, content string) (err error) {
 	}
 	return
 }
-func Send2Dingf(index int8, format string, content ...string) (err error) {
+func Send2Dingf(index int8, format string, content ...interface{}) (err error) {
 	if robot, ok := MapRobot[index]; ok {
 		m := robot.NewTextMessage()
-		m.SetText(fmt.Sprintf(format, content))
+		m.SetText(fmt.Sprintf(format, content...))
 		// m.AtAll(true)
 		err = m.Send()
 	} else {
