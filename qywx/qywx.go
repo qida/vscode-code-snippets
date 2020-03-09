@@ -1,6 +1,7 @@
 package qywx
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/astaxie/beego/httplib"
@@ -39,13 +40,14 @@ type QYWX struct {
 	CorpSecret string
 }
 
-func NewQywx(corpid, corpsecret string) (qy *QYWX, err error) {
+func NewQywx(corpid string, corpsecret string) (qy *QYWX, err error) {
 	req := httplib.Get("https://qyapi.weixin.qq.com/cgi-bin/gettoken")
 	req.Param("corpid", corpid)
 	req.Param("corpsecret", corpsecret)
 	var msgAccessToken MsgAccessToken
 	err = req.ToJSON(&msgAccessToken)
 	if err != nil {
+		fmt.Printf("获取token出错：%s\r\n", err.Error())
 		return
 	}
 	qy = &QYWX{
