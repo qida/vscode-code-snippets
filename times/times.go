@@ -37,6 +37,12 @@ func GetLastDateOfMonth(d time.Time) time.Time {
 	return GetFirstDateOfMonth(d).AddDate(0, 1, -1)
 }
 
+//获取传入的时间所在年第一天
+func GetFirstDateOfYear(d time.Time) time.Time {
+	d = d.AddDate(0, -d.Month()+1, -d.Day()+1)
+	return GetZeroTime(d)
+}
+
 //获取某一天的0点时间
 func GetZeroTime(d time.Time) time.Time {
 	return time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, d.Location())
