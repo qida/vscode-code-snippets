@@ -29,7 +29,7 @@ func (t Time) String() string {
 //获取传入的时间所在月份的第一天，即某月第一天的0点。如传入time.Now(), 返回当前月份的第一天0点时间。
 func GetFirstDateOfMonth(d time.Time) time.Time {
 	d = d.AddDate(0, 0, -d.Day()+1)
-	return GetZeroTime(d)
+	return GetZeroTimeOfDay(d)
 }
 
 //获取传入的时间所在月份的最后一天，即某月最后一天的0点。如传入time.Now(), 返回当前月份的最后一天0点时间。
@@ -49,6 +49,6 @@ func GetZeroTimeOfDay(d time.Time) time.Time {
 
 func GetFirstDateOfWeek(d time.Time) time.Time {
 	timeFirst := d.AddDate(0, 0, -1*(int(d.Weekday())-1))
-	timeFirst = GetZeroTime(timeFirst)
+	timeFirst = GetZeroTimeOfDay(timeFirst)
 	return timeFirst
 }
