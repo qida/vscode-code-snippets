@@ -43,7 +43,7 @@ func GetFirstDateOfYear(d time.Time) time.Time {
 }
 
 //获取某一天的0点时间
-func GetZeroTime(d time.Time) time.Time {
+func GetZeroTimeOfDay(d time.Time) time.Time {
 	return time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, d.Location())
 }
 
