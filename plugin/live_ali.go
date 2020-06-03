@@ -1,6 +1,8 @@
 package plugin
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"fmt"
 	"time"
 )
@@ -38,4 +40,9 @@ func (this *LiveUrl) RefreshUrl(id_live int) (err error) {
 	this.PlayFlv = fmt.Sprintf("http://%s/%s/%d.flv?auth_key=%d-0-0-%s", this.PullUrl, this.AppName, id_live, t, md5V(flv))
 	this.TimeUpdate = time.Now()
 	return
+}
+func md5V(str string) string {
+	h := md5.New()
+	h.Write([]byte(str))
+	return hex.EncodeToString(h.Sum(nil))
 }
