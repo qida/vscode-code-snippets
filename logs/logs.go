@@ -22,6 +22,7 @@ var (
 )
 var (
 	LogConn = logs.NewLogger(1000)
+	LogTcp  = logs.NewLogger(1000)
 	LogMail = logs.NewLogger(1000)
 	Enc     = mahonia.NewEncoder("gb18030")
 )
@@ -30,8 +31,10 @@ func ClientDebug(ip string, port int) {
 	logs.EnableFuncCallDepth(true)
 	logs.SetLogFuncCallDepth(3)
 	logs.Async(1e3)
+	LogTcp.SetLevel(logs.LevelDebug)
+	LogTcp.SetLogger(logs.AdapterConn, fmt.Sprintf(`{"net":"tcp","addr":"%s:%d","reconnect":true}`, ip, port))
 	LogConn.SetLevel(logs.LevelDebug)
-	LogConn.SetLogger(logs.AdapterConn, fmt.Sprintf(`{"net":"tcp","addr":"%s:%d","reconnect":true}`, ip, port))
+	LogConn.SetLogger(logs.AdapterConsole)
 }
 
 func Email() {
