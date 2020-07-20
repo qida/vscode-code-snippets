@@ -2,6 +2,7 @@ package slice
 
 import (
 	"math"
+	"strings"
 	"time"
 )
 
@@ -167,4 +168,29 @@ func IfZero(arg interface{}) bool {
 		return false
 	}
 	return false
+}
+
+// //相减
+// func FindSubString(old, now []string) (diff []string) {
+// 	for i := 0; i < len(old); i++ {
+// 		for j := 0; j < len(now); j++ {
+// 			if old[i] == now[j] {
+// 				break
+// 			}
+// 		}
+// 		diff = append(diff, old[i])
+// 	}
+// 	return
+// }
+
+//相减
+func FindSubString(old []string, now string) (diff []string) {
+	for i := 0; i < len(old); i++ {
+		if strings.Contains(now, old[i]) {
+
+		} else {
+			diff = append(diff, old[i])
+		}
+	}
+	return
 }
