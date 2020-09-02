@@ -52,8 +52,7 @@ func (c JsonCamelCase) MarshalJSON() ([]byte, error) {
 	return converted, err
 }
 
-/*************************************** 其他方法 ***************************************/
-// 驼峰式写法转为下划线写法
+//Camel2Case 驼峰式写法转为下划线写法
 func Camel2Case(name string) string {
 	buffer := NewBuffer()
 	for i, r := range name {
@@ -69,14 +68,14 @@ func Camel2Case(name string) string {
 	return buffer.String()
 }
 
-// 下划线写法转为驼峰写法
+//Case2Camel 下划线写法转为驼峰写法
 func Case2Camel(name string) string {
 	name = strings.Replace(name, "_", " ", -1)
 	name = strings.Title(name)
 	return strings.Replace(name, " ", "", -1)
 }
 
-// 首字母大写
+//Ucfirst 首字母大写
 func Ucfirst(str string) string {
 	for i, v := range str {
 		return string(unicode.ToUpper(v)) + str[i+1:]
@@ -84,7 +83,7 @@ func Ucfirst(str string) string {
 	return ""
 }
 
-// 首字母小写
+//Lcfirst 首字母小写
 func Lcfirst(str string) string {
 	for i, v := range str {
 		return string(unicode.ToLower(v)) + str[i+1:]
@@ -92,7 +91,7 @@ func Lcfirst(str string) string {
 	return ""
 }
 
-// 内嵌bytes.Buffer，支持连写
+//Buffer 内嵌bytes.Buffer，支持连写
 type Buffer struct {
 	*bytes.Buffer
 }
