@@ -47,8 +47,15 @@ func GetZeroTimeOfDay(d time.Time) time.Time {
 	return time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, d.Location())
 }
 
-func GetFirstDateOfWeek(d time.Time) time.Time {
-	timeFirst := d.AddDate(0, 0, -1*(int(d.Weekday())-1))
+func GetFirstDateOfWeek(d time.Time, start_sunday bool) time.Time {
+	var timeFirst time.Time
+	var n = int(d.Weekday())
+	if !start_sunday {
+		if d.Weekday() == 0 {
+			n = 7
+		}
+	}
+	timeFirst = d.AddDate(0, 0, -1*(n-1))
 	timeFirst = GetZeroTimeOfDay(timeFirst)
 	return timeFirst
 }
