@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"time"
 
-	"zxjy_api_wechat/consts"
-
 	"github.com/qida/go/logs"
 	"github.com/qiniu/api.v7/auth/qbox"
 	"github.com/qiniu/api.v7/cdn"
@@ -50,7 +48,7 @@ func (c *QiNiu) UploadFile(src_url string, file_data []byte) (url_file string, e
 	if err == nil {
 		url_file = ret.Key
 		fmt.Printf("=====上传======\r\nKey:%s Hash:%s\r\n==============\r\n", ret.Key, ret.Hash)
-		urlsToRefresh := []string{consts.Q七牛域名 + url_file}
+		urlsToRefresh := []string{c.Url + url_file}
 		cdnManager := cdn.NewCdnManager(c.Mac)
 		fmt.Printf("=====刷新文件======\r\n%s\r\n==============\r\n", urlsToRefresh)
 		_, err = cdnManager.RefreshUrls(urlsToRefresh)
