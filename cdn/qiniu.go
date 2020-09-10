@@ -3,6 +3,7 @@ package cdn
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"time"
 
 	"github.com/qida/go/logs"
@@ -30,6 +31,21 @@ func NewQiNiu(bucket string, url string, accessKey, secretKey string) *QiNiu {
 			UseCdnDomains: true,
 		},
 	}
+}
+
+func (c *QiNiu) Upload(localFile io.Reader, size int64, file_name string) (string, error) {
+	putPolicy := storage.PutPolicy{
+		Scope: c.Bucket,
+	}
+	upToken := putPolicy.UploadToken(c.Mac)
+	formUploader := storage.NewFormUploader(c.Config)
+	ret := storage.PutRet{}
+	putExtra := storage.PutExtra{}
+	err := formUploader.Put(context.Background(), &ret, upToken, file_name, localFile, size, &putExtra)
+	if err != nil {
+		return "", err
+	}
+	return ret.Key, nil
 }
 
 func (c *QiNiu) UploadFile(src_url string, file_data []byte) (url_file string, err error) {
