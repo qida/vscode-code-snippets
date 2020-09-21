@@ -7,6 +7,25 @@ import (
 	"strings"
 )
 
+//全角转半角
+func DBCtoSBC(s string) string {
+	retstr := ""
+	for _, i := range s {
+		inside_code := i
+		if inside_code == 12288 {
+			inside_code = 32
+		} else {
+			inside_code -= 65248
+		}
+		if inside_code < 32 || inside_code > 126 {
+			retstr += string(i)
+		} else {
+			retstr += string(inside_code)
+		}
+	}
+	return retstr
+}
+
 func Substr(str string, start int, length int) string {
 	rs := []rune(str)
 	rl := len(rs)
