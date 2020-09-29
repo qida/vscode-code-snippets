@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto/hmac"
 	"crypto/sha256"
+	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
 	"errors"
@@ -58,7 +59,7 @@ func (r *Robot) sendMessagePayload(payload *messagePayload) error {
 		string_to_sign := fmt.Sprintf("%d\n%s", timestamp, r.Secret)
 		h := hmac.New(sha256.New, []byte(r.Secret))
 		h.Write([]byte(string_to_sign))
-		url = fmt.Sprintf("%s&timestamp=%d&sign=%s", url, timestamp, hex.EncodeToString(h.Sum(nil)))
+		url = fmt.Sprintf("%s&timestamp=%d&sign=%s", url, timestamp, base64.StdEncoding.EncodeToString([]byte(hex.EncodeToString(h.Sum(nil)))))
 	}
 	fmt.Println(url)
 	resp, err := httpClient.Post(url, "application/json", bytes.NewReader(bs))
