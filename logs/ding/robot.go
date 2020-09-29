@@ -23,11 +23,11 @@ type Robot struct {
 	Secret  string `json:"secret"`
 }
 
-func New(name, webhook string, secret ...string) *Robot {
+func New(name, webhook string, secret string) *Robot {
 	return &Robot{
 		Name:    name,
 		Webhook: webhook,
-		Secret:  secret[0],
+		Secret:  secret,
 	}
 }
 
