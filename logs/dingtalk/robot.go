@@ -5,7 +5,6 @@ import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/base64"
-	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -53,16 +52,14 @@ func (r *Robot) sendMessagePayload(payload *messagePayload) error {
 	if err != nil {
 		return err
 	}
-	var url string = r.Webhook
+	var urlWeb string = "https://oapi.dingtalk.com/robot/send?access_token="
+	urlWeb += r.Webhook
 	if r.Secret != "" {
-		timestamp := time.Now().Unix()
-		string_to_sign := fmt.Sprintf("%d\n%s", timestamp, r.Secret)
-		h := hmac.New(sha256.New, []byte(r.Secret))
-		h.Write([]byte(string_to_sign))
-		url = fmt.Sprintf("%s&timestamp=%d&sign=%s", url, timestamp, base64.StdEncoding.EncodeToString([]byte(hex.EncodeToString(h.Sum(nil)))))
+		timestamp := time.Now().UnixNano() / 1e6
+		urlWeb = fmt.Sprintf("%s&timestamp=%d&sign=%s", urlWeb, timestamp, sign(timestamp, r.Secret))
 	}
-	fmt.Println(url)
-	resp, err := httpClient.Post(url, "application/json", bytes.NewReader(bs))
+	fmt.Println(urlWeb)
+	resp, err := httpClient.Post(urlWeb, "application/json", bytes.NewReader(bs))
 	if err != nil {
 		return err
 	}
@@ -79,6 +76,12 @@ func (r *Robot) sendMessagePayload(payload *messagePayload) error {
 		return errors.New(string(responseTextBytes))
 	}
 	return nil
+}
+func sign(t int64, secret string) string {
+	strToHash := fmt.Sprintf("%d\n%s", t, secret)
+	hmac256 := hmac.New(sha256.New, []byte(secret))
+	hmac256.Write([]byte(strToHash))
+	return base64.StdEncoding.EncodeToString(hmac256.Sum(nil))
 }
 
 type serverResponse struct {
