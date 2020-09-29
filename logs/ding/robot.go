@@ -56,7 +56,7 @@ func (r *Robot) sendMessagePayload(payload *messagePayload) error {
 	if r.Secret != "" {
 		timestamp := time.Now().UnixNano()
 		string_to_sign := fmt.Sprintf("%d\n%s", timestamp, r.Secret)
-		h := hmac.New(sha256.New, []byte(""))
+		h := hmac.New(sha256.New, nil)
 		h.Write([]byte(string_to_sign))
 		url = fmt.Sprintf("%s&timestamp=%d&sign=%s", url, timestamp, hex.EncodeToString(h.Sum(nil)))
 	}
