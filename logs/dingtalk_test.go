@@ -5,6 +5,10 @@ import (
 	"testing"
 )
 
+func init() {
+	os.Setenv("ROBOT_TOKEN", "439bec8b44c6ddd99b0522d29b6618fa129aa202127a1d004accccbf0f24a843")
+	os.Setenv("ROBOT_SECRET", "SEC7d000ed14858f32ab9d3f5343d0f2527c796c0dfe304ccb068c7da488d936e14")
+}
 func TestRobot_SendMessage(t *testing.T) {
 	//t.SkipNow()
 
