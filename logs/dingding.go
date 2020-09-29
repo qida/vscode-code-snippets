@@ -48,7 +48,9 @@ func init() {
 
 func Send2Ding(index int8, content string) (err error) {
 	if ding, ok := MapRobot[index]; ok {
-		err = ding.SendTextMessage(content, dingtalk.WithAtMobiles([]string{"13833776549"}))
+		m := ding.NewTextMessage()
+		m.SetText(content)
+		err = m.Send()
 	} else {
 		err = errors.New("没有初始化机器人！")
 		panic(err)
@@ -57,7 +59,9 @@ func Send2Ding(index int8, content string) (err error) {
 }
 func Send2Dingf(index int8, format string, content ...interface{}) (err error) {
 	if ding, ok := MapRobot[index]; ok {
-		err = ding.SendTextMessage(fmt.Sprintf(format, content...), dingtalk.WithAtMobiles([]string{"13833776549"}))
+		m := ding.NewTextMessage()
+		m.SetText(fmt.Sprintf(format, content...))
+		err = m.Send()
 	} else {
 		err = errors.New("没有初始化机器人！")
 		panic(err)
