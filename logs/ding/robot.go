@@ -54,7 +54,7 @@ func (r *Robot) sendMessagePayload(payload *messagePayload) error {
 	}
 	var url string = r.Webhook
 	if r.Secret != "" {
-		timestamp := time.Now().UnixNano()
+		timestamp := time.Now().Unix()
 		string_to_sign := fmt.Sprintf("%d\n%s", timestamp, r.Secret)
 		h := hmac.New(sha256.New, []byte(r.Secret))
 		h.Write([]byte(string_to_sign))
