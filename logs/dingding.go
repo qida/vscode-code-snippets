@@ -42,7 +42,7 @@ func init() {
 	MapRobot[Rb打卡] = dingtalk.InitDingTalk([]string{"fc9b672e899bbe5ec5a26a22a817b58592d0591e4633abec25fa1488487ace94"}, ".")
 	MapRobot[Rb服务] = dingtalk.InitDingTalk([]string{"2ac60f0670075770953396dd0bbdbc9dc26ef1a733c803d25a1fb443b846861f"}, ".")
 	MapRobot[Rb正贤] = dingtalk.InitDingTalk([]string{"8fcb17718f3c525f5930ddea5fa175d10bc36368841f3bdb8603524c92b8396a"}, "sunqida")
-	MapRobot[Rb积分] = dingtalk.InitDingTalk([]string{"edb68dd0585f7feaf05defff9d78eefb767916a91715a648fed2367a8680d7ba"}, "sunqida")
+	MapRobot[Rb积分] = dingtalk.InitDingTalk([]string{"439bec8b44c6ddd99b0522d29b6618fa129aa202127a1d004accccbf0f24a843"}, "sunqida")
 }
 
 func Send2Ding(index int8, content string) (err error) {
