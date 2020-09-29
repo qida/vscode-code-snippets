@@ -10,15 +10,18 @@ package regexps
 import (
 	"errors"
 	"regexp"
+
+	"github.com/qida/go/logs"
 )
 
 const (
 	regular = `1\d{10}`
 )
 
-func IsTelephone(src string) (err error) {
+func IsTelephone(mobile string) (err error) {
 	reg := regexp.MustCompile(regular)
-	if !reg.MatchString(src) {
+	if !reg.MatchString(mobile) {
+		logs.Send2Dingf(logs.Rb监控, "手机号不正确：%s", mobile)
 		err = errors.New("手机号不正确")
 	}
 	return
