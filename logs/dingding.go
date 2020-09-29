@@ -44,7 +44,7 @@ func init() {
 	MapRobot[Rb工作] = ding.New("工作", DingUrl+"192e63da2025b1ab579febc20200a8372318fb7b10e0e70fb0972bd57df1c777")
 	MapRobot[Rb打卡] = ding.New("打卡", DingUrl+"fc9b672e899bbe5ec5a26a22a817b58592d0591e4633abec25fa1488487ace94")
 	MapRobot[Rb服务] = ding.New("服务", DingUrl+"2ac60f0670075770953396dd0bbdbc9dc26ef1a733c803d25a1fb443b846861f")
-	MapRobot[Rb正贤] = ding.New("正贤", DingUrl+"8fcb17718f3c525f5930ddea5fa175d10bc36368841f3bdb8603524c92b8396a")
+	MapRobot[Rb正贤] = ding.New("正贤", DingUrl+"8fcb17718f3c525f5930ddea5fa175d10bc36368841f3bdb8603524c92b8396a", "sunqida")
 	MapRobot[Rb积分] = ding.New("积分", DingUrl+"edb68dd0585f7feaf05defff9d78eefb767916a91715a648fed2367a8680d7ba", "sunqida")
 }
 
