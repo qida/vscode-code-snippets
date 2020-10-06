@@ -95,7 +95,7 @@ func (c *QiNiu) GetPrivateMediaUrl(src_url string) (privateAccessURL string) {
 
 func (c *QiNiu) Delete(url string) (err error) {
 	if url == "" {
-		err = errors.New("文件url不能为空")
+		// err = errors.New("文件url不能为空")
 		return
 	}
 	bucketManager := storage.NewBucketManager(c.Mac, c.Config)
