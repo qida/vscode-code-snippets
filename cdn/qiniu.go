@@ -2,6 +2,7 @@ package cdn
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io"
 	"time"
@@ -88,5 +89,20 @@ func (c *QiNiu) GetPrivateMediaUrl(src_url string) (privateAccessURL string) {
 	deadline := time.Now().Add(time.Minute * 60).Unix() //60分钟有效期
 	privateAccessURL = storage.MakePrivateURL(c.Mac, c.Url, src_url, deadline)
 	fmt.Println(privateAccessURL)
+	return
+}
+
+func (c *QiNiu) DeleteFile(key string) (err error) {
+	if key == "" {
+		err = errors.New("文件Key不能为空")
+		return
+	}
+	bucketManager := storage.NewBucketManager(c.Mac, c.Config)
+	err = bucketManager.Delete(c.Bucket, key)
+	if err != nil {
+		logs.Send2Ding(logs.Rb错误, fmt.Sprintf("DeleteFile Key:%s Err:%s", key, err.Error()))
+	} else {
+		fmt.Printf("成功删除：%s\r\n", key)
+	}
 	return
 }
