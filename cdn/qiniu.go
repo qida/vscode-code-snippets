@@ -93,16 +93,16 @@ func (c *QiNiu) GetPrivateMediaUrl(src_url string) (privateAccessURL string) {
 	return
 }
 
-func (c *QiNiu) Delete(key string) (err error) {
-	if key == "" {
-		err = errors.New("文件Key不能为空")
+func (c *QiNiu) Delete(url string) (err error) {
+	if url == "" {
+		err = errors.New("文件url不能为空")
 		return
 	}
 	bucketManager := storage.NewBucketManager(c.Mac, c.Config)
-	key = strings.TrimPrefix(key, c.Url)
+	key := strings.TrimPrefix(url, c.Url)
 	err = bucketManager.Delete(c.Bucket, key)
 	if err != nil {
-		logs.Send2Ding(logs.Rb错误, fmt.Sprintf("DeleteFile Key:%s Err:%s", key, err.Error()))
+		logs.Send2Ding(logs.Rb错误, fmt.Sprintf("DeleteFile key:%s Err:%s", key, err.Error()))
 	} else {
 		fmt.Printf("成功删除：%s\r\n", key)
 	}
