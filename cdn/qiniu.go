@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strings"
 	"time"
 
 	"github.com/qida/go/logs"
@@ -92,12 +93,13 @@ func (c *QiNiu) GetPrivateMediaUrl(src_url string) (privateAccessURL string) {
 	return
 }
 
-func (c *QiNiu) DeleteFile(key string) (err error) {
+func (c *QiNiu) Delete(key string) (err error) {
 	if key == "" {
 		err = errors.New("文件Key不能为空")
 		return
 	}
 	bucketManager := storage.NewBucketManager(c.Mac, c.Config)
+	key = strings.TrimPrefix(key, c.Url)
 	err = bucketManager.Delete(c.Bucket, key)
 	if err != nil {
 		logs.Send2Ding(logs.Rb错误, fmt.Sprintf("DeleteFile Key:%s Err:%s", key, err.Error()))
