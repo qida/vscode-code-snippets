@@ -2,7 +2,6 @@ package cdn
 
 import (
 	"bytes"
-	"errors"
 	"fmt"
 	"io"
 	"strings"
