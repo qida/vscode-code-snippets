@@ -35,7 +35,7 @@ var LUNAR_INFO = []int{
 	0x05aa0, 0x076a3, 0x096d0, 0x04bd7, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45,
 	0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0}
 
-func LunarToSolar(date string, leapMonthFlag bool) (d string,err error) {
+func LunarToSolar(date string, leapMonthFlag bool) (d string, err error) {
 	date, offset := dealWithSpecialFebruaryDate(date)
 	loc, _ := time.LoadLocation("Local")
 	lunarTime, err := time.ParseInLocation(DATELAYOUT, date, loc)
@@ -49,7 +49,7 @@ func LunarToSolar(date string, leapMonthFlag bool) (d string,err error) {
 
 	if err != nil {
 		fmt.Println(err.Error())
-		return ""
+		return
 	}
 
 	for i := MIN_YEAR; i < lunarYear; i++ {
@@ -66,11 +66,10 @@ func LunarToSolar(date string, leapMonthFlag bool) (d string,err error) {
 			tempMonthDaysCount := getMonthDays(lunarYear, uint(i))
 			offset += tempMonthDaysCount
 		}
-
 		// 检查日期是否大于最大天
 		if lunarDay > getMonthDays(lunarYear, uint(lunarMonth)) {
-		 err =errors.New((fmt.Sprintf("不合法的农历日期！%s", date))
-		 return
+			err = errors.New(fmt.Sprintf("不合法的农历日期！%s", date))
+			return
 		}
 		offset += lunarDay // 加上当月的天数
 	} else { //当年有闰月，且月份晚于或等于闰月
@@ -83,8 +82,8 @@ func LunarToSolar(date string, leapMonthFlag bool) (d string,err error) {
 			offset += temp                      // 加上闰月天数
 
 			if lunarDay > getMonthDays(lunarYear, uint(lunarMonth)) {
-			 err =errors.New((fmt.Sprintf("不合法的农历日期！%s", date))
-			 return
+				err = errors.New(fmt.Sprintf("不合法的农历日期！%s", date))
+				return
 			}
 			offset += lunarDay
 		} else { // 如果需要计算的是闰月，则应首先加上与闰月对应的普通月的天数
@@ -93,8 +92,8 @@ func LunarToSolar(date string, leapMonthFlag bool) (d string,err error) {
 			offset += temp
 
 			if lunarDay > getLeapMonthDays(lunarYear) {
-			 err =errors.New((fmt.Sprintf("不合法的农历日期！%s", date))
-			 return
+				err = errors.New(fmt.Sprintf("不合法的农历日期！%s", date))
+				return
 			}
 			offset += lunarDay
 		}
@@ -106,7 +105,8 @@ func LunarToSolar(date string, leapMonthFlag bool) (d string,err error) {
 	}
 
 	myDate = myDate.AddDate(0, 0, offset)
-	return myDate.Format(DATELAYOUT)
+	d = myDate.Format(DATELAYOUT)
+	return
 }
 
 func dealWithSpecialFebruaryDate(date string) (string, int) {
