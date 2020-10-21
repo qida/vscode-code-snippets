@@ -22,12 +22,14 @@ type QiNiu struct {
 }
 
 func NewQiNiu(bucket string, url string, accessKey, secretKey string) *QiNiu {
+
+	zone, _ := storage.GetZone(accessKey, bucket)
 	return &QiNiu{
 		Bucket: bucket,
 		Url:    url,
 		Mac:    qbox.NewMac(accessKey, secretKey),
 		Config: &storage.Config{
-			Zone:          &storage.ZoneHuanan,
+			Zone:          zone,
 			UseHTTPS:      false,
 			UseCdnDomains: true,
 		},
@@ -62,14 +64,15 @@ func (c *QiNiu) UploadFile(src_url string, file_data []byte) (url_file string, e
 		},
 	}
 	err = formUploader.Put(context.Background(), &ret, upToken, src_url, bytes.NewReader(file_data), int64(len(file_data)), &putExtra)
-	if err == nil {
-		url_file = ret.Key
-		fmt.Printf("=====上传======\r\nKey:%s Hash:%s\r\n==============\r\n", ret.Key, ret.Hash)
-		urlsToRefresh := []string{c.Url + url_file}
-		cdnManager := cdn.NewCdnManager(c.Mac)
-		fmt.Printf("=====刷新文件======\r\n%s\r\n==============\r\n", urlsToRefresh)
-		_, err = cdnManager.RefreshUrls(urlsToRefresh)
+	if err != nil {
+		return
 	}
+	url_file = ret.Key
+	fmt.Printf("=====上传======\r\nKey:%s Hash:%s\r\n==============\r\n", ret.Key, ret.Hash)
+	urlsToRefresh := []string{c.Url + url_file}
+	cdnManager := cdn.NewCdnManager(c.Mac)
+	fmt.Printf("=====刷新文件======\r\n%s\r\n==============\r\n", urlsToRefresh)
+	_, err = cdnManager.RefreshUrls(urlsToRefresh)
 	return
 }
 
