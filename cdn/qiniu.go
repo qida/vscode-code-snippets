@@ -15,10 +15,11 @@ import (
 )
 
 type QiNiu struct {
-	Bucket string
-	Url    string
-	Mac    *qbox.Mac
-	Config *storage.Config
+	Bucket    string
+	Url       string
+	Mac       *qbox.Mac
+	Config    *storage.Config
+	PutPolicy *storage.PutPolicy
 }
 
 func NewQiNiu(bucket string, url string, accessKey, secretKey string) *QiNiu {
@@ -32,6 +33,9 @@ func NewQiNiu(bucket string, url string, accessKey, secretKey string) *QiNiu {
 			Zone:          zone,
 			UseHTTPS:      false,
 			UseCdnDomains: true,
+		},
+		PutPolicy: &storage.PutPolicy{
+			Scope: bucket,
 		},
 	}
 }
@@ -90,8 +94,10 @@ func (c *QiNiu) MoveFile(src_url string, dst_url string) (err error, url_file st
 //返回私人有地址
 func (c *QiNiu) GetPrivateMediaUrl(src_url string) (privateAccessURL string) {
 	deadline := time.Now().Add(time.Minute * 60).Unix() //60分钟有效期
+	if !strings.Contains(src_url, "http:") {
+		src_url = "http:" + src_url
+	}
 	privateAccessURL = storage.MakePrivateURL(c.Mac, c.Url, src_url, deadline)
-	fmt.Println(privateAccessURL)
 	return
 }
 
@@ -108,5 +114,21 @@ func (c *QiNiu) Delete(url string) (err error) {
 	} else {
 		fmt.Printf("成功删除：%s\r\n", key)
 	}
+	return
+}
+
+func (c *QiNiu) GetTokenUpload(type_upload int8) (m map[string]interface{}) {
+	m = make(map[string]interface{})
+	//ECN, SCN, NCN, NA, ASG
+	// putPolicy.CallbackURL = "https://api.point.zxjy.xyz/upload"
+
+	fmt.Printf("%+v", c.Config.Zone)
+	fmt.Println("=======================")
+	m["Region"] = "ECN"
+	m["UpTokenURL"] = c.Bucket
+	m["Key"] = fmt.Sprintf("temp/%d", time.Now().Unix()) //不起作用
+	m["UpToken"] = c.PutPolicy.UploadToken(c.Mac)
+	// m["Domain"] = "point.cdn.zxjy.work"
+	m["Domain"] = strings.Replace(c.Url, "/", "", -1)
 	return
 }
