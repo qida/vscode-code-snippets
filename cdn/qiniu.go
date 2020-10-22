@@ -117,14 +117,11 @@ func (c *QiNiu) Delete(url string) (err error) {
 	return
 }
 
-func (c *QiNiu) GetTokenUpload(type_upload int8) (m map[string]interface{}) {
+func (c *QiNiu) GetTokenUpload(region string) (m map[string]interface{}) {
 	m = make(map[string]interface{})
 	//ECN, SCN, NCN, NA, ASG
 	// putPolicy.CallbackURL = "https://api.point.zxjy.xyz/upload"
-
-	fmt.Printf("%+v", c.Config.Zone)
-	fmt.Println("=======================")
-	m["Region"] = "ECN"
+	m["Region"] = region
 	m["UpTokenURL"] = c.Bucket
 	m["Key"] = fmt.Sprintf("temp/%d", time.Now().Unix()) //不起作用
 	m["UpToken"] = c.PutPolicy.UploadToken(c.Mac)
