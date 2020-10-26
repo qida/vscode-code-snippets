@@ -197,6 +197,7 @@ func getInitials(hanzi rune) string {
 	}
 	return string(sr[0])
 }
+
 func GetPY(src string) (py string) {
 	var err error
 	src = strings.Trim(src, " ")
@@ -207,5 +208,14 @@ func GetPY(src string) (py string) {
 			fmt.Printf("PinYin Error:%s\r\n", err)
 		}
 	}
+	return
+}
+
+func GetPYF(src string) (py string) {
+	src = GetPY(src)
+	if len(src) < 1 {
+		return ""
+	}
+	py = string(([]rune(src))[0])
 	return
 }

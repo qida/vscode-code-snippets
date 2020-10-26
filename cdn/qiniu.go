@@ -127,5 +127,6 @@ func (c *QiNiu) GetTokenUpload(region string) (m map[string]interface{}) {
 	m["UpToken"] = c.PutPolicy.UploadToken(c.Mac)
 	// m["Domain"] = "point.cdn.zxjy.work"
 	m["Domain"] = strings.Replace(c.Url, "/", "", -1)
+
 	return
 }
