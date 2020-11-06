@@ -24,8 +24,8 @@ func InitQiniuSMS(accessKey, secretKey string) {
 	fmt.Println("============End=================")
 }
 func SendQiniuSMS(qiniuSMS QiniuSMS, mobile string, code string) (err error) {
-	if ok, err1 := CheckRegexMobile(mobile); !ok {
-		err = err1
+	err = CheckRegexMobile(mobile)
+	if err != nil {
 		return
 	}
 	if RequestRegLimit <= 0 {

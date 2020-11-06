@@ -25,8 +25,8 @@ type VerificationParam struct {
 }
 
 func SendManYouSMS(man_you ManYou, mobile string) (code string, vparam VerificationParam, err error) {
-	if ok, err1 := CheckRegexMobile(mobile); !ok {
-		err = err1
+	err = CheckRegexMobile(mobile)
+	if err != nil {
 		return
 	}
 	if RequestRegLimit <= 0 {

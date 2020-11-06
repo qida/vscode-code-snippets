@@ -21,8 +21,8 @@ func init() {
 	request.TemplateCode = "SMS_175475271"
 }
 func AliSend(mobile string) (code string, err error) {
-	if ok, err1 := CheckRegexMobile(mobile); !ok {
-		err = err1
+	err = CheckRegexMobile(mobile)
+	if err != nil {
 		return
 	}
 	if RequestRegLimit <= 0 {
