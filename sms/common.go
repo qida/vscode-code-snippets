@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"regexp"
 	"time"
+
+	"github.com/qida/go/logs"
 )
 
 const (
@@ -40,10 +42,15 @@ const (
 	duration = time.Minute * 10 //手机验证码超时时间
 )
 
-func CheckRegexMobile(mobile string) (bool, error) {
+func CheckRegexMobile(mobile string) (err error) {
 	if mobile == "" {
-		return false, errors.New("手机号不能为空！")
+		errors.New("手机号不能为空！")
+		return
 	}
 	reg := regexp.MustCompile(regular)
-	return reg.MatchString(mobile), errors.New("手机号不满足格式要求！")
+	if !reg.MatchString(mobile) {
+		err = errors.New("手机号不满足格式要求！")
+		logs.Send2Dingf(logs.Rb重要, "手机号：%s 不符合格式", mobile)
+	}
+	return
 }
