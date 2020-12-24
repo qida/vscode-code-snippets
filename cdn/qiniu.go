@@ -79,7 +79,7 @@ func (c *QiNiu) UploadFile(src_url string, file_data []byte) (url_file string, e
 	return
 }
 
-func (c *QiNiu) MoveFile(src_url string, dst_url string) (err error, url_file string) {
+func (c *QiNiu) MoveFile(src_url string, dst_url string) (url_file string, err error) {
 	bucketManager := storage.NewBucketManager(c.Mac, c.Config)
 	//如果目标文件存在，是否强制覆盖，如果不覆盖，默认返回614 file exists
 	err = bucketManager.Move(c.Bucket, src_url, c.Bucket, dst_url, true)
@@ -87,6 +87,7 @@ func (c *QiNiu) MoveFile(src_url string, dst_url string) (err error, url_file st
 		logs.Send2Dingf(logs.Rb错误, "移动文件：%s", err.Error())
 		return
 	}
+	url_file = dst_url
 	return
 }
 
