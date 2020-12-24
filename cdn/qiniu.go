@@ -23,7 +23,6 @@ type QiNiu struct {
 }
 
 func NewQiNiu(bucket string, url string, accessKey, secretKey string) *QiNiu {
-
 	zone, _ := storage.GetZone(accessKey, bucket)
 	return &QiNiu{
 		Bucket: bucket,
@@ -117,16 +116,19 @@ func (c *QiNiu) Delete(url string) (err error) {
 	return
 }
 
-func (c *QiNiu) GetTokenUpload(region string) (m map[string]interface{}) {
+func (c *QiNiu) GetTokenUpload(region string, key string) (m map[string]interface{}) {
 	m = make(map[string]interface{})
 	//ECN, SCN, NCN, NA, ASG
 	// putPolicy.CallbackURL = "https://api.point.zxjy.xyz/upload"
 	m["Region"] = region
 	m["UpTokenURL"] = c.Bucket
-	m["Key"] = fmt.Sprintf("temp/%d", time.Now().Unix()) //不起作用
+	if key == "" {
+		m["Key"] = fmt.Sprintf("temp/%d", time.Now().Unix()) //不起作用
+	} else {
+		m["Key"] = key
+	}
 	m["UpToken"] = c.PutPolicy.UploadToken(c.Mac)
 	// m["Domain"] = "point.cdn.zxjy.work"
 	m["Domain"] = strings.Replace(c.Url, "/", "", -1)
-
 	return
 }

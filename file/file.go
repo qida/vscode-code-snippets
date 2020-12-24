@@ -1,9 +1,9 @@
 package file
 
 import (
+	"archive/zip"
 	"errors"
 	"fmt"
-	"archive/zip"
 	"io"
 	"os"
 	"path/filepath"
@@ -139,7 +139,6 @@ func pathExists(path string) (bool, error) {
 	return false, err
 }
 
-
 func unzip(archive, target string) error {
 	reader, err := zip.OpenReader(archive)
 	if err != nil {
@@ -175,4 +174,17 @@ func unzip(archive, target string) error {
 	}
 
 	return nil
+}
+
+func IsDir(fileAddr string, create bool) bool {
+	s, err := os.Stat(fileAddr)
+	if err != nil {
+		if create {
+			err = os.MkdirAll(fileAddr, 0766)
+			if err != nil {
+				return false
+			}
+		}
+	}
+	return s.IsDir()
 }
