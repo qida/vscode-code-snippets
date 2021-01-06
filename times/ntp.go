@@ -2,7 +2,6 @@ package times
 
 import (
 	"errors"
-	"fmt"
 	"time"
 
 	"github.com/beevik/ntp"
@@ -36,7 +35,7 @@ func TimeNtpCompare(date string) (err error) {
 			continue
 		} else {
 			enNet = true
-			fmt.Printf("Date:%v\r\n", time1)
+			// fmt.Printf("Date:%v\r\n", time1)
 			break
 		}
 	}
