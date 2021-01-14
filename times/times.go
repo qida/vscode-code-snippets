@@ -59,3 +59,20 @@ func GetFirstDateOfWeek(d time.Time, start_sunday bool) time.Time {
 	timeFirst = GetZeroTimeOfDay(timeFirst)
 	return timeFirst
 }
+
+func GetBetweenDates(date_start, date_end time.Time) (d []time.Time) {
+	if date_end.Before(date_start) {
+		// 如果结束时间小于开始时间，异常
+		return
+	}
+	// 输出日期格式固定
+	d = append(d, date_start)
+	for {
+		date_start = date_start.AddDate(0, 0, 1)
+		if date_start == date_end {
+			break
+		}
+		d = append(d, date_start)
+	}
+	return
+}
