@@ -1,3 +1,7 @@
+/*
+ * @Author: qida
+ * @LastEditors: qida
+ */
 package sms
 
 import (
@@ -36,7 +40,7 @@ func SendManYouSMS(man_you ManYou, mobile string) (code string, vparam Verificat
 	RequestRegLimit--
 	rnd := rand.New(rand.NewSource(time.Now().UnixNano()))
 	code = fmt.Sprintf("%06d", rnd.Int31n(1000000))
-	url := fmt.Sprintf("http://sdk.shmyt.cn:8080/manyousms/sendsms?account=%s&password=%s&mobiles=%s&content=您申请的手机验证码是：%d，请输入后进行验证，谢谢！【携手科技】", man_you.Account, man_you.Password, mobile, code)
+	url := fmt.Sprintf("http://sdk.shmyt.cn:8080/manyousms/sendsms?account=%s&password=%s&mobiles=%s&content=您申请的手机验证码是：%s，请输入后进行验证，谢谢！【携手科技】", man_you.Account, man_you.Password, mobile, code)
 	resp, err := http.Get(url)
 	if err != nil {
 		return
