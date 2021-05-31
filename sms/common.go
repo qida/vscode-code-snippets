@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"regexp"
+	"strings"
 	"time"
 
 	"github.com/qida/go/logs"
@@ -52,6 +53,7 @@ const (
 )
 
 func CheckRegexMobile(mobile string) (err error) {
+	mobile = strings.TrimSpace(mobile)
 	if mobile == "" {
 		errors.New("手机号不能为空！")
 		return
@@ -59,7 +61,7 @@ func CheckRegexMobile(mobile string) (err error) {
 	reg := regexp.MustCompile(regular)
 	if !reg.MatchString(mobile) {
 		err = errors.New("手机号不满足格式要求！")
-		logs.Send2Dingf(logs.Rb重要, "手机号：%s 不符合格式", mobile)
+		logs.Send2Dingf(logs.Rb重要, "手机号：[%s] 不符合格式", mobile)
 	}
 	return
 }

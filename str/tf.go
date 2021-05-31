@@ -72,7 +72,7 @@ func Camel2Case(name string) string {
 func Case2Camel(name string) string {
 	name = strings.Replace(name, "_", " ", -1)
 	name = strings.Title(name)
-	return strings.Replace(name, " ", "", -1)
+	return strings.TrimSpace(name)
 }
 
 //Ucfirst 首字母大写
