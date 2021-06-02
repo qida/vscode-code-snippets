@@ -7,10 +7,10 @@ import (
 )
 
 const (
-	// Female 女
-	Female = iota
 	// Male 男
-	Male
+	Male = iota + 1
+	// Female 女
+	Female
 )
 
 const (
@@ -108,10 +108,10 @@ func (card IDCard) Decode() (IDCardDetail, error) {
 		return icd, ErrInvalidIDCardNo
 	}
 	switch order % 2 {
-	case Female:
-		icd.Sex = Female
-	default:
+	case Male:
 		icd.Sex = Male
+	default:
+		icd.Sex = Female
 	}
 	return icd, nil
 }
