@@ -351,6 +351,9 @@ func AmountConvert(p_money float64, p_Round bool) string {
 
 func GetKeysString(key_str string) (number int, py string, han string) {
 	key_str = strings.TrimSpace(key_str)
+	if len(key_str) == 0 {
+		return
+	}
 	if unicode.Is(unicode.Latin, []rune(key_str)[0]) {
 		py = strings.ToUpper(key_str)
 	} else if unicode.Is(unicode.Number, []rune(key_str)[0]) {
