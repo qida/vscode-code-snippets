@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 //全角转半角
@@ -346,4 +347,18 @@ func AmountConvert(p_money float64, p_Round bool) string {
 		Str = string(Str[3:])
 	}
 	return Str
+}
+
+func GetKeysString(key_str string) (number int, py string, han string) {
+	key_str = strings.TrimSpace(key_str)
+	if unicode.Is(unicode.Latin, []rune(key_str)[0]) {
+		py = strings.ToUpper(key_str)
+	} else if unicode.Is(unicode.Number, []rune(key_str)[0]) {
+		number, _ = strconv.Atoi(key_str)
+	} else if unicode.Is(unicode.Han, []rune(key_str)[0]) {
+		han = key_str
+	} else {
+		han = key_str
+	}
+	return
 }
