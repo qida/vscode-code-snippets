@@ -2,7 +2,7 @@
  * @Author: qida
  * @LastEditors: qida
  */
-package str
+package stringx
 
 import "testing"
 
