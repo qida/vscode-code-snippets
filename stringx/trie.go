@@ -5,18 +5,17 @@
 package stringx
 
 import (
-	"sync"
-
 	"github.com/tal-tech/go-zero/core/lang"
 )
 
 const defaultMask = '*'
 
 type (
+	// TrieOption defines the method to customize a Trie.
 	TrieOption func(trie *trieNode)
 
+	// A Trie is a tree implementation that used to find elements rapidly.
 	Trie interface {
-		Add(test string)
 		Filter(text string) (string, []string, bool)
 		FindKeywords(text string) []string
 	}
@@ -32,9 +31,10 @@ type (
 	}
 )
 
+// NewTrie returns a Trie.
 func NewTrie(words []string, opts ...TrieOption) Trie {
 	n := new(trieNode)
-	n.node.m = new(sync.RWMutex)
+
 	for _, opt := range opts {
 		opt(n)
 	}
@@ -42,7 +42,7 @@ func NewTrie(words []string, opts ...TrieOption) Trie {
 		n.mask = defaultMask
 	}
 	for _, word := range words {
-		n.Add(word)
+		n.add(word)
 	}
 
 	return n
@@ -74,11 +74,7 @@ func (n *trieNode) FindKeywords(text string) []string {
 	scopes := n.findKeywordScopes(chars)
 	return n.collectKeywords(chars, scopes)
 }
-func (n *trieNode) Add(text string) {
-	if text != "" {
-		n.add(text)
-	}
-}
+
 func (n *trieNode) collectKeywords(chars []rune, scopes []scope) []string {
 	set := make(map[string]lang.PlaceholderType)
 	for _, v := range scopes {
@@ -143,6 +139,7 @@ func (n *trieNode) replaceWithAsterisk(chars []rune, start, stop int) {
 	}
 }
 
+// WithMask customizes a Trie with keywords masked as given mask char.
 func WithMask(mask rune) TrieOption {
 	return func(n *trieNode) {
 		n.mask = mask
