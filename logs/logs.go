@@ -14,11 +14,11 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 	"github.com/axgle/mahonia"
-	"github.com/qida/tcp_server"
+	"github.com/qida/go/tcp"
 )
 
 var (
-	DebugList map[string]*tcp_server.Client
+	DebugList map[string]*tcp.Client
 )
 var (
 	LogConn = logs.NewLogger(1000)
@@ -53,17 +53,17 @@ func Email() {
 
 func ServerDebug(port int) {
 	fmt.Printf("调试 在 %d 监听...\r\n", port)
-	DebugList = make(map[string]*tcp_server.Client)
-	server := tcp_server.New(fmt.Sprintf("0.0.0.0:%d", port), "")
+	DebugList = make(map[string]*tcp.Client)
+	server := tcp.New(fmt.Sprintf("0.0.0.0:%d", port), "")
 	// utf-8=>gb18030
 	//dec := mahonia.NewDecoder("GB18030")
 	// gb18030=>utf-8
 	//enc := mahonia.Newutil.Encoder("GB18030")
-	server.OnNewClient(func(c *tcp_server.Client) {
+	server.OnNewClient(func(c *tcp.Client) {
 		fmt.Printf("新的调试端\r\n")
 		c.Send(fmt.Sprintf("Welcome %s \n", c.GetConn().RemoteAddr().String()))
 	})
-	server.OnNewMessage(func(c *tcp_server.Client, message string) {
+	server.OnNewMessage(func(c *tcp.Client, message string) {
 		if message == "debug\r\n" {
 			DebugList[c.GetConn().RemoteAddr().String()] = c
 			c.Send("Welcome Debugger\r\n")
@@ -75,7 +75,7 @@ func ServerDebug(port int) {
 			}
 		}
 	})
-	server.OnClientConnectionClosed(func(c *tcp_server.Client, err error) {
+	server.OnClientConnectionClosed(func(c *tcp.Client, err error) {
 		fmt.Printf("调试端断开\r\n")
 		delete(DebugList, c.GetConn().RemoteAddr().String())
 	})
