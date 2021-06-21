@@ -68,7 +68,7 @@ func LunarToSolar(date string, leapMonthFlag bool) (d string, err error) {
 		}
 		// 检查日期是否大于最大天
 		if lunarDay > getMonthDays(lunarYear, uint(lunarMonth)) {
-			err = errors.New(fmt.Sprintf("不合法的农历日期！%s", date))
+			err = fmt.Errorf("不合法的农历日期！%s", date)
 			return
 		}
 		offset += lunarDay // 加上当月的天数
@@ -82,7 +82,7 @@ func LunarToSolar(date string, leapMonthFlag bool) (d string, err error) {
 			offset += temp                      // 加上闰月天数
 
 			if lunarDay > getMonthDays(lunarYear, uint(lunarMonth)) {
-				err = errors.New(fmt.Sprintf("不合法的农历日期！%s", date))
+				err = fmt.Errorf("不合法的农历日期！%s", date)
 				return
 			}
 			offset += lunarDay
@@ -92,7 +92,7 @@ func LunarToSolar(date string, leapMonthFlag bool) (d string, err error) {
 			offset += temp
 
 			if lunarDay > getLeapMonthDays(lunarYear) {
-				err = errors.New(fmt.Sprintf("不合法的农历日期！%s", date))
+				err = fmt.Errorf("不合法的农历日期！%s", date)
 				return
 			}
 			offset += lunarDay
