@@ -121,12 +121,12 @@ func New(address string, replay string) *server {
 func (s *server) sendDb(message string) (err error) {
 	conn, err := net.Dial("tcp", s.replay)
 	if err != nil {
-		return errors.Wrap(err, "DD_LINK_FAILED.")
+		return errors.Wrap(err, "DD_LINK_FAILED")
 	}
 	defer conn.Close()
 	_, err = conn.Write([]byte(message))
 	if err != nil {
-		return errors.Wrap(err, "DD_FAILED.")
+		return errors.Wrap(err, "DD_FAILED")
 	}
 	return
 }

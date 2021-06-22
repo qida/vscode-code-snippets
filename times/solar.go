@@ -59,7 +59,7 @@ func LunarToSolar(date string, leapMonthFlag bool) (d string, err error) {
 	//计算该年闰几月
 	leapMonth := getLeapMonth(lunarYear)
 	if leapMonthFlag && leapMonth != lunarMonth {
-		panic("您输入的闰月标志有误！")
+		panic("您输入的闰月标志有误")
 	}
 	if leapMonth == 0 || (lunarMonth < leapMonth) || (lunarMonth == leapMonth && !leapMonthFlag) {
 		for i := 1; i < lunarMonth; i++ {
@@ -238,18 +238,18 @@ func calculateLunar(date string) (lunarYear, lunarMonth, lunarDay, leapMonth int
 
 func checkLunarDate(lunarYear, lunarMonth, lunarDay int, leapMonthFlag bool) error {
 	if (lunarYear < MIN_YEAR) || (lunarYear > MAX_YEAR) {
-		return errors.New("非法农历年份！")
+		return errors.New("非法农历年份")
 	}
 	if (lunarMonth < 1) || (lunarMonth > 12) {
-		return errors.New("非法农历月份！")
+		return errors.New("非法农历月份")
 	}
 	if (lunarDay < 1) || (lunarDay > 30) { // 中国的月最多30天
-		return errors.New("非法农历天数！")
+		return errors.New("非法农历天数")
 	}
 
 	leap := getLeapMonth(lunarYear) // 计算该年应该闰哪个月
 	if (leapMonthFlag == true) && (lunarMonth != leap) {
-		return errors.New("非法闰月！")
+		return errors.New("非法闰月")
 	}
 	return nil
 }

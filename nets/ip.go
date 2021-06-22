@@ -80,7 +80,7 @@ func NewQQwry(path_file string) (qqwry *QQwry) {
 
 // Find ip地址查询对应归属地信息
 func (q *QQwry) Find(ip string) string {
-	if strings.Count(ip, ".") != 3 {
+	if strings.Count(ip, "") != 3 {
 		return ""
 	}
 	switch ip {

@@ -42,6 +42,10 @@ type IDCardDetail struct {
 	Addr
 }
 
+// func IDCard(id_card string) IDCard {
+// 	return id_card
+// }
+
 // Valid 判断身份证号是否合法
 func (card IDCard) Valid() bool {
 	id := string(card)
@@ -72,10 +76,7 @@ func (card IDCard) Valid() bool {
 		sum += v * int(id[k]-'0')
 	}
 	mod := idCardCheckMap[sum%IDCardModBase]
-	if mod != x {
-		return false
-	}
-	return true
+	return mod == x
 }
 
 // Decode 根据身份证号解析出具体信息

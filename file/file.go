@@ -54,7 +54,7 @@ func CopyDir(srcPath string, destPath string) error {
 		return err
 	} else {
 		if !srcInfo.IsDir() {
-			e := errors.New("srcPath不是一个正确的目录！")
+			e := errors.New("srcPath不是一个正确的目录")
 			fmt.Println(e.Error())
 			return e
 		}
@@ -64,7 +64,7 @@ func CopyDir(srcPath string, destPath string) error {
 		return err
 	} else {
 		if !destInfo.IsDir() {
-			e := errors.New("destInfo不是一个正确的目录！")
+			e := errors.New("destInfo不是一个正确的目录")
 			fmt.Println(e.Error())
 			return e
 		}

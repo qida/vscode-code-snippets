@@ -1,3 +1,9 @@
+/*
+ * @Description:
+ * @Version: 2.0
+ * @Autor: qida
+ * @Date: 2019-10-23 15:31:21
+ */
 package chinaid
 
 import (
@@ -10,7 +16,7 @@ func TestIDNum(t *testing.T) {
 	testID := "341302199006041233"
 	detail, err := IDCard(testID).Decode()
 	if err != nil {
-		t.Error("Valid id parse failed.")
+		t.Error("Valid id parse failed")
 	}
 	if detail.Province != "安徽省" {
 		t.Error("Province check failed")
@@ -22,6 +28,9 @@ func TestIDNum(t *testing.T) {
 		t.Error("District check failed")
 	}
 	birth, err := time.Parse("20060102", "19900604")
+	if err != nil {
+		return
+	}
 	if detail.Birthday != birth {
 		t.Error("Birthday check failed")
 	}

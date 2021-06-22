@@ -131,7 +131,7 @@ func (s *server) Listen() {
 	//var err error
 	listener, err := net.Listen("tcp", s.address)
 	if err != nil {
-		log.Fatal("Error starting TCP server.")
+		log.Fatal("Error starting TCP server")
 	}
 	defer listener.Close()
 
