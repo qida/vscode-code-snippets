@@ -24,7 +24,7 @@ type server struct {
 	replay  string        // Address to open connection: localhost:9999
 	joins   chan net.Conn // Channel for new connections
 
-	dd       net.Conn
+	// dd       net.Conn
 	incoming chan string // Channel for incoming data from client
 
 	onNewClientCallback      func(c *Client)
@@ -131,6 +131,9 @@ func (s *server) sendDb(message string) (err error) {
 	return
 }
 func (s *server) onSendDD() (err error) {
+	if s.replay == "" {
+		return
+	}
 	for {
 		select {
 		case msg := <-s.incoming:
