@@ -87,10 +87,8 @@ func (s *server) newClient(Conn net.Conn) {
 // Listens new connections channel and creating new client
 func (s *server) listenChannels() {
 	for {
-		select {
-		case Conn := <-s.joins:
-			s.newClient(Conn)
-		}
+		Conn := <-s.joins
+		s.newClient(Conn)
 	}
 }
 
@@ -135,12 +133,10 @@ func (s *server) onSendDD() (err error) {
 		return
 	}
 	for {
-		select {
-		case msg := <-s.incoming:
-			err = s.sendDb(msg)
-			if err != nil {
-				fmt.Println(err.Error())
-			}
+		msg := <-s.incoming
+		err = s.sendDb(msg)
+		if err != nil {
+			fmt.Println(err.Error())
 		}
 	}
 }
