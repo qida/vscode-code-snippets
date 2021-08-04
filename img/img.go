@@ -23,7 +23,7 @@ import (
 )
 
 type Img struct {
-	imgTpl image.Image
+	ImgTpl image.Image
 	ext    string
 	outImg *image.NRGBA
 }
@@ -38,22 +38,22 @@ func NewImage(img_tpl_path string) (img *Img, err error) {
 	img.ext = path.Ext(img_tpl_path)
 	switch img.ext {
 	case ".jpg":
-		// if img.imgTpl, _, err = image.Decode(imgTplFile); err != nil {
+		// if img.ImgTpl, _, err = image.Decode(imgTplFile); err != nil {
 		// 	return
 		// }
-		if img.imgTpl, err = jpeg.Decode(imgTplFile); err != nil {
+		if img.ImgTpl, err = jpeg.Decode(imgTplFile); err != nil {
 			return
 		}
 	case ".png":
-		if img.imgTpl, err = png.Decode(imgTplFile); err != nil {
+		if img.ImgTpl, err = png.Decode(imgTplFile); err != nil {
 			return
 		}
 	default:
 		err = errors.New("暂不支持其它类型")
 	}
-	img.outImg = Image2RGBA(img.imgTpl)
-	// img.outImg = image.NewNRGBA(image.Rect(0, 0, img.imgTpl.Bounds().Dx(), img.imgTpl.Bounds().Dy()))
-	// draw.Draw(img.outImg, img.outImg.Bounds(), img.imgTpl, img.imgTpl.Bounds().Min, draw.Over)
+	img.outImg = Image2RGBA(img.ImgTpl)
+	// img.outImg = image.NewNRGBA(image.Rect(0, 0, img.ImgTpl.Bounds().Dx(), img.ImgTpl.Bounds().Dy()))
+	// draw.Draw(img.outImg, img.outImg.Bounds(), img.ImgTpl, img.ImgTpl.Bounds().Min, draw.Over)
 	return
 }
 
@@ -69,8 +69,8 @@ func Image2RGBA(img image.Image) *image.NRGBA {
 }
 func (I *Img) DrawImage(img image.Image, resize_x float32, x, y float32) (err error) {
 	// 调用resize库进行图片缩放(高度填0，resize.Resize函数中会自动计算缩放图片的宽高比)
-	resizeTpl := resize.Resize(uint(I.imgTpl.Bounds().Dx()), 0, I.imgTpl, resize.Lanczos3)
-	resizeImg := resize.Resize(uint(I.imgTpl.Bounds().Dx()*int(resize_x*10))/1000, 0, img, resize.Lanczos3) //大小
+	resizeTpl := resize.Resize(uint(I.ImgTpl.Bounds().Dx()), 0, I.ImgTpl, resize.Lanczos3)
+	resizeImg := resize.Resize(uint(I.ImgTpl.Bounds().Dx()*int(resize_x*10))/1000, 0, img, resize.Lanczos3) //大小
 	// 将两个图片合成一张
 	newImg := image.NewNRGBA(image.Rect(0, 0, resizeTpl.Bounds().Max.X, resizeTpl.Bounds().Max.Y))
 	draw.Draw(newImg, newImg.Bounds(), resizeTpl, resizeTpl.Bounds().Min, draw.Over)
