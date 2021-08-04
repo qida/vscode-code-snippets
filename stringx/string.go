@@ -365,3 +365,47 @@ func GetKeysString(key_str string) (number int, py string, han string) {
 	}
 	return
 }
+
+const (
+	Type未知 = 0
+	Type数字 = 1
+	Type手机 = 2
+	Type字母 = 2
+	Type汉字 = 3
+	Type身份 = 4
+)
+
+func GetKeyWordType(key_word string) (type_word int8) {
+	key_word = strings.TrimSpace(key_word)
+	type_word = Type未知
+	if len(key_word) == 0 {
+		return
+	}
+	var ok bool
+	ok, _ = regexp.MatchString(`\d{17}[0-9(x|X)]`, key_word)
+	if ok {
+		type_word = Type身份
+		return
+	}
+	ok, _ = regexp.MatchString(`1\d{10}`, key_word)
+	if ok {
+		type_word = Type手机
+		return
+	}
+	ok, _ = regexp.MatchString(`[[:alpha:]]+`, key_word)
+	if ok {
+		type_word = Type字母
+		return
+	}
+	ok, _ = regexp.MatchString(`^\d{1,10}$`, key_word)
+	if ok {
+		type_word = Type数字
+		return
+	}
+	ok, _ = regexp.MatchString(`^[\p{Han}]+`, key_word)
+	if ok {
+		type_word = Type汉字
+		return
+	}
+	return
+}
