@@ -209,7 +209,7 @@ func Create() {
 	if err != nil {
 		return
 	}
-	err = img.DrawImage("9637.jpg", 23, 70, 81.8)
+	err = img.DrawImageFile("9637.jpg", 23, 70, 81.8)
 	if err != nil {
 		return
 	}
