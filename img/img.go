@@ -74,13 +74,9 @@ func (I *Img) DrawImage(img image.Image, resize_x float32, x, y float32) (err er
 	resizeTpl := resize.Resize(uint(I.ImgTpl.Bounds().Dx()), 0, I.ImgTpl, resize.Lanczos3)
 	resizeImg := resize.Resize(uint(I.ImgTpl.Bounds().Dx()*int(resize_x*10))/1000, 0, img, resize.Lanczos3) //大小
 	// 将两个图片合成一张
-	newImg := image.NewNRGBA(image.Rect(0, 0, resizeTpl.Bounds().Max.X, resizeTpl.Bounds().Max.Y))
-	draw.Draw(newImg, newImg.Bounds(), resizeTpl, resizeTpl.Bounds().Min, draw.Over)
-	draw.Draw(newImg, newImg.Bounds(), resizeImg, image.Point{X: (-1) * int(x*10) * resizeTpl.Bounds().Max.X / 1000, Y: (-1) * int(y*10) * resizeTpl.Bounds().Max.Y / 1000}, draw.Over)
-	if newImg == nil {
-		return
-	}
-	I.ImgOut = newImg
+	I.ImgOut = image.NewNRGBA(image.Rect(0, 0, resizeTpl.Bounds().Max.X, resizeTpl.Bounds().Max.Y))
+	draw.Draw(I.ImgOut, I.ImgOut.Bounds(), resizeTpl, resizeTpl.Bounds().Min, draw.Over)
+	draw.Draw(I.ImgOut, I.ImgOut.Bounds(), resizeImg, image.Point{X: (-1) * int(x*10) * resizeTpl.Bounds().Max.X / 1000, Y: (-1) * int(y*10) * resizeTpl.Bounds().Max.Y / 1000}, draw.Over)
 	fmt.Println(strings.Repeat("=", 10))
 	return
 }
