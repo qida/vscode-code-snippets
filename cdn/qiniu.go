@@ -39,7 +39,7 @@ func NewQiNiu(bucket string, url string, accessKey, secretKey string) *QiNiu {
 	}
 }
 
-func (c *QiNiu) Upload(localFile io.Reader, size int64, file_name string) (string, error) {
+func (c *QiNiu) Upload(localFile io.Reader, size int64, file_name string) (url_file string, err error) {
 	putPolicy := storage.PutPolicy{
 		Scope: fmt.Sprintf("%s:%s", c.Bucket, file_name), //覆盖上传
 	}
@@ -51,11 +51,17 @@ func (c *QiNiu) Upload(localFile io.Reader, size int64, file_name string) (strin
 			"x:name": file_name,
 		},
 	}
-	err := formUploader.Put(context.Background(), &ret, upToken, file_name, localFile, size, &putExtra)
+	err = formUploader.Put(context.Background(), &ret, upToken, file_name, localFile, size, &putExtra)
 	if err != nil {
-		return "", err
+		return
 	}
-	return ret.Key, nil
+	url_file = ret.Key
+	fmt.Printf("=====上传======\r\nKey:%s Hash:%s\r\n==============\r\n", ret.Key, ret.Hash)
+	urlsToRefresh := []string{c.Url + url_file}
+	cdnManager := cdn.NewCdnManager(c.Mac)
+	fmt.Printf("=====刷新文件======\r\n%s\r\n==============\r\n", urlsToRefresh)
+	_, err = cdnManager.RefreshUrls(urlsToRefresh)
+	return
 }
 
 func (c *QiNiu) UploadFile(file_name string, file_data []byte) (url_file string, err error) {
