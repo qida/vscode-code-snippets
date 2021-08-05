@@ -172,22 +172,22 @@ func (I *Img) DrawText(fontType *truetype.Font, size_font float64, clr color.Col
 		err = errors.New("DrawText ImgOut 不能为空")
 		return
 	}
+
+	fmt.Println("DX:", I.ImgOut.Bounds().Dx())
+	fmt.Println("SizeFont:", size_font)
 	c := freetype.NewContext()
 	c.SetFont(fontType)
 	c.SetFontSize(size_font)
 	c.SetSrc(image.NewUniform(clr))
-	c.SetDPI(1000)
+	c.SetDPI(float64(I.ImgOut.Bounds().Dx()))
 	c.SetClip(I.ImgOut.Bounds())
 	c.SetDst(I.ImgOut)
 	c.SetHinting(font.HintingNone)
 	pt := freetype.Pt(I.ImgOut.Bounds().Dx()*int(x*10)/1000, I.ImgOut.Bounds().Dy()*int(y*10)/1000)
-	fmt.Printf("%d %d\r\n", I.ImgOut.Bounds().Dx(), I.ImgOut.Bounds().Dy())
-	fmt.Printf("%+v\r\n", pt)
+	// fmt.Printf("%d %d\r\n", I.ImgOut.Bounds().Dx(), I.ImgOut.Bounds().Dy())
+	// fmt.Printf("%+v\r\n", pt)
 	_, err = c.DrawString(text, pt)
-	if err != nil {
-		return
-	}
-	fmt.Println(strings.Repeat("+", 10))
+	// fmt.Println(strings.Repeat("+", 10))
 	return
 }
 
@@ -203,32 +203,34 @@ func PathExists(path string) bool {
 }
 
 func Create() {
-	img, err := NewImage("tpl.jpg")
+	img, err := NewImage("tpl_ticket.png")
+	// img, err := NewImage("tpl.jpg")
 	if err != nil {
 		return
 	}
-	err = img.DrawImageFile("9637.jpg", 23, 69.5, 81.8)
-	if err != nil {
-		return
-	}
+	// err = img.DrawImageFile("9637.jpg", 23, 69.5, 81.8)
+	// if err != nil {
+	// 	return
+	// }
 	fontType, _ := NewFont("YaHeiBold.ttf")
-	err = img.DrawText(fontType, 15, color.White, "这测试", 25, 66.5)
+	err = img.DrawText(fontType, 4.5, color.White, "这测试", 25, 66.5)
 	if err != nil {
 		return
 	}
-	err = img.DrawText(fontType, 10, color.White, "这是一个测试", 23, 71)
+	err = img.DrawText(fontType, 3.0, color.White, "这是一个测试", 23, 71)
 	if err != nil {
 		return
 	}
-	err = img.DrawText(fontType, 15, color.White, "这是一个测试", 23, 76)
+	err = img.DrawText(fontType, 4.5, color.White, "这是一个测试", 23, 76)
 	if err != nil {
 		return
 	}
-	err = img.DrawText(fontType, 3, color.White, "生成时间："+time.Now().Format("2006-01-02 15:04:05"), 75, 99)
+	err = img.DrawText(fontType, 0.9, color.White, "生成时间："+time.Now().Format("2006-01-02 15:04:05"), 75, 99)
 	if err != nil {
 		return
 	}
-	err = img.OutImage("out.jpg")
+	err = img.OutImage("out.png")
+	// err = img.OutImage("out.jpg")
 	if err != nil {
 		return
 	}
