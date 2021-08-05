@@ -173,8 +173,8 @@ func (I *Img) DrawText(fontType *truetype.Font, size_font float64, clr color.Col
 		return
 	}
 
-	fmt.Println("DX:", I.ImgOut.Bounds().Dx())
-	fmt.Println("SizeFont:", size_font)
+	// fmt.Println("DX:", I.ImgOut.Bounds().Dx())
+	// fmt.Println("SizeFont:", size_font)
 	c := freetype.NewContext()
 	c.SetFont(fontType)
 	c.SetFontSize(size_font)
