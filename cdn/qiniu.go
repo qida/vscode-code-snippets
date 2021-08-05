@@ -46,7 +46,11 @@ func (c *QiNiu) Upload(localFile io.Reader, size int64, file_name string) (strin
 	upToken := putPolicy.UploadToken(c.Mac)
 	formUploader := storage.NewFormUploader(c.Config)
 	ret := storage.PutRet{}
-	putExtra := storage.PutExtra{}
+	putExtra := storage.PutExtra{
+		Params: map[string]string{
+			"x:name": file_name,
+		},
+	}
 	err := formUploader.Put(context.Background(), &ret, upToken, file_name, localFile, size, &putExtra)
 	if err != nil {
 		return "", err
@@ -54,19 +58,19 @@ func (c *QiNiu) Upload(localFile io.Reader, size int64, file_name string) (strin
 	return ret.Key, nil
 }
 
-func (c *QiNiu) UploadFile(src_url string, file_data []byte) (url_file string, err error) {
+func (c *QiNiu) UploadFile(file_name string, file_data []byte) (url_file string, err error) {
 	putPolicy := storage.PutPolicy{
-		Scope: fmt.Sprintf("%s:%s", c.Bucket, src_url),
+		Scope: fmt.Sprintf("%s:%s", c.Bucket, file_name),
 	}
 	upToken := putPolicy.UploadToken(c.Mac)
 	formUploader := storage.NewFormUploader(c.Config)
 	ret := storage.PutRet{}
 	putExtra := storage.PutExtra{
 		Params: map[string]string{
-			"x:name": src_url,
+			"x:name": file_name,
 		},
 	}
-	err = formUploader.Put(context.Background(), &ret, upToken, src_url, bytes.NewReader(file_data), int64(len(file_data)), &putExtra)
+	err = formUploader.Put(context.Background(), &ret, upToken, file_name, bytes.NewReader(file_data), int64(len(file_data)), &putExtra)
 	if err != nil {
 		return
 	}
