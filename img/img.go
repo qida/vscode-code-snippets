@@ -25,7 +25,7 @@ import (
 type Img struct {
 	ImgTpl image.Image
 	ext    string
-	outImg *image.NRGBA
+	ImgOut *image.NRGBA
 }
 
 func NewImage(img_tpl_path string) (img *Img, err error) {
@@ -51,9 +51,9 @@ func NewImage(img_tpl_path string) (img *Img, err error) {
 	default:
 		err = errors.New("暂不支持其它类型")
 	}
-	img.outImg = Image2RGBA(img.ImgTpl)
-	// img.outImg = image.NewNRGBA(image.Rect(0, 0, img.ImgTpl.Bounds().Dx(), img.ImgTpl.Bounds().Dy()))
-	// draw.Draw(img.outImg, img.outImg.Bounds(), img.ImgTpl, img.ImgTpl.Bounds().Min, draw.Over)
+	img.ImgOut = Image2RGBA(img.ImgTpl)
+	// img.ImgOut = image.NewNRGBA(image.Rect(0, 0, img.ImgTpl.Bounds().Dx(), img.ImgTpl.Bounds().Dy()))
+	// draw.Draw(img.ImgOut, img.ImgOut.Bounds(), img.ImgTpl, img.ImgTpl.Bounds().Min, draw.Over)
 	return
 }
 
@@ -92,7 +92,7 @@ func (I *Img) DrawImage(img image.Image, resize_x float32, x, y float32) (err er
 	if err != nil {
 		return
 	}
-	I.outImg = newImg
+	I.ImgOut = newImg
 	fmt.Println(strings.Repeat("=", 10))
 	return
 }
@@ -113,9 +113,9 @@ func (I *Img) DrawImageFile(img_path string, resize_x float32, x, y float32) (er
 	return
 }
 
-func (I *Img) Out(file_path string) (err error) {
-	if I.outImg == nil {
-		err = errors.New("Out outImg 不能为空")
+func (I *Img) OutImage(file_path string) (err error) {
+	if I.ImgOut == nil {
+		err = errors.New("Out ImgOut 不能为空")
 		return
 	}
 	if PathExists(file_path) {
@@ -130,9 +130,9 @@ func (I *Img) Out(file_path string) (err error) {
 
 	switch path.Ext(file_path) {
 	case ".jpg":
-		err = jpeg.Encode(imgFile, I.outImg, &jpeg.Options{Quality: 90})
+		err = jpeg.Encode(imgFile, I.ImgOut, &jpeg.Options{Quality: 90})
 	case ".png":
-		err = png.Encode(imgFile, I.outImg)
+		err = png.Encode(imgFile, I.ImgOut)
 	default:
 		fmt.Println(I.ext)
 		return
@@ -170,8 +170,8 @@ func NewFont(font_path string) (font *truetype.Font, err error) {
 	return
 }
 func (I *Img) DrawText(fontType *truetype.Font, size_font float64, clr color.Color, text string, x, y float32) (err error) {
-	if I.outImg == nil {
-		err = errors.New("DrawText outImg 不能为空")
+	if I.ImgOut == nil {
+		err = errors.New("DrawText ImgOut 不能为空")
 		return
 	}
 	c := freetype.NewContext()
@@ -179,11 +179,11 @@ func (I *Img) DrawText(fontType *truetype.Font, size_font float64, clr color.Col
 	c.SetFontSize(size_font)
 	c.SetSrc(image.NewUniform(clr))
 	c.SetDPI(1000)
-	c.SetClip(I.outImg.Bounds())
-	c.SetDst(I.outImg)
+	c.SetClip(I.ImgOut.Bounds())
+	c.SetDst(I.ImgOut)
 	c.SetHinting(font.HintingNone)
-	pt := freetype.Pt(I.outImg.Bounds().Dx()*int(x*10)/1000, I.outImg.Bounds().Dy()*int(y*10)/1000)
-	fmt.Printf("%d %d\r\n", I.outImg.Bounds().Dx(), I.outImg.Bounds().Dy())
+	pt := freetype.Pt(I.ImgOut.Bounds().Dx()*int(x*10)/1000, I.ImgOut.Bounds().Dy()*int(y*10)/1000)
+	fmt.Printf("%d %d\r\n", I.ImgOut.Bounds().Dx(), I.ImgOut.Bounds().Dy())
 	fmt.Printf("%+v\r\n", pt)
 	_, err = c.DrawString(text, pt)
 	if err != nil {
