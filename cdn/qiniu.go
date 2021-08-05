@@ -41,7 +41,7 @@ func NewQiNiu(bucket string, url string, accessKey, secretKey string) *QiNiu {
 
 func (c *QiNiu) Upload(localFile io.Reader, size int64, file_name string) (string, error) {
 	putPolicy := storage.PutPolicy{
-		Scope: c.Bucket,
+		Scope: fmt.Sprintf("%s:%s", c.Bucket, file_name), //覆盖上传
 	}
 	upToken := putPolicy.UploadToken(c.Mac)
 	formUploader := storage.NewFormUploader(c.Config)
