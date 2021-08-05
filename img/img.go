@@ -23,9 +23,11 @@ import (
 )
 
 type Img struct {
-	ImgTpl image.Image
-	ext    string
-	ImgOut *image.NRGBA
+	ImgTpl  image.Image
+	ext     string
+	ImgOut  *image.NRGBA
+	ImgByte bytes.Buffer
+	LenByte int64
 }
 
 func NewImage(img_tpl_path string) (img *Img, err error) {
@@ -78,22 +80,22 @@ func (I *Img) DrawImage(img image.Image, resize_x float32, x, y float32) (err er
 	if newImg == nil {
 		return
 	}
-	var b bytes.Buffer
-	w := bufio.NewWriter(&b)
+	I.ImgOut = newImg
+	fmt.Println(strings.Repeat("=", 10))
+	return
+}
+func (I *Img) PackImage() (err error) {
+	w := bufio.NewWriter(&I.ImgByte)
 	switch I.ext {
 	case ".jpg":
-		err = jpeg.Encode(w, newImg, &jpeg.Options{Quality: 90})
+		err = jpeg.Encode(w, I.ImgOut, &jpeg.Options{Quality: 90})
 	case ".png":
-		err = png.Encode(w, newImg)
+		err = png.Encode(w, I.ImgOut)
 	default:
 		fmt.Println(I.ext)
 		return
 	}
-	if err != nil {
-		return
-	}
-	I.ImgOut = newImg
-	fmt.Println(strings.Repeat("=", 10))
+	I.LenByte = int64(len(I.ImgByte.Bytes()))
 	return
 }
 
@@ -115,7 +117,7 @@ func (I *Img) DrawImageFile(img_path string, resize_x float32, x, y float32) (er
 
 func (I *Img) OutImage(file_path string) (err error) {
 	if I.ImgOut == nil {
-		err = errors.New("Out ImgOut 不能为空")
+		err = errors.New("OutImage 不能为空")
 		return
 	}
 	if PathExists(file_path) {
@@ -209,7 +211,7 @@ func Create() {
 	if err != nil {
 		return
 	}
-	err = img.DrawImageFile("9637.jpg", 23, 70, 81.8)
+	err = img.DrawImageFile("9637.jpg", 23, 69.5, 81.8)
 	if err != nil {
 		return
 	}
@@ -230,7 +232,7 @@ func Create() {
 	if err != nil {
 		return
 	}
-	err = img.Out("out.jpg")
+	err = img.OutImage("out.jpg")
 	if err != nil {
 		return
 	}
