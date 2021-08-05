@@ -1,7 +1,6 @@
 package img
 
 import (
-	"bufio"
 	"bytes"
 	"errors"
 	"fmt"
@@ -13,7 +12,6 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
-	"strings"
 	"time"
 
 	"github.com/golang/freetype"
@@ -27,7 +25,6 @@ type Img struct {
 	ext     string
 	ImgOut  *image.NRGBA
 	ImgByte bytes.Buffer
-	LenByte int64
 }
 
 func NewImage(img_tpl_path string) (img *Img, err error) {
@@ -77,21 +74,6 @@ func (I *Img) DrawImage(img image.Image, resize_x float32, x, y float32) (err er
 	I.ImgOut = image.NewNRGBA(image.Rect(0, 0, resizeTpl.Bounds().Max.X, resizeTpl.Bounds().Max.Y))
 	draw.Draw(I.ImgOut, I.ImgOut.Bounds(), resizeTpl, resizeTpl.Bounds().Min, draw.Over)
 	draw.Draw(I.ImgOut, I.ImgOut.Bounds(), resizeImg, image.Point{X: (-1) * int(x*10) * resizeTpl.Bounds().Max.X / 1000, Y: (-1) * int(y*10) * resizeTpl.Bounds().Max.Y / 1000}, draw.Over)
-	fmt.Println(strings.Repeat("=", 10))
-	return
-}
-func (I *Img) PackImage() (err error) {
-	w := bufio.NewWriter(&I.ImgByte)
-	switch I.ext {
-	case ".jpg":
-		err = jpeg.Encode(w, I.ImgOut, &jpeg.Options{Quality: 90})
-	case ".png":
-		err = png.Encode(w, I.ImgOut)
-	default:
-		fmt.Println(I.ext)
-		return
-	}
-	I.LenByte = int64(len(I.ImgByte.Bytes()))
 	return
 }
 
@@ -108,6 +90,19 @@ func (I *Img) DrawImageFile(img_path string, resize_x float32, x, y float32) (er
 		return
 	}
 	err = I.DrawImage(img, resize_x, x, y)
+	return
+}
+
+func (I *Img) PackImage() (err error) {
+	// w := bufio.NewWriter(&I.ImgByte.)
+	switch I.ext {
+	case ".jpg":
+		err = jpeg.Encode(&I.ImgByte, I.ImgOut, &jpeg.Options{Quality: 90})
+	case ".png":
+		err = png.Encode(&I.ImgByte, I.ImgOut)
+	default:
+		err = errors.New("未知类型")
+	}
 	return
 }
 
