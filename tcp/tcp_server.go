@@ -2,31 +2,24 @@ package tcp
 
 import (
 	"bufio"
-	"fmt"
+	"crypto/tls"
+	"errors"
 	"log"
 	"net"
-
-	"github.com/pkg/errors"
 )
 
 // Client holds info about connection
 type Client struct {
-	Id     int
-	Conn   net.Conn
+	conn   net.Conn
+	relay  net.Conn
 	Server *server
-	// incoming chan string // Channel for incoming data from client
 }
 
 // TCP server
 type server struct {
-	// clients                  []*Client
-	address string        // Address to open connection: localhost:9999
-	replay  string        // Address to open connection: localhost:9999
-	joins   chan net.Conn // Channel for new connections
-
-	// dd       net.Conn
-	incoming chan string // Channel for incoming data from client
-
+	address                  string // Address to open connection: localhost:9999
+	relay                    string
+	config                   *tls.Config
 	onNewClientCallback      func(c *Client)
 	onClientConnectionClosed func(c *Client, err error)
 	onNewMessage             func(c *Client, message string)
@@ -34,29 +27,61 @@ type server struct {
 
 // Read client data from channel
 func (c *Client) listen() {
-	reader := bufio.NewReader(c.Conn)
+	c.Server.onNewClientCallback(c)
+	reader := bufio.NewReader(c.conn)
 	for {
 		message, err := reader.ReadString('\n')
 		if err != nil {
-			c.Conn.Close()
+			c.conn.Close()
 			c.Server.onClientConnectionClosed(c, err)
 			return
 		}
 		c.Server.onNewMessage(c, message)
-		go func() {
-			c.Server.incoming <- message
-		}()
 	}
-}
-
-func (c *Client) Send(message string) error {
-	_, err := c.Conn.Write([]byte(message + "\n"))
-	return err
 }
 
 // Get Conn
 func (c *Client) GetConn() net.Conn {
-	return c.Conn
+	return c.conn
+}
+
+// Send text message to client
+func (c *Client) Send(message string) error {
+	return c.SendBytes([]byte(message))
+}
+func (c *Client) RelaySend(message string) error {
+	if c.relay == nil {
+		return errors.New("relay is nil")
+	}
+	return c.RelaySendBytes([]byte(message))
+}
+
+// Send bytes to client
+func (c *Client) RelaySendBytes(b []byte) error {
+	_, err := c.relay.Write(b)
+	if err != nil {
+		c.relay.Close()
+		c.Server.onClientConnectionClosed(c, err)
+	}
+	return err
+}
+
+// Send bytes to client
+func (c *Client) SendBytes(b []byte) error {
+	_, err := c.conn.Write(b)
+	if err != nil {
+		c.conn.Close()
+		c.Server.onClientConnectionClosed(c, err)
+	}
+	return err
+}
+
+func (c *Client) Conn() net.Conn {
+	return c.conn
+}
+
+func (c *Client) Close() error {
+	return c.conn.Close()
 }
 
 // Called right after server starts listening new client
@@ -74,69 +99,30 @@ func (s *server) OnNewMessage(callback func(c *Client, message string)) {
 	s.onNewMessage = callback
 }
 
-// Creates new Client instance and starts listening
-func (s *server) newClient(Conn net.Conn) {
-	client := &Client{
-		Conn:   Conn,
-		Server: s,
-	}
-	go client.listen()
-	s.onNewClientCallback(client)
-}
-
-// Listens new connections channel and creating new client
-func (s *server) listenChannels() {
-	for {
-		Conn := <-s.joins
-		s.newClient(Conn)
-	}
-}
-
 // Creates new tcp server instance
-func New(address string, replay string) *server {
-	log.Println("Creating TCP :", address)
+func New(address, relay string) *server {
+	log.Println("Creating server with address", address)
 	server := &server{
-		address:  address,
-		replay:   replay,
-		joins:    make(chan net.Conn),
-		incoming: make(chan string),
+		address: address,
+		relay:   relay,
 	}
-	// if replay != "" {
-	// 	var err error
-	// 	server.dd, err = net.Dial("tcp", replay)
-	// 	if err == nil {
-	// 		defer server.dd.Close()
-	// 	} else {
-	// 		fmt.Printf("DD_FAIL_IGNORE：%s\r\n", err.Error())
-	// 	}
-	// }
+
 	server.OnNewClient(func(c *Client) {})
 	server.OnNewMessage(func(c *Client, message string) {})
 	server.OnClientConnectionClosed(func(c *Client, err error) {})
-	go server.onSendDD()
+
 	return server
 }
-func (s *server) sendDb(message string) (err error) {
-	conn, err := net.Dial("tcp", s.replay)
+
+func NewWithTLS(address, relay, certFile, keyFile string) *server {
+	cert, err := tls.LoadX509KeyPair(certFile, keyFile)
 	if err != nil {
-		return errors.Wrap(err, "DD_LINK_FAILED")
+		log.Fatal("Error loading certificate files. Unable to create TCP server with TLS functionality.\r\n", err)
 	}
-	defer conn.Close()
-	_, err = conn.Write([]byte(message))
-	if err != nil {
-		return errors.Wrap(err, "DD_FAILED")
+	config := &tls.Config{
+		Certificates: []tls.Certificate{cert},
 	}
-	return
-}
-func (s *server) onSendDD() (err error) {
-	if s.replay == "" {
-		return
-	}
-	for {
-		msg := <-s.incoming
-		err = s.sendDb(msg)
-		if err != nil {
-			fmt.Println(err.Error())
-		}
-	}
+	server := New(address, relay)
+	server.config = config
+	return server
 }
