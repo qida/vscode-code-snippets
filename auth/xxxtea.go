@@ -1,8 +1,8 @@
 package auth
 
 import (
-  "encoding/base64"
-  "strings"
+	"encoding/base64"
+	"strings"
 
 	"github.com/xxtea/xxtea-go/xxtea"
 )
@@ -17,7 +17,7 @@ func EncryptStr(src []byte) (dst string) {
 	return
 }
 
-///解密
+//解密
 func DecryptStr(src string) (dst string) {
 	src = strings.TrimSpace(src)
 	d, _ := base64.URLEncoding.DecodeString(src)
@@ -25,6 +25,7 @@ func DecryptStr(src string) (dst string) {
 	return
 }
 
+//加密
 func Encrypt(debug bool, src []byte) (dst []byte) {
 	if debug {
 		dst = src
@@ -34,7 +35,7 @@ func Encrypt(debug bool, src []byte) (dst []byte) {
 	return
 }
 
-///解密
+//解密
 func Decrypt(debug bool, src []byte) (dst []byte) {
 	if debug {
 		dst = src
