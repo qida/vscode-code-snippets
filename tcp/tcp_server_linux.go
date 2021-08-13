@@ -42,14 +42,7 @@ func (s *server) Listen() {
 		log.Fatal("Error starting TCP server.\r\n", err)
 	}
 	defer listener.Close()
-	var relay net.Conn
-	if s.relay != "" {
-		relay, err = net.Dial("tcp", s.relay)
-		if err != nil {
-			log.Fatal("Error starting TCP relay.\r\n", err)
-		}
-		defer relay.Close()
-	}
+	go s.initRelay()
 	for {
 		// conn, _ := listener.Accept()
 		conn, _ := listener.Accept()
@@ -59,7 +52,6 @@ func (s *server) Listen() {
 		kaConn.SetKeepAliveInterval(5 * time.Second)
 		client := &Client{
 			conn:   kaConn,
-			relay:  relay,
 			Server: s,
 		}
 		go client.listen()

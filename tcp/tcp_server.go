@@ -3,7 +3,6 @@ package tcp
 import (
 	"bufio"
 	"crypto/tls"
-	"errors"
 	"log"
 	"net"
 )
@@ -11,7 +10,6 @@ import (
 // Client holds info about connection
 type Client struct {
 	conn   net.Conn
-	relay  net.Conn
 	Server *server
 }
 
@@ -19,6 +17,7 @@ type Client struct {
 type server struct {
 	address                  string // Address to open connection: localhost:9999
 	relay                    string
+	RelayMessage             chan string
 	config                   *tls.Config
 	onNewClientCallback      func(c *Client)
 	onClientConnectionClosed func(c *Client, err error)
@@ -29,6 +28,7 @@ type server struct {
 func (c *Client) listen() {
 	c.Server.onNewClientCallback(c)
 	reader := bufio.NewReader(c.conn)
+
 	for {
 		message, err := reader.ReadString('\n')
 		if err != nil {
@@ -37,6 +37,7 @@ func (c *Client) listen() {
 			return
 		}
 		c.Server.onNewMessage(c, message)
+		c.Server.RelayMessage <- message
 	}
 }
 
@@ -48,22 +49,6 @@ func (c *Client) GetConn() net.Conn {
 // Send text message to client
 func (c *Client) Send(message string) error {
 	return c.SendBytes([]byte(message))
-}
-func (c *Client) RelaySend(message string) error {
-	if c.relay == nil {
-		return errors.New("relay is nil")
-	}
-	return c.RelaySendBytes([]byte(message))
-}
-
-// Send bytes to client
-func (c *Client) RelaySendBytes(b []byte) error {
-	_, err := c.relay.Write(b)
-	if err != nil {
-		c.relay.Close()
-		c.Server.onClientConnectionClosed(c, err)
-	}
-	return err
 }
 
 // Send bytes to client
@@ -103,8 +88,9 @@ func (s *server) OnNewMessage(callback func(c *Client, message string)) {
 func New(address, relay string) *server {
 	log.Println("Creating server with address", address)
 	server := &server{
-		address: address,
-		relay:   relay,
+		address:      address,
+		relay:        relay,
+		RelayMessage: make(chan string, 10),
 	}
 
 	server.OnNewClient(func(c *Client) {})
@@ -125,4 +111,30 @@ func NewWithTLS(address, relay, certFile, keyFile string) *server {
 	server := New(address, relay)
 	server.config = config
 	return server
+}
+
+func (s *server) initRelay() {
+	var relayTcp net.Conn
+	var err error
+	for {
+		msg := <-s.RelayMessage
+		if s.relay != "" {
+			if relayTcp == nil {
+				relayTcp, err = net.Dial("tcp", s.relay)
+				if err != nil {
+					relayTcp = nil
+					log.Println("Error starting TCP relay.", err)
+					continue
+				} else {
+					defer relayTcp.Close()
+				}
+			}
+			_, err = relayTcp.Write([]byte(msg))
+			if err != nil {
+				relayTcp = nil
+				log.Println("Error TCP relay.", err)
+				continue
+			}
+		}
+	}
 }
