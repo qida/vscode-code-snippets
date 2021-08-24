@@ -170,20 +170,7 @@ func IfZero(arg interface{}) bool {
 	return false
 }
 
-// //相减
-// func FindSubString(old, now []string) (diff []string) {
-// 	for i := 0; i < len(old); i++ {
-// 		for j := 0; j < len(now); j++ {
-// 			if old[i] == now[j] {
-// 				break
-// 			}
-// 		}
-// 		diff = append(diff, old[i])
-// 	}
-// 	return
-// }
 
-//相减
 func FindSubString(old []string, now string) (diff []string) {
 	for i := 0; i < len(old); i++ {
 		if strings.Contains(now, old[i]) {
@@ -193,4 +180,13 @@ func FindSubString(old []string, now string) (diff []string) {
 		}
 	}
 	return
+}
+
+func FindSubInt(old []int, now int) bool {
+	for i := 0; i < len(old); i++ {
+		if now == old[i] {
+			return true
+		}
+	}
+	return false
 }
