@@ -10,8 +10,10 @@ const (
 	timeFormart = `"2006-01-02 15:04:05"`
 )
 
+var ShangHaiZone, _ = time.LoadLocation("Asia/Shanghai")
+
 func (t *Time) UnmarshalJSON(data []byte) (err error) {
-	now, err := time.ParseInLocation(timeFormart, string(data), time.Local)
+	now, err := time.ParseInLocation(timeFormart, string(data), ShangHaiZone)
 	*t = Time(now)
 	return
 }
@@ -39,12 +41,12 @@ func GetLastDateOfMonth(d time.Time) time.Time {
 
 //获取传入的时间所在年第一天
 func GetFirstDateOfYear(d time.Time) time.Time {
-	return time.Date(d.Year(), 1, 1, 0, 0, 0, 0, d.Location())
+	return time.Date(d.Year(), 1, 1, 0, 0, 0, 0, ShangHaiZone)
 }
 
 //获取某一天的0点时间
 func GetZeroTimeOfDay(d time.Time) time.Time {
-	return time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, d.Location())
+	return time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, ShangHaiZone)
 }
 
 func GetFirstDateOfWeek(d time.Time, start_sunday bool) time.Time {
