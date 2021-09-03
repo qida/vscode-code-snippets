@@ -15,19 +15,23 @@ import (
 )
 
 type QiNiu struct {
-	Bucket    string
-	Url       string
-	Mac       *qbox.Mac
-	Config    *storage.Config
-	PutPolicy *storage.PutPolicy
+	Bucket     string
+	Url        string
+	Mac        *qbox.Mac
+	CdnManager *cdn.CdnManager
+	Config     *storage.Config
+	PutPolicy  *storage.PutPolicy
 }
 
 func NewQiNiu(bucket string, url string, accessKey, secretKey string) *QiNiu {
 	zone, _ := storage.GetZone(accessKey, bucket)
+	mac := qbox.NewMac(accessKey, secretKey)
+	cdnManager := cdn.NewCdnManager(mac)
 	return &QiNiu{
-		Bucket: bucket,
-		Url:    url,
-		Mac:    qbox.NewMac(accessKey, secretKey),
+		Bucket:     bucket,
+		Url:        url,
+		Mac:        mac,
+		CdnManager: cdnManager,
 		Config: &storage.Config{
 			Zone:          zone,
 			UseHTTPS:      false,
@@ -57,10 +61,18 @@ func (c *QiNiu) Upload(localFile io.Reader, size int64, file_name string) (url_f
 	}
 	url_file = ret.Key
 	fmt.Printf("=====上传======\r\nKey:%s Hash:%s\r\n==============\r\n", ret.Key, ret.Hash)
-	urlsToRefresh := []string{c.Url + url_file}
-	cdnManager := cdn.NewCdnManager(c.Mac)
-	fmt.Printf("=====刷新文件======\r\n%s\r\n==============\r\n", urlsToRefresh)
-	_, err = cdnManager.RefreshUrls(urlsToRefresh)
+	err = c.Refresh(c.Url + url_file)
+	return
+}
+
+func (c *QiNiu) Refresh(url ...string) (err error) {
+	for i := 0; i < len(url); i++ {
+		if !strings.Contains(url[i], "http:") {
+			url[i] = "http:" + url[i]
+		}
+	}
+	fmt.Printf("=====刷新文件======\r\n%s\r\n==============\r\n", url)
+	_, err = c.CdnManager.RefreshUrls(url)
 	return
 }
 
@@ -82,10 +94,7 @@ func (c *QiNiu) UploadFile(file_name string, file_data []byte) (url_file string,
 	}
 	url_file = ret.Key
 	fmt.Printf("=====上传======\r\nKey:%s Hash:%s\r\n==============\r\n", ret.Key, ret.Hash)
-	urlsToRefresh := []string{c.Url + url_file}
-	cdnManager := cdn.NewCdnManager(c.Mac)
-	fmt.Printf("=====刷新文件======\r\n%s\r\n==============\r\n", urlsToRefresh)
-	_, err = cdnManager.RefreshUrls(urlsToRefresh)
+	err = c.Refresh(c.Url + url_file)
 	return
 }
 
