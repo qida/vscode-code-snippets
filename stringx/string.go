@@ -366,6 +366,26 @@ func GetKeysString(key_str string) (number int, py string, han string) {
 	return
 }
 
+// func main() {
+// 	str := "1撒zxz是谁我我说-22_-laoYu#$@sd兰考县"
+// 	r := []rune(str)
+// 	//fmt.Println("rune=", r)
+// 	strSlice := []string{}
+// 	cnstr := ""
+// 	for i := 0; i < len(r); i++ {
+// 		if r[i] <= 40869 && r[i] >= 19968 {
+// 			cnstr = cnstr + string(r[i])
+// 			strSlice = append(strSlice, string(r[i]))
+// 		}
+// 		//fmt.Println("r[", i, "]=", r[i], "string=", string(r[i]))
+// 	}
+// 	if 0 == len(strSlice) {
+// 		//无中文，需要跳过，后面再找规律
+// 	}
+// 	fmt.Println("原字符串:", str, "    提取出的中文字符串:", cnstr)
+// 	fmt.Println(strSlice)
+// }
+
 const (
 	Type未知 = 0
 	Type数字 = 1

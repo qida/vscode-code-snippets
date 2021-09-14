@@ -24,6 +24,7 @@ const (
 	Rb服务
 	Rb正贤
 	Rb积分
+	Rb宣易
 )
 
 var MapRobot map[int8]*Robot
@@ -41,6 +42,8 @@ func init() {
 	MapRobot[Rb服务] = New("2ac60f0670075770953396dd0bbdbc9dc26ef1a733c803d25a1fb443b846861f", "SEC6d49fb17116c51ae524107eed839d86a542299a0176e79b168a529d66f32563e")
 	MapRobot[Rb正贤] = New("8fcb17718f3c525f5930ddea5fa175d10bc36368841f3bdb8603524c92b8396a", "SEC1b0d251c2d12bf3f980623aab21aa3080aaf28fab5ffbd70eb4e8a4a4b42bddf")
 	MapRobot[Rb积分] = New("439bec8b44c6ddd99b0522d29b6618fa129aa202127a1d004accccbf0f24a843", "SEC7d000ed14858f32ab9d3f5343d0f2527c796c0dfe304ccb068c7da488d936e14")
+	MapRobot[Rb宣易] = New("8971dd7628ff268f8424d6bb147e702ba39b870fcd8258c3706cb11fb6fbcb94", "SEC2762bae6389c7095f5487ab2cc03bba98f5e679a4ebfe27eaaa215d0eabd0eaa")
+
 }
 
 func Send2Ding(index int8, content string) (err error) {
