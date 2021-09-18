@@ -1,6 +1,7 @@
 package stringx
 
 import (
+	"fmt"
 	"math"
 	"regexp"
 	"strconv"
@@ -428,4 +429,8 @@ func GetKeyWordType(key_word string) (type_word int8) {
 		return
 	}
 	return
+}
+
+func RemoveRepeatJoin(src string, dst string) string {
+	return fmt.Sprintf("%s%s", strings.ReplaceAll(src, dst, ""), dst)
 }
