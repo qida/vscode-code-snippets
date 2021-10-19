@@ -173,5 +173,6 @@ func (c *QiNiu) RefreshDir(dir string) (err error) {
 	// 单次请求链接不可以超过10个，如果超过，请分批发送请求
 	dirsToRefresh := []string{dir}
 	_, err = c.CdnManager.RefreshDirs(dirsToRefresh)
+	fmt.Printf("刷新目录：%v\r\n", dirsToRefresh)
 	return
 }
