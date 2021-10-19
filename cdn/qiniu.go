@@ -47,13 +47,15 @@ func NewQiNiu(bucket string, url string, accessKey, secretKey string) *QiNiu {
 	}
 }
 
-func (c *QiNiu) Upload(localFile io.Reader, size int64, file_name string) (url_file string, err error) {
+func (c *QiNiu) Upload(localFile io.Reader, size int64, file_name string, is_refresh bool) (url_file string, err error) {
 	var isRefresh = false
-	_, err1 := c.BucketManager.Stat(c.Bucket, file_name)
-	if err1 == nil { //存在
-		isRefresh = true
-	} else {
-		logs.Send2Dingf(logs.Rb调试, "%v", err1)
+	if is_refresh {
+		_, err1 := c.BucketManager.Stat(c.Bucket, file_name)
+		if err1 == nil { //存在
+			isRefresh = true
+		} else {
+			logs.Send2Dingf(logs.Rb调试, "%v", err1)
+		}
 	}
 	putPolicy := storage.PutPolicy{
 		Scope: fmt.Sprintf("%s:%s", c.Bucket, file_name), //覆盖上传
@@ -163,5 +165,13 @@ func (c *QiNiu) GetTokenUpload(region string, key string) (m map[string]interfac
 	m["UpToken"] = c.PutPolicy.UploadToken(c.Mac)
 	// m["Domain"] = "point.cdn.zxjy.work"
 	m["Domain"] = strings.Replace(c.Url, "/", "", -1)
+	return
+}
+
+func (c *QiNiu) RefreshDir(dir string) (err error) {
+	// 刷新目录，刷新目录需要联系七牛技术支持开通权限
+	// 单次请求链接不可以超过10个，如果超过，请分批发送请求
+	dirsToRefresh := []string{dir}
+	_, err = c.CdnManager.RefreshDirs(dirsToRefresh)
 	return
 }
