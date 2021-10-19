@@ -15,28 +15,32 @@ import (
 )
 
 type QiNiu struct {
-	Bucket     string
-	Url        string
-	Mac        *qbox.Mac
-	CdnManager *cdn.CdnManager
-	Config     *storage.Config
-	PutPolicy  *storage.PutPolicy
+	Bucket        string
+	Url           string
+	Mac           *qbox.Mac
+	CdnManager    *cdn.CdnManager
+	Config        *storage.Config
+	PutPolicy     *storage.PutPolicy
+	BucketManager *storage.BucketManager
 }
 
 func NewQiNiu(bucket string, url string, accessKey, secretKey string) *QiNiu {
 	zone, _ := storage.GetZone(accessKey, bucket)
 	mac := qbox.NewMac(accessKey, secretKey)
 	cdnManager := cdn.NewCdnManager(mac)
+	cfg := &storage.Config{
+		Zone:          zone,
+		UseHTTPS:      false,
+		UseCdnDomains: true,
+	}
+	bucketManager := storage.NewBucketManager(mac, cfg)
 	return &QiNiu{
-		Bucket:     bucket,
-		Url:        url,
-		Mac:        mac,
-		CdnManager: cdnManager,
-		Config: &storage.Config{
-			Zone:          zone,
-			UseHTTPS:      false,
-			UseCdnDomains: true,
-		},
+		Bucket:        bucket,
+		Url:           url,
+		Mac:           mac,
+		CdnManager:    cdnManager,
+		BucketManager: bucketManager,
+		Config:        cfg,
 		PutPolicy: &storage.PutPolicy{
 			Scope: bucket,
 		},
@@ -44,6 +48,13 @@ func NewQiNiu(bucket string, url string, accessKey, secretKey string) *QiNiu {
 }
 
 func (c *QiNiu) Upload(localFile io.Reader, size int64, file_name string) (url_file string, err error) {
+	var isRefresh = false
+	_, err1 := c.BucketManager.Stat(c.Bucket, file_name)
+	if err1 == nil { //存在
+		isRefresh = true
+	} else {
+		logs.Send2Dingf(logs.Rb调试, "%v", err1)
+	}
 	putPolicy := storage.PutPolicy{
 		Scope: fmt.Sprintf("%s:%s", c.Bucket, file_name), //覆盖上传
 	}
@@ -61,7 +72,9 @@ func (c *QiNiu) Upload(localFile io.Reader, size int64, file_name string) (url_f
 	}
 	url_file = ret.Key
 	fmt.Printf("=====上传======\r\nKey:%s Hash:%s\r\n==============\r\n", ret.Key, ret.Hash)
-	err = c.Refresh(c.Url + url_file)
+	if isRefresh {
+		err = c.Refresh(c.Url + url_file)
+	}
 	return
 }
 
