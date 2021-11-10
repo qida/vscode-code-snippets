@@ -80,12 +80,12 @@ func NewQQwry(path_file string) (qqwry *QQwry) {
 
 // Find ip地址查询对应归属地信息
 func (q *QQwry) Find(ip string) string {
-	if strings.Count(ip, "") != 3 {
-		return ""
+	if strings.Count(ip, ".") != 3 {
+		return "IP有误"
 	}
 	switch ip {
 	case "127.0.0.1", "localhost":
-		return ""
+		return "内网地址"
 	default:
 		log.Printf("IP:%s\r\n", ip)
 	}
