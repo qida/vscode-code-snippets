@@ -2,7 +2,7 @@
  * @Author: sunqida
  * @Date: 2019-06-14 13:12:45
  * @LastEditors: qida
- * @LastEditTime: 2021-12-15 17:14:05
+ * @LastEditTime: 2021-12-16 18:23:17
  * @Description:
  */
 package logs
@@ -21,6 +21,7 @@ const (
 	Rb日常
 	Rb工作
 	Rb打卡
+	Rb伙伴
 	Rb服务
 	Rb正贤
 	Rb积分
