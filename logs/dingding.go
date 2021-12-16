@@ -1,8 +1,8 @@
 /*
  * @Author: sunqida
  * @Date: 2019-06-14 13:12:45
- * @LastEditors: sunqida
- * @LastEditTime: 2019-06-14 13:12:45
+ * @LastEditors: qida
+ * @LastEditTime: 2021-12-15 17:14:05
  * @Description:
  */
 package logs
@@ -39,7 +39,8 @@ func init() {
 	MapRobot[Rb日常] = New("8aa4f1eb02c677ca56619b7f1ef1901783a0086af27475dec1cc32bfc8984f9b", "SECa7e0c151d4fcc068876ea6beacf088f390625e9c78156255554b77d91dfc9604")
 	MapRobot[Rb工作] = New("192e63da2025b1ab579febc20200a8372318fb7b10e0e70fb0972bd57df1c777", "SEC2f9e8dfffa1a8bb6f49fcf63dde06ba4ba9d2f9eee53ea08e9b6f47fead0621b")
 	MapRobot[Rb打卡] = New("fc9b672e899bbe5ec5a26a22a817b58592d0591e4633abec25fa1488487ace94", "SECf75affd09c87af253e7dec33f8216b6950a15914be01430dd0bc7f3d3726a800")
-	MapRobot[Rb服务] = New("2ac60f0670075770953396dd0bbdbc9dc26ef1a733c803d25a1fb443b846861f", "SEC6d49fb17116c51ae524107eed839d86a542299a0176e79b168a529d66f32563e")
+	MapRobot[Rb伙伴] = New("2ac60f0670075770953396dd0bbdbc9dc26ef1a733c803d25a1fb443b846861f", "SEC6d49fb17116c51ae524107eed839d86a542299a0176e79b168a529d66f32563e")
+	MapRobot[Rb服务] = New("03cbd0bcab963e35bfb16e36af4716ef0c0a17086c308edeac2b516f5dd4047c", "SECe0cccf26ee5f5aaa92400583ec3cd9acc0af34484a95af456c2062fbefb553f2")
 	MapRobot[Rb正贤] = New("8fcb17718f3c525f5930ddea5fa175d10bc36368841f3bdb8603524c92b8396a", "SEC1b0d251c2d12bf3f980623aab21aa3080aaf28fab5ffbd70eb4e8a4a4b42bddf")
 	MapRobot[Rb积分] = New("439bec8b44c6ddd99b0522d29b6618fa129aa202127a1d004accccbf0f24a843", "SEC7d000ed14858f32ab9d3f5343d0f2527c796c0dfe304ccb068c7da488d936e14")
 	MapRobot[Rb宣易] = New("8971dd7628ff268f8424d6bb147e702ba39b870fcd8258c3706cb11fb6fbcb94", "SEC2762bae6389c7095f5487ab2cc03bba98f5e679a4ebfe27eaaa215d0eabd0eaa")
