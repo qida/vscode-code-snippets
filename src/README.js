@@ -9,7 +9,7 @@
 const fs = require('fs');
 const path = require('path');
 const process = require('process');
-const snippetsFilePath = path.resolve(__dirname, './../go.json');
+const snippetsFilePath = path.resolve(__dirname, '../snippets/snippets.code-snippets');
 const mdFilePath = path.resolve(__dirname, '../README.md');
 process.on('uncaughtException', function (err) {
     console.log('Caught Exception:' + err);
@@ -29,6 +29,7 @@ function update() {
     entries.map(v => {
         mdContent += getTrContent(v[1].prefix, v[1].description);
     });
+    mdContent += getFooterContent();
     let writeStream = fs.createWriteStream(mdFilePath, {
         flags: 'w+',
         encoding: "utf8"
@@ -63,7 +64,7 @@ function getContent(filePath) {
  * 获取头部
  */
 function getHeader() {
-    return "## Usage\r\n";
+    return "# \r\n\## Usage\r\n";
 }
 
 /**
@@ -87,6 +88,14 @@ function getTableContent() {
  */
 function getTrContent(prefix, description) {
     return `|${prefix}|${description}|\r\n`;
+}
+
+
+/**
+ * 获取footer内容
+ */
+ function getFooterContent() {
+    return "## Thanks \r\n\ <https://github.com/masterZSH/vscode-go-snippets>";
 }
 
 update();

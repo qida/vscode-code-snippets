@@ -665,5 +665,15 @@
         "}"
       ],
       "description": "开发时止行"
+    },
+    "_err": {
+      "scope": "go",
+      "prefix": "ife",
+      "body": [
+        "if _err != nil {",
+
+        "}"
+      ],
+      "description": "_err 判断"
     }
   }
