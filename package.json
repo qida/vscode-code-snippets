@@ -26,8 +26,29 @@
     "snippets": [
       {
         "language": "go",
-        "path": "./snippets/snippets.code-snippets"
+        "path": "./snippets/golang.code-snippets"
+      },
+      {
+        "language": "go",
+        "path": "./snippets/beego.code-snippets"
+      },
+      {
+        "language": "go",
+        "path": "./snippets/thrift_go.code-snippets"
+      },
+      {
+        "language": "json",
+        "path": "./snippets/json.code-snippets"
+      },
+      {
+        "language": "code-snippets",
+        "path": "./snippets/json.code-snippets"
+      },
+      {
+        "language": "html",
+        "path": "./snippets/html.code-snippets"
       }
     ]
   }
 }
+ 

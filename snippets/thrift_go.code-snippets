@@ -1,0 +1,74 @@
+{
+  "thrift Server": {
+    "scope": "go",
+    "prefix": "t.server",
+    "body": [
+      "handler := &FormatDataImpl{}",
+      "processor := example.NewFormatDataProcessor(handler)",
+      "serverTransport, err := thrift.NewTServerSocket(HOST + \":\" + PORT)",
+      "if err != nil {",
+      "  log.Fatalln(\"Error:\", err)",
+      "}",
+      "transportFactory := thrift.NewTFramedTransportFactoryConf(thrift.NewTTransportFactory(), nil)",
+      "protocolFactory := thrift.NewTBinaryProtocolFactoryConf(nil)",
+      "server := thrift.NewTSimpleServer4(processor, serverTransport, transportFactory, protocolFactory)",
+      "fmt.Println(\"Running at:\", HOST+\":\"+PORT)",
+      "server.Serve()"
+    ],
+    "description": "thrift server"
+  },
+  "thrift Client": {
+    "scope": "go",
+    "prefix": "t.client",
+    "body": [
+      "tSocket := thrift.NewTSocketConf(",
+      "net.JoinHostPort(HOST, PORT),",
+      "&thrift.TConfiguration{",
+      "  ConnectTimeout: time.Second, // Use 0 for no timeout",
+      "  SocketTimeout:  time.Second, // Use 0 for no timeout",
+      "},",
+      ")",
+      "transportFactory := thrift.NewTFramedTransportFactoryConf(thrift.NewTTransportFactory(), nil)",
+      "transport, err := transportFactory.GetTransport(tSocket)",
+      "fmt.Println(\"err\", err)",
+      "protocolFactory := thrift.NewTBinaryProtocolFactoryConf(nil)",
+      "",
+      "client := example.NewFormatDataClientFactory(transport, protocolFactory)",
+      "",
+      "if err := transport.Open(); err != nil {",
+      "  log.Fatalln(\"Error opening:\", HOST+\":\"+PORT)",
+      "}",
+      "defer transport.Close()",
+      "",
+      "data := example.Data{Text: \"hello,world!\"}",
+      "d, err := client.DoFormat(context.Background(), &data)",
+      "fmt.Println(d.Text)"
+    ],
+    "description": "thrift client"
+  },
+  "_err": {
+    "scope": "go",
+    "prefix": "ife",
+    "body": [
+      "if _err != nil {",
+      "}"
+    ],
+    "description": "_err 判断"
+  },
+  "测试用例": {
+    "scope": "go",
+    "prefix": "test",
+    "body": [
+      "{",
+      "  name: \"测试_$1\",",
+			"  tr:   new(ThriftServer)",
+      "  args: args{",
+      "    ctx: context.Background(),",
+      "    req: $2,",
+      "    wantErr: false,",
+      "  },",
+      "},"
+    ],
+    "description": "测试用例"
+  }
+}

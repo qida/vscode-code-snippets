@@ -9,36 +9,31 @@
 const fs = require('fs');
 const path = require('path');
 const process = require('process');
-const snippetsFilePath = path.resolve(__dirname, '../snippets/snippets.code-snippets');
+const snippetsDirectoryPath = path.resolve(__dirname, '../snippets/');
 const mdFilePath = path.resolve(__dirname, '../README.md');
 process.on('uncaughtException', function (err) {
     console.log('Caught Exception:' + err);
 });
 
-/**
- * 更新主方法
- */
-function update() {
-    let content = getContent(snippetsFilePath);
-    let obj = JSON.parse(content);
-    let entries = Object.entries(obj);
-    let mdContent = "";
-    mdContent += getHeader();
-    mdContent += getTableHeader();
-    mdContent += getTableContent();
-    entries.map(v => {
-        mdContent += getTrContent(v[1].prefix, v[1].description);
-    });
-    mdContent += getFooterContent();
-    let writeStream = fs.createWriteStream(mdFilePath, {
-        flags: 'w+',
-        encoding: "utf8"
-    });
-    writeStream.write(mdContent, 'utf8');
-    writeStream.on('error', function (err) {
-        console.log(err);
-    });
-    writeStream.end();
+//获取目录下文件
+
+function getPathFiles(parentPath, out) {
+    try {
+        let files = fs.readdirSync(parentPath);
+        files.forEach(function (item) {
+            let tempPath = path.join(parentPath, item);
+            let stats = fs.statSync(tempPath);
+            if (stats.isDirectory()) {
+                getPathFiles(tempPath, out);
+            } else {
+                out.push(tempPath);
+            }
+        });
+        return out;
+    } catch (e) {
+        console.warn("Path Error:" + parentPath);
+        return out;
+    }
 }
 
 /**
@@ -58,20 +53,47 @@ function getContent(filePath) {
     return content;
 }
 
+function UpdateREADME() {
+    //获取文件
+    let snippetsFiles = [];
+    console.log(getPathFiles(snippetsDirectoryPath, snippetsFiles));
+    let writeStream = fs.createWriteStream(mdFilePath, {
+        flags: 'w+',
+        encoding: "utf8"
+    });
+    writeStream.on('error', function (err) {
+        console.log(err);
+    });
+    let mdContent = "";
+    snippetsFiles.forEach(function (item) {
+        let content = getContent(item);
+        let obj = JSON.parse(content);
+        let entries = Object.entries(obj);
+        mdContent += getHeader(path.basename(item));
+        mdContent += getTableHeader();
+        mdContent += getTableContent();
+        entries.map(v => {
+            mdContent += getTrContent(v[1].prefix, v[1].description);
+        });
+    })
+    mdContent += getFooterContent();
+    writeStream.write(mdContent, 'utf8');
+    writeStream.end();
+}
 
 
 /**
  * 获取头部
  */
-function getHeader() {
-    return "# \r\n\## Usage\r\n";
+function getHeader(obj) {
+    return "## 用法 Usage <" + obj + ">\r\n";
 }
 
 /**
  * 获取table头部
  */
 function getTableHeader() {
-    return '|prefix|description|\r\n';
+    return '|前缀 prefix|说明 description|\r\n';
 }
 
 /**
@@ -94,8 +116,8 @@ function getTrContent(prefix, description) {
 /**
  * 获取footer内容
  */
- function getFooterContent() {
+function getFooterContent() {
     return "## Thanks \r\n\ <https://github.com/masterZSH/vscode-go-snippets>";
 }
 
-update();
+UpdateREADME();
