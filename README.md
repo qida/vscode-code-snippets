@@ -52,4 +52,5 @@
 |ife|_err 判断|
 |test|测试用例|
 ## Thanks 
- <https://github.com/masterZSH/vscode-go-snippets>
+<https://blog.csdn.net/weixin_36719607/article/details/103345353>
+<https://github.com/masterZSH/vscode-go-snippets>

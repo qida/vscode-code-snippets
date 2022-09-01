@@ -8,15 +8,22 @@
 
 const fs = require('fs');
 const path = require('path');
-const process = require('process');
 const snippetsDirectoryPath = path.resolve(__dirname, '../snippets/');
 const mdFilePath = path.resolve(__dirname, '../README.md');
+
+const process = require('process');
 process.on('uncaughtException', function (err) {
     console.log('Caught Exception:' + err);
 });
 
-//获取目录下文件
 
+const thanks = [
+    "<https://blog.csdn.net/weixin_36719607/article/details/103345353>",
+    "<https://github.com/masterZSH/vscode-go-snippets>"
+];
+
+
+//获取目录下文件
 function getPathFiles(parentPath, out) {
     try {
         let files = fs.readdirSync(parentPath);
@@ -117,7 +124,11 @@ function getTrContent(prefix, description) {
  * 获取footer内容
  */
 function getFooterContent() {
-    return "## Thanks \r\n\ <https://github.com/masterZSH/vscode-go-snippets>";
+    let content = "## Thanks \r\n"
+    thanks.forEach(function (item) {
+        content += item + "\r\n"
+    })
+    return content;
 }
 
 UpdateREADME();
