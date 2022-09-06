@@ -1,17 +1,17 @@
 {
   "name": "qida-go-snippets",
-  "displayName": "go-snippets",
-  "description": "golang snippets",
+  "displayName": "code-snippets",
+  "description": "vscode code snippets",
   "version": "0.0.1",
   "publisher": "qida",
-	"icon": "images/golang.jpg",
-	"repository": {
-		"url": "https://github.com/qida/vscode-go-snippets"
-	},
-	"author": {
-		"name": "qida",
-		"email": "qidasun@gmail.com"
-	},
+  "icon": "images/golang.jpg",
+  "repository": {
+    "url": "https://github.com/qida/vscode-go-snippets"
+  },
+  "author": {
+    "name": "qida",
+    "email": "qidasun@gmail.com"
+  },
   "engines": {
     "vscode": "^1.70.0"
   },
@@ -19,36 +19,34 @@
     "Snippets"
   ],
   "scripts": {
-		"build": "vsce package ",
-		"readme":"node ./src/README.js"
-	},
+    "build": "vsce package ",
+    "readme": "node ./src/README.js"
+  },
   "contributes": {
     "snippets": [
-      {
-        "language": "go",
-        "path": "./snippets/golang.code-snippets"
-      },
+
       {
         "language": "go",
         "path": "./snippets/beego.code-snippets"
       },
       {
+        "path": "./snippets/git.code-snippets"
+      },
+      {
         "language": "go",
-        "path": "./snippets/thrift_go.code-snippets"
-      },
-      {
-        "language": "json",
-        "path": "./snippets/json.code-snippets"
-      },
-      {
-        "language": "code-snippets",
-        "path": "./snippets/json.code-snippets"
+        "path": "./snippets/go.code-snippets"
       },
       {
         "language": "html",
         "path": "./snippets/html.code-snippets"
+      },
+      {
+        "path": "./snippets/snippets.code-snippets"
+      },
+      {
+        "language": "go",
+        "path": "./snippets/thrift_go.code-snippets"
       }
     ]
   }
 }
- 

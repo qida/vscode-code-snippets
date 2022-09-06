@@ -1,0 +1,9 @@
+{
+  "解决git登陆问题": {
+    "prefix": ["git"],
+    "body": [
+      "git config --global credential.helper store"
+    ],
+    "description": "解决git登陆问题"
+  }
+}

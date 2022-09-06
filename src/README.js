@@ -1,8 +1,8 @@
 /**
  * nodejs 脚本
- * 
+ *
  * 用于将go.json中的代码片段描述更新README.md文件
- * 
+ *
  * @summary 更新readme文件
  */
 
@@ -126,7 +126,7 @@ function getTrContent(prefix, description) {
 function getFooterContent() {
     let content = "## Thanks \r\n"
     thanks.forEach(function (item) {
-        content += item + "\r\n"
+        content += item + " \r\n"
     })
     return content;
 }

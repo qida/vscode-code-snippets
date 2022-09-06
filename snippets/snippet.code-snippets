@@ -1,11 +1,13 @@
 {
   "新的用户代码": {
-    "scope": "code-snippets",
-    "prefix": "json",
+    "prefix": [
+      "json",
+      "add"
+    ],
     "body": [
       "\"go-package\": {",
-      "  \"scope\": \"$1\"",
-      "  \"prefix\": \"$2\",",
+      "  \"scope\": \"${1|go,json,html|}\"",
+      "  \"prefix\": [\"${2:default}\"],",
       "  \"body\": [",
       "      $3",
       "  ],",
@@ -15,3 +17,4 @@
     "description": "新的用户代码"
   }
 }
+

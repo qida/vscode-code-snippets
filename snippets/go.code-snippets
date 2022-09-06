@@ -42,7 +42,7 @@
     "description": "main function"
   },
   "go-struct": {
-    "prefix": "st",
+    "prefix": "ts",
     "body": [
       "type ${1} struct {",
       "  ${2}",
@@ -50,14 +50,35 @@
     ],
     "description": "struct"
   },
-  "go-error": {
+  "go-error1": {
     "scope": "go,golang",
-    "prefix": "err",
+    "prefix": "iferr1",
     "body": [
       "if err != nil {",
       "  ${0}",
       "}"
     ],
     "description": "if err != nil block"
+  },
+  "go-error2": {
+    "prefix": [
+      "iferr2",
+      "_err"
+    ],
+    "body": [
+      "if err != nil {",
+      "  _err = err",
+      "  return",
+      "}"
+    ],
+    "description": "if err != nil return _err"
+  },
+  "分隔线": {
+    "scope": "go",
+    "prefix": "g.fg",
+    "body": [
+      "fmt.Printf(\"%s\r\n\", fmt.Sprintf(\"${1:=}\", ${2:30}))"
+    ],
+    "description": "分隔线"
   }
 }

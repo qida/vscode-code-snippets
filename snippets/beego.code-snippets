@@ -1,7 +1,7 @@
 {
   "Uid": {
     "scope": "go",
-    "prefix": "gocuid",
+    "prefix": "beecuid",
     "body": [
       "// @Param   uid      query    int   false   \"Token(测试使用，生产环境忽略)\""
     ],
@@ -31,7 +31,7 @@
   },
   "go新加更新对像": {
     "scope": "go",
-    "prefix": "gocnew",
+    "prefix": "beecnew",
     "body": [
       "// Get ...",
       "// @Title Get$2ByUidEx",
@@ -59,7 +59,7 @@
   },
   "没有数据": {
     "scope": "go",
-    "prefix": "gomerrno",
+    "prefix": "beemerrno",
     "body": [
       "if err == orm.ErrNoRows {",
       "  err = errors.New(\"没有数据\")",
@@ -69,7 +69,7 @@
   },
   "ORM联表查询": {
     "scope": "go",
-    "prefix": "gomlb",
+    "prefix": "beemlb",
     "body": [
       "offset := limit * (page - 1)",
       "if offset < 0 {",
@@ -113,7 +113,7 @@
   },
   "新加更新对象": {
     "scope": "go",
-    "prefix": "gomnew",
+    "prefix": "beemnew",
     "body": [
       "func New$1(token token.UserToken, byt_models []byte) ($2 int64, err error) {",
       "  var m models.$1",
@@ -180,7 +180,7 @@
   },
   "去重更新": {
     "scope": "go",
-    "prefix": "gosql",
+    "prefix": "beesql",
     "body": [
       "UPDATE $2 d,",
       "(",
@@ -200,7 +200,7 @@
   },
   "删除重复": {
     "scope": "go",
-    "prefix": "gosqldelete",
+    "prefix": "beesqldelete",
     "body": [
       "DELETE $1",
       "FROM",
@@ -246,7 +246,7 @@
   },
   "分页参数判断": {
     "scope": "go",
-    "prefix": "gomlimit",
+    "prefix": "beemlimit",
     "body": [
       "offset := limit * (page - 1)",
       "if offset < 0 {",
@@ -268,7 +268,7 @@
   },
   "分页查询": {
     "scope": "go",
-    "prefix": "goorm",
+    "prefix": "beeorm",
     "body": [
       "o := orm.NewOrm()",
       "count, err = o.QueryTable(new(models.$1)).Filter(\"$2\", $3).Count()",
@@ -284,7 +284,7 @@
   },
   "新建方法带分页排序": {
     "scope": "go",
-    "prefix": "gomfo",
+    "prefix": "beemfo",
     "body": [
       "func Get$1List(token token.UserToken, limit, page int, field string, order string) (count int64, $4 []models.$1, err error) {",
       "  offset := limit * (page - 1)",
@@ -319,7 +319,7 @@
   },
   "QD排序": {
     "scope": "go",
-    "prefix": "gomfoqb",
+    "prefix": "beemfoqb",
     "body": [
       "if field == \"\" {",
       "  field = \"$1\"",
@@ -336,7 +336,7 @@
   },
   "QS排序": {
     "scope": "go",
-    "prefix": "gomfoqs",
+    "prefix": "beemfoqs",
     "body": [
       "if field == \"\" {",
       "  field = \"$1\"",
@@ -350,17 +350,9 @@
     ],
     "description": "新建方法带分页排序"
   },
-  "分隔线": {
-    "scope": "go",
-    "prefix": "gofmtl",
-    "body": [
-      "fmt.Println(\"==========$1==========\")"
-    ],
-    "description": "分隔线"
-  },
   "年月时间转换": {
     "scope": "go",
-    "prefix": "gocym",
+    "prefix": "beecym",
     "body": [
       "var time_count time.Time",
       "if year_month != \"\" {",
@@ -377,7 +369,7 @@
   },
   "获取对象列表1": {
     "scope": "go",
-    "prefix": "goclist",
+    "prefix": "beeclist",
     "body": [
       "// Get$2List ...",
       "// @Title Get List",
@@ -409,7 +401,7 @@
   },
   "获取对象列表2": {
     "scope": "go",
-    "prefix": "gomlist",
+    "prefix": "beemlist",
     "body": [
       "func GetList$1(limit, page int, field, order string) (count int64, $2s []models.$1, err error) {",
       "  offset := limit * (page - 1)",
@@ -444,7 +436,7 @@
   },
   "基本查询": {
     "scope": "go",
-    "prefix": "gomquery",
+    "prefix": "beemquery",
     "body": [
       "o := orm.NewOrm()",
       "var $4 models.$1",
@@ -459,7 +451,7 @@
   },
   "起始日期1": {
     "scope": "go",
-    "prefix": "gocqsrq1",
+    "prefix": "beecqsrq1",
     "body": [
       "// @Param time_start    query  string false    \"起始时间\"",
       "// @Param time_end      query  string false    \"结束时间\""
@@ -468,7 +460,7 @@
   },
   "起始日期2": {
     "scope": "go",
-    "prefix": "gocqsrq2",
+    "prefix": "beecqsrq2",
     "body": [
       "time_start_str := c.GetString(\"time_start\", \"\")",
       "time_end_str := c.GetString(\"time_end\", \"\")",
@@ -496,7 +488,7 @@
   },
   "代码测试": {
     "scope": "go",
-    "prefix": "gomain",
+    "prefix": "beemain",
     "body": [
       "package main",
       "",
