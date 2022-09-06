@@ -5,5 +5,23 @@
       "git config --global credential.helper store"
     ],
     "description": "解决git登陆问题"
+  },
+  "解决git外网问题": {
+    "prefix": ["git"],
+    "body": [
+      "git config --global http.proxy http://127.0.0.1:1081",
+      "git config --global https.proxy http://127.0.0.1:1081"
+
+    ],
+    "description": "解决git外网问题"
+  },
+  "取消git代理设置": {
+    "prefix": ["git"],
+    "body": [
+      "git config --global --unset http.proxy",
+      "git config --global --unset https.proxy"
+
+    ],
+    "description": "取消git代理设置"
   }
 }
