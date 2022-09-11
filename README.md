@@ -62,6 +62,6 @@
 |t.server|thrift server|
 |t.client|thrift client|
 |t.test|测试用例|
-## Thanks
-<https://blog.csdn.net/weixin_36719607/article/details/103345353>
-<https://github.com/masterZSH/vscode-go-snippets>
+## Thanks   
+<https://blog.csdn.net/weixin_36719607/article/details/103345353>   
+<https://github.com/masterZSH/vscode-go-snippets>   
