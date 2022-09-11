@@ -25,10 +25,17 @@
 |beecqsrq1|起始日期1|
 |beecqsrq2|起始日期2|
 |beemain|程序测试main|
+## 用法 Usage <flutter.code-snippets>
+|前缀 prefix|说明 description|
+|---|---|
+|not install|解决显示AndroidStudio没有安装|
 ## 用法 Usage <git.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
 |git|解决git登陆问题|
+|git|解决git外网问题|
+|git|取消git代理设置|
+|git|升级git|
 ## 用法 Usage <go.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
@@ -55,6 +62,6 @@
 |t.server|thrift server|
 |t.client|thrift client|
 |t.test|测试用例|
-## Thanks 
-<https://blog.csdn.net/weixin_36719607/article/details/103345353> 
-<https://github.com/masterZSH/vscode-go-snippets> 
+## Thanks
+<https://blog.csdn.net/weixin_36719607/article/details/103345353>
+<https://github.com/masterZSH/vscode-go-snippets>

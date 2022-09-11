@@ -24,13 +24,15 @@
   },
   "contributes": {
     "snippets": [
-
       {
         "language": "go",
         "path": "./snippets/beego.code-snippets"
       },
       {
         "path": "./snippets/git.code-snippets"
+      },
+      {
+        "path": "./snippets/flutter.code-snippets"
       },
       {
         "language": "go",
