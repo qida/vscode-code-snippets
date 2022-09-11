@@ -47,7 +47,7 @@
 |ts|struct|
 |iferr1|if err != nil block|
 |iferr2,_err|if err != nil return _err|
-|g.fg|分隔线|
+|fgx|分隔线|
 ## 用法 Usage <html.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|

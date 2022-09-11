@@ -75,7 +75,7 @@
   },
   "分隔线": {
     "scope": "go",
-    "prefix": "g.fg",
+    "prefix": ["fgx"],
     "body": [
       "fmt.Printf(\"%s\r\n\", fmt.Sprintf(\"${1:=}\", ${2:30}))"
     ],
