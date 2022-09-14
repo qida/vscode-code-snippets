@@ -52,7 +52,7 @@
   },
   "go-error1": {
     "scope": "go,golang",
-    "prefix": "iferr1",
+    "prefix": "ife",
     "body": [
       "if err != nil {",
       "  ${0}",
@@ -62,8 +62,7 @@
   },
   "go-error2": {
     "prefix": [
-      "iferr2",
-      "_err"
+      "ife"
     ],
     "body": [
       "if err != nil {",
@@ -73,11 +72,25 @@
     ],
     "description": "if err != nil return _err"
   },
+  "_err": {
+    "prefix": ["_"],
+    "body": [
+      "_err"
+    ],
+    "description": "_err"
+  },
+  "_err error": {
+    "prefix": ["_err"],
+    "body": [
+      "_err error"
+    ],
+    "description": "err error"
+  },
   "分隔线": {
     "scope": "go",
-    "prefix": "g.fg",
+    "prefix": ["==="],
     "body": [
-      "fmt.Printf(\"%s\r\n\", fmt.Sprintf(\"${1:=}\", ${2:30}))"
+      "fmt.Printf(\"%s\\r\\n\", strings.Repeat(\"${1:=}\", ${2:30}))"
     ],
     "description": "分隔线"
   }

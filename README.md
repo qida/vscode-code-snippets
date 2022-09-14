@@ -29,6 +29,8 @@
 |前缀 prefix|说明 description|
 |---|---|
 |git|解决git登陆问题|
+|git|解决git外网问题|
+|git|取消git代理设置|
 ## 用法 Usage <go.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
@@ -38,9 +40,11 @@
 |f|function|
 |fm|main function|
 |ts|struct|
-|iferr1|if err != nil block|
-|iferr2,_err|if err != nil return _err|
-|g.fg|分隔线|
+|ife|if err != nil block|
+|ife|if err != nil return _err|
+|_|_err|
+|_err|err error|
+|===|分隔线|
 ## 用法 Usage <html.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
