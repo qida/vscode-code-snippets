@@ -23,5 +23,14 @@
 
     ],
     "description": "取消git代理设置"
+  },
+  "升级git": {
+    "prefix": ["git"],
+    "body": [
+      "git update-git-for-windows"
+    ],
+    "description": "升级git"
   }
+
+
 }

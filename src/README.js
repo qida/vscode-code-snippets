@@ -124,9 +124,9 @@ function getTrContent(prefix, description) {
  * 获取footer内容
  */
 function getFooterContent() {
-    let content = "## Thanks \r\n"
+    let content = "## Thanks   \r\n"
     thanks.forEach(function (item) {
-        content += item + " \r\n"
+        content += item + "   \r\n"
     })
     return content;
 }
