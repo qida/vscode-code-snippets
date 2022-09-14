@@ -45,15 +45,18 @@
 |f|function|
 |fm|main function|
 |ts|struct|
-|ife|if err != nil block|
-|ife|if err != nil return _err|
 |_|_err|
 |_err|err error|
 |===|分隔线|
+|%s|%s|
 ## 用法 Usage <html.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
 |cdn|CDN|
+## 用法 Usage <linux.code-snippets>
+|前缀 prefix|说明 description|
+|---|---|
+|kill|Kill指定端口进程,第二行为PID|
 ## 用法 Usage <snippet.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
@@ -63,7 +66,8 @@
 |---|---|
 |t.server|thrift server|
 |t.client|thrift client|
+|t.ife|if err != nil return _err|
 |t.test|测试用例|
-## Thanks
-<https://blog.csdn.net/weixin_36719607/article/details/103345353>
-<https://github.com/masterZSH/vscode-go-snippets>
+## Thanks   
+<https://blog.csdn.net/weixin_36719607/article/details/103345353>   
+<https://github.com/masterZSH/vscode-go-snippets>   

@@ -50,28 +50,6 @@
     ],
     "description": "struct"
   },
-  "go-error1": {
-    "scope": "go,golang",
-    "prefix": "ife",
-    "body": [
-      "if err != nil {",
-      "  ${0}",
-      "}"
-    ],
-    "description": "if err != nil block"
-  },
-  "go-error2": {
-    "prefix": [
-      "ife"
-    ],
-    "body": [
-      "if err != nil {",
-      "  _err = err",
-      "  return",
-      "}"
-    ],
-    "description": "if err != nil return _err"
-  },
   "_err": {
     "prefix": ["_"],
     "body": [
@@ -93,5 +71,13 @@
       "fmt.Printf(\"%s\\r\\n\", strings.Repeat(\"${1:=}\", ${2:30}))"
     ],
     "description": "分隔线"
+  },
+  "%s": {
+    "scope": "go",
+    "prefix": ["%s"],
+    "body": [
+      "%s\\r\\n"
+    ],
+    "description": "%s"
   }
 }

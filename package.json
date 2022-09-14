@@ -31,10 +31,10 @@
         "path": "./snippets/beego.code-snippets"
       },
       {
-        "path": "./snippets/git.code-snippets"
+        "path": "./snippets/flutter.code-snippets"
       },
       {
-        "path": "./snippets/flutter.code-snippets"
+        "path": "./snippets/git.code-snippets"
       },
       {
         "language": "go",
@@ -43,6 +43,9 @@
       {
         "language": "html",
         "path": "./snippets/html.code-snippets"
+      },
+      {
+        "path": "./snippets/linux.code-snippets"
       },
       {
         "path": "./snippets/snippets.code-snippets"

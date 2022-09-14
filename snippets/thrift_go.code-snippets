@@ -46,6 +46,16 @@
     ],
     "description": "thrift client"
   },
+  "t.ife": {
+    "prefix": ["t.ife"],
+    "body": [
+      "if err != nil {",
+      "  _err = err",
+      "  return",
+      "}"
+    ],
+    "description": "if err != nil return _err"
+  },
   "测试用例": {
     "scope": "go",
     "prefix": "t.test",

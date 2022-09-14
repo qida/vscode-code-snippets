@@ -1,0 +1,9 @@
+{
+  "Kill指定端口进程": {
+    "prefix": ["kill"],
+    "body": [
+      "kill -9 $(lsof -i:$1|awk 'NR==2 {print ${2|$2|}}')"
+    ],
+    "description": "Kill指定端口进程,第二行为PID"
+  }
+}
