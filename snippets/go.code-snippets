@@ -50,10 +50,28 @@
     ],
     "description": "struct"
   },
-  "_err": {
-    "prefix": ["_"],
+  "分隔线": {
+    "scope": "go",
+    "prefix": [
+      "===",
+      "fgx"
+    ],
     "body": [
-      "_err"
+      "fmt.Printf(\"%s\\r\\n\", strings.Repeat(\"${1:=}\", ${2:30}))"
+    ],
+    "description": "分隔线"
+  },
+  "_err return": {
+    "prefix": [
+      "iferr",
+      "iferrr"
+  ],
+    "body": [
+      "if err != nil {",
+      "  _err = err",
+      "  fmt.Printf(\"$1 错误 %s\", _err.Error())",
+      "  return",
+      "}"
     ],
     "description": "_err"
   },
@@ -62,15 +80,28 @@
     "body": [
       "_err error"
     ],
+    "description": "_err error"
+  },
+  "err error": {
+    "prefix": ["err"],
+    "body": [
+      "err error"
+    ],
     "description": "err error"
   },
-  "分隔线": {
+  "error printf": {
     "scope": "go",
-    "prefix": ["==="],
-    "body": [
-      "fmt.Printf(\"%s\\r\\n\", strings.Repeat(\"${1:=}\", ${2:30}))"
+    "prefix": [
+      "ife",
+      "iferrp"
     ],
-    "description": "分隔线"
+    "body": [
+      "if err != nil {",
+      "  fmt.Printf(\"$1 错误 %s\", err.Error())",
+      "  return",
+      "}"
+    ],
+    "description": "错误打印"
   },
   "%s": {
     "scope": "go",

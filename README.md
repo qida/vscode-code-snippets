@@ -45,9 +45,11 @@
 |f|function|
 |fm|main function|
 |ts|struct|
-|_|_err|
-|_err|err error|
-|===|分隔线|
+|===,fgx|分隔线|
+|iferr,iferrr|_err|
+|_err|_err error|
+|err|err error|
+|ife,iferrp|错误打印|
 |%s|%s|
 ## 用法 Usage <html.code-snippets>
 |前缀 prefix|说明 description|
