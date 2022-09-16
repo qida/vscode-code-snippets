@@ -51,6 +51,7 @@
 |err|err error|
 |ife,iferrp|错误打印|
 |%s|%s|
+|gofunc|go func()|
 |[]byte2string|[]byte to string|
 ## 用法 Usage <html.code-snippets>
 |前缀 prefix|说明 description|

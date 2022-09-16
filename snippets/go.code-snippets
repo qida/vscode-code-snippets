@@ -111,6 +111,14 @@
     ],
     "description": "%s"
   },
+  "go func()": {
+    "scope": "go",
+    "prefix": ["gofunc"],
+    "body": [
+      "go func() {$1}()"
+    ],
+    "description": "go func()"
+  },
   "[]byte to string": {
     "scope": "go",
     "prefix": ["[]byte2string"],
