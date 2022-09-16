@@ -115,7 +115,7 @@
     "scope": "go",
     "prefix": ["[]byte2string"],
     "body": [
-      "str := *(*string)(unsafe.Pointer(&s))"
+      "$2 := *(*string)(unsafe.Pointer(&$1))"
     ],
     "description": "[]byte to string"
   }
