@@ -110,5 +110,13 @@
       "%s\\r\\n"
     ],
     "description": "%s"
+  },
+  "[]byte to string": {
+    "scope": "go",
+    "prefix": ["[]byte2string"],
+    "body": [
+      "str := *(*string)(unsafe.Pointer(&s))"
+    ],
+    "description": "[]byte to string"
   }
 }
