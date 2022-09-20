@@ -45,10 +45,10 @@
         "path": "./snippets/html.code-snippets"
       },
       {
-        "path": "./snippets/linux.code-snippets"
+        "path": "./snippets/json.code-snippets"
       },
       {
-        "path": "./snippets/snippets.code-snippets"
+        "path": "./snippets/linux.code-snippets"
       },
       {
         "language": "go",

@@ -1,0 +1,65 @@
+{
+  "新的用户代码": {
+    "prefix": [
+      "json",
+      "add"
+    ],
+    "body": [
+      "\"go-package\": {",
+      "  \"scope\": \"${1|go,json,html|}\"",
+      "  \"prefix\": [\"${2:default}\"],",
+      "  \"body\": [",
+      "      $3",
+      "  ],",
+      "  \"description\": \"$4\"",
+      "}"
+    ],
+    "description": "新的用户代码"
+  },
+  "settings.json": {
+    "prefix": ["settings.json"],
+    "body": [
+      "{",
+      "  \"files.autoSave\": \"onFocusChange\",",
+      "  \"go.buildOnSave\": true,",
+      "  \"go.lintOnSave\": true,",
+      "  \"go.vetOnSave\": true,",
+      "  \"go.buildTags\": \"\",",
+      "  \"go.buildFlags\": [],",
+      "  \"go.lintFlags\": [],",
+      "  \"go.vetFlags\": [],",
+      "  \"go.coverOnSave\": false,",
+      "  \"go.useCodeSnippetsOnFunctionSuggest\": false,",
+      "  \"go.formatOnSave\": true,",
+      "  \"go.formatTool\": \"goreturns\",",
+      "  \"go.goroot\": \"D:\\App\\Golang\",",
+      "  \"go.gopath\": \"D:\\Go\",",
+      "  \"go.gocodeAutoBuild\": true",
+      "}"
+    ],
+    "description": "settings.json"
+  },
+  "launch.json": {
+    "prefix": ["launch.json"],
+    "body": [
+      "{",
+      "  \"version\": \"0.2.0\",",
+      "  \"configurations\": [",
+      "      {",
+      "          \"name\": \"Launch\",",
+      "          \"type\": \"go\",",
+      "          \"request\": \"launch\",",
+      "          \"mode\": \"auto\",",
+      "          \"remotePath\": \"\",",
+      "          \"port\": 2345,",
+      "          \"host\": \"127.0.0.1\",",
+      "          \"program\": \"${workspaceRoot}\\${fileDirname}\",",
+      "          \"env\": {},",
+      "          \"args\": []",
+      "      }",
+      "  ]",
+      "}"
+    ],
+    "description": "launch.json"
+  }
+}

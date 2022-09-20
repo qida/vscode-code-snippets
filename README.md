@@ -57,14 +57,16 @@
 |前缀 prefix|说明 description|
 |---|---|
 |cdn|CDN|
+## 用法 Usage <json.code-snippets>
+|前缀 prefix|说明 description|
+|---|---|
+|json,add|新的用户代码|
+|settings.json|settings.json|
+|launch.json|launch.json|
 ## 用法 Usage <linux.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
 |kill|Kill指定端口进程,第二行为PID|
-## 用法 Usage <snippet.code-snippets>
-|前缀 prefix|说明 description|
-|---|---|
-|json,add|新的用户代码|
 ## 用法 Usage <thrift_go.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
