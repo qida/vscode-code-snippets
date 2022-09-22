@@ -25,6 +25,12 @@
 |beecqsrq1|起始日期1|
 |beecqsrq2|起始日期2|
 |beemain|程序测试main|
+## 用法 Usage <comment.code-snippets>
+|前缀 prefix|说明 description|
+|---|---|
+|zsqida,开始结束|QIDA开始结束|
+|zsk,注释块|注释块|
+|zxsjk,数据库操作|数据库操作|
 ## 用法 Usage <flutter.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
