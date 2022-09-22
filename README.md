@@ -51,7 +51,7 @@
 |f|function|
 |fm|main function|
 |ts|struct|
-|===,fgx|分隔线|
+|fgx|分隔线|
 |iferr,iferrr|_err|
 |_err|_err error|
 |err|err error|
