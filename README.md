@@ -28,9 +28,9 @@
 ## 用法 Usage <comment.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
-|zsqida,开始结束|QIDA开始结束|
+|zsksjs,开始结束|开始结束|
 |zsk,注释块|注释块|
-|zxsjk,数据库操作|数据库操作|
+|zssjk,数据库操作|数据库操作|
 ## 用法 Usage <flutter.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|

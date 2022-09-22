@@ -1,7 +1,7 @@
 {
   "开始结束": {
     "prefix": [
-      "zxksjs",
+      "zsksjs",
       "开始结束"
     ],
     "body": [
@@ -24,7 +24,7 @@
   },
   "数据库操作": {
     "prefix": [
-      "zxsjk",
+      "zssjk",
       "数据库操作"
     ],
     "body": [
