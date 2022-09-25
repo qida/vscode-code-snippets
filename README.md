@@ -52,13 +52,14 @@
 |fm|main function|
 |ts|struct|
 |fgx|分隔线|
-|iferr,iferrr|_err|
+|if err,if err r|_err|
 |_err|_err error|
 |err|err error|
-|ife,iferrp|错误打印|
+|ife,if err p|错误打印|
 |%s|%s|
-|gofunc|go func()|
+|go func|go func()|
 |[]byte2string|[]byte to string|
+|[]byte2string|优雅退出|
 ## 用法 Usage <html.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
