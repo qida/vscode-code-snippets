@@ -31,6 +31,11 @@
 |zsksjs,开始结束|开始结束|
 |zsk,注释块|注释块|
 |zssjk,数据库操作|数据库操作|
+## 用法 Usage <docker.code-snippets>
+|前缀 prefix|说明 description|
+|---|---|
+|from alpine|使用Alpine镜像|
+|from golang|构建golang环境|
 ## 用法 Usage <flutter.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
@@ -41,6 +46,7 @@
 |git|解决git登陆问题|
 |git|解决git外网问题|
 |git|取消git代理设置|
+|git|git报错unsafe repository解决方案|
 |git|升级git|
 ## 用法 Usage <go.code-snippets>
 |前缀 prefix|说明 description|
@@ -77,7 +83,9 @@
 |前缀 prefix|说明 description|
 |---|---|
 |t.server|thrift server|
+|t.server|完整的Thrift服务|
 |t.client|thrift client|
+|t.client|完整Thrift客户端|
 |t.ife|if err != nil return _err|
 |t.test|测试用例|
 ## Thanks   

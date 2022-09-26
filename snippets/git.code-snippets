@@ -24,6 +24,13 @@
     ],
     "description": "取消git代理设置"
   },
+  "git报错unsafe repository解决方案": {
+    "prefix": ["git"],
+    "body": [
+      "git config --global --add safe.directory \"*\""
+    ],
+    "description": "git报错unsafe repository解决方案"
+  },
   "升级git": {
     "prefix": ["git"],
     "body": [

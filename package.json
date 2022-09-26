@@ -34,6 +34,9 @@
         "path": "./snippets/comment.code-snippets"
       },
       {
+        "path": "./snippets/docker.code-snippets"
+      },
+      {
         "path": "./snippets/flutter.code-snippets"
       },
       {
