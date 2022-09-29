@@ -117,36 +117,5 @@
       "go func() {$1}()"
     ],
     "description": "go func()"
-  },
-  "[]byte to string": {
-    "scope": "go",
-    "prefix": ["[]byte2string"],
-    "body": [
-      "$2 := *(*string)(unsafe.Pointer(&$1))"
-    ],
-    "description": "[]byte to string"
-  },
-  "优雅退出": {
-    "scope": "go",
-    "prefix": ["[]byte2string"],
-    "body": [
-      "sig := make(chan os.Signal)",
-      "signal.Notify(sig, syscall.SIGINT /*Ctrl+c、panic()*/, syscall.SIGQUIT /*正常退出*/, syscall.SIGTERM, syscall.SIGKILL, syscall.SIGHUP /*kill*/)",
-      "go func() {",
-      "  for s := range sig {",
-      "    switch s {",
-      "    case syscall.SIGINT, syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGKILL, syscall.SIGHUP:",
-      "      //退出处理",
-      "      // quit()",
-      "      if i, ok := s.(syscall.Signal); ok {",
-      "        os.Exit(int(i))",
-      "      } else {",
-      "        os.Exit(0)",
-      "      }",
-      "    }",
-      "  }",
-      "}()"
-    ],
-    "description": "优雅退出"
-  }
+  }   
 }

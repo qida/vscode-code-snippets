@@ -64,8 +64,12 @@
 |ife,if err p|错误打印|
 |%s|%s|
 |go func|go func()|
-|[]byte2string|[]byte to string|
-|[]byte2string|优雅退出|
+## 用法 Usage <go_func.code-snippets>
+|前缀 prefix|说明 description|
+|---|---|
+|f []byte2string|[]byte转string|
+|f good_quit|优雅退出|
+|f download|文件下载带进度条|
 ## 用法 Usage <html.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|

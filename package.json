@@ -47,6 +47,10 @@
         "path": "./snippets/go.code-snippets"
       },
       {
+        "language": "go",
+        "path": "./snippets/go_func.code-snippets"
+      },
+      {
         "language": "html",
         "path": "./snippets/html.code-snippets"
       },
