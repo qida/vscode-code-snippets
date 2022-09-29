@@ -63,7 +63,7 @@ function BUILD() {
     writeStream.on('error', function (err) {
         console.log(err);
     });
-    writeStream.write(JSON.stringify(obj), 'utf8');
+    writeStream.write(JSON.stringify(obj,null,"\t"), 'utf8');
     writeStream.end();
     //Building
     buildCmd();
