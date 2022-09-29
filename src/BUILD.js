@@ -33,28 +33,39 @@ function getContent(filePath) {
 }
 
 
-function runCmd(fileName) {
-    console.log("fileNames:" + fileName);
-    ////先卸载
-    // nodeCmd.run(
-    //     `code-insiders --uninstall-extension ${fileName}`,
-    //     function (err, data, stderr) {
-    //         console.log('examples dir now contains the example file along with : ', data)
-    //     }
-    // );
-
-    //安装
+function buildCmd() {
     nodeCmd.run(
-        //需要将code-insiders添加到系统环境变量
-        `code-insiders --install-extension ${fileName}`,
+        `vsce package `,
         function (err, data, stderr) {
-            console.log('Good Job : ', data)
+            console.log('success: ', data)
         }
     );
+
+}
+// 版本比较
+function version_add(version, inc) {
+    //将两个版本号拆成数组
+    var vers = version.split('.')
+    vers[vers.length - 1] = parseInt(vers[vers.length - 1]) + 1
+    return vers.join(".");
 }
 
-function INSTALL() {
-    //获取文件
-    runCmd("qida-go-snippets-" + JSON.parse(getContent(packagePath)).version + ".vsix");
+function BUILD() {
+    //获取package.json文件
+    let content = getContent(packagePath);
+    let obj = JSON.parse(content);
+    obj.version = version_add(obj.version);
+    //更新package.json中的版本号
+    let writeStream = fs.createWriteStream(packagePath, {
+        flags: 'w+',
+        encoding: "utf8"
+    });
+    writeStream.on('error', function (err) {
+        console.log(err);
+    });
+    writeStream.write(JSON.stringify(obj), 'utf8');
+    writeStream.end();
+    //Building
+    buildCmd();
 }
-INSTALL();
+BUILD();

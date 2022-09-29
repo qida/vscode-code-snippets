@@ -1,6 +1,6 @@
 {
   "go-package": {
-    "prefix": "pkg",
+    "prefix": "g package",
     "body": [
       "package ${1}",
       "  ${2}"
@@ -8,7 +8,7 @@
     "description": "declare go package"
   },
   "go-import-m": {
-    "prefix": "ims",
+    "prefix": "g import multiple",
     "body": [
       "import (",
       "  \"${1}\"",
@@ -17,14 +17,14 @@
     "description": "multiple packages"
   },
   "go-import-s": {
-    "prefix": "im",
+    "prefix": "g import single",
     "body": [
       "import \"${1}\""
     ],
     "description": "single packages"
   },
   "go-func": {
-    "prefix": "f",
+    "prefix": "g func",
     "body": [
       "func ${1}() ${2} {",
       "  ${3}",
@@ -32,17 +32,8 @@
     ],
     "description": "function"
   },
-  "go-function-main": {
-    "prefix": "fm",
-    "body": [
-      "func main()  {",
-      "  ${1}",
-      "}"
-    ],
-    "description": "main function"
-  },
   "go-struct": {
-    "prefix": "ts",
+    "prefix": "g struct",
     "body": [
       "type ${1} struct {",
       "  ${2}",
@@ -51,9 +42,8 @@
     "description": "struct"
   },
   "分隔线": {
-    "scope": "go",
     "prefix": [
-      "fgx"
+      "g fgx"
     ],
     "body": [
       "fmt.Printf(\"%s\\r\\n\", strings.Repeat(\"${1:=}\", ${2:30}))"
@@ -62,9 +52,9 @@
   },
   "_err return": {
     "prefix": [
-      "if err",
-      "if err r"
-  ],
+      "g if err",
+      "g if err r"
+    ],
     "body": [
       "if err != nil {",
       "  _err = err",
@@ -75,24 +65,27 @@
     "description": "_err"
   },
   "_err error": {
-    "prefix": ["_err"],
+    "prefix": [
+      "g _err"
+    ],
     "body": [
       "_err error"
     ],
     "description": "_err error"
   },
   "err error": {
-    "prefix": ["err"],
+    "prefix": [
+      "g err"
+    ],
     "body": [
       "err error"
     ],
     "description": "err error"
   },
   "error printf": {
-    "scope": "go",
     "prefix": [
-      "ife",
-      "if err p"
+      "g ife",
+      "g if err p"
     ],
     "body": [
       "if err != nil {",
@@ -102,20 +95,13 @@
     ],
     "description": "错误打印"
   },
-  "%s": {
-    "scope": "go",
-    "prefix": ["%s"],
-    "body": [
-      "%s\\r\\n"
+  "匿名函数": {
+    "prefix": [
+      "g func(){}()"
     ],
-    "description": "%s"
-  },
-  "go func()": {
-    "scope": "go",
-    "prefix": ["go func"],
     "body": [
-      "go func() {$1}()"
+      "g func() {$1}()"
     ],
-    "description": "go func()"
-  }   
+    "description": "匿名函数"
+  }
 }

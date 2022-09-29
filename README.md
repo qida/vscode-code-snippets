@@ -51,25 +51,24 @@
 ## 用法 Usage <go.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
-|pkg|declare go package|
-|ims|multiple packages|
-|im|single packages|
-|f|function|
-|fm|main function|
-|ts|struct|
-|fgx|分隔线|
-|if err,if err r|_err|
-|_err|_err error|
-|err|err error|
-|ife,if err p|错误打印|
-|%s|%s|
-|go func|go func()|
+|g package|declare go package|
+|g import multiple|multiple packages|
+|g import single|single packages|
+|g func|function|
+|g struct|struct|
+|g fgx|分隔线|
+|g if err,g if err r|_err|
+|g _err|_err error|
+|g err|err error|
+|g ife,g if err p|错误打印|
+|g func(){}()|匿名函数|
 ## 用法 Usage <go_func.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
-|f []byte2string|[]byte转string|
-|f good_quit|优雅退出|
-|f download|文件下载带进度条|
+|gf main|主函数main|
+|gf []byte2string|[]byte转string|
+|gf good_quit|优雅退出|
+|gf download|文件下载带进度条|
 ## 用法 Usage <html.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|

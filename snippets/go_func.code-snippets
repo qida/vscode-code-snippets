@@ -1,7 +1,16 @@
 {
+  "主函数main": {
+    "prefix": "gf main",
+    "body": [
+      "func main()  {",
+      "  ${1}",
+      "}"
+    ],
+    "description": "主函数main"
+  },
   "[]byte转string": {
     "scope": "go",
-    "prefix": ["f []byte2string"],
+    "prefix": ["gf []byte2string"],
     "body": [
       "$2 := *(*string)(unsafe.Pointer(&$1))"
     ],
@@ -9,7 +18,7 @@
   },
   "优雅退出": {
     "scope": "go",
-    "prefix": ["f good_quit"],
+    "prefix": ["gf good_quit"],
     "body": [
       "sig := make(chan os.Signal)",
       "signal.Notify(sig, syscall.SIGINT /*Ctrl+c、panic()*/, syscall.SIGQUIT /*正常退出*/, syscall.SIGTERM, syscall.SIGHUP /*kill*/)",
@@ -35,7 +44,7 @@
   },
   "文件下载带进度条": {
     "scope": "go",
-    "prefix": ["f download"],
+    "prefix": ["gf download"],
     "body": [
       "import (",
       "   \"github.com/schollz/progressbar/v3\"",
