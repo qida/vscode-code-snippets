@@ -48,7 +48,7 @@ function runCmd(fileName) {
         //需要将code-insiders添加到系统环境变量
         `code-insiders --install-extension ${fileName}`,
         function (err, data, stderr) {
-            console.log('Good Job : ', data)
+            console.log('Good Job : ', data, "err: ", err, "stderr: ", stderr)
         }
     );
 }
