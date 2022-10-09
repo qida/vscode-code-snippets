@@ -72,7 +72,7 @@
       "file_path := \"${1:E:\\data\\test.txt}\"",
       "file, _err = os.Open(file_path)",
       "if _err != nil {",
-      "  ",
+      "",
       "}",
       "defer func() {",
       "  file.Close()",
