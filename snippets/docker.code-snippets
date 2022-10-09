@@ -72,7 +72,7 @@
       "    apt-get install -y ${1:git} && \\",
       "    apt-get clean -y && \\",
       "    rm -rf /var/cache/apt/* /var/lib/apt/lists/* /tmp/*",
-      "CMD uname -a",
+      "CMD uname -a"
     ],
     "description": "基本ubuntu环境"
   }

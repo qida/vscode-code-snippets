@@ -64,5 +64,28 @@
       "}"
     ],
     "description": "文件下载带进度条"
+  },
+  "打开文件": {
+    "scope": "go",
+    "prefix": ["gf download"],
+    "body": [
+      "file_path := \"$1\"",
+      "file, _err = os.Open(file_path)",
+      "if _err != nil {",
+      "  ",
+      "}",
+      "defer func() {",
+      "  file.Close()",
+      "}()",
+      "",
+      "file_name := filepath.Base(file_path)",
+      "buf := bytes.NewBuffer(nil)",
+      "if _, err := io.Copy(buf, file); err != nil {",
+      "",
+      "}",
+      "fmt.Println(buf.Bytes())"
+    ],
+    "description": "打开文件"
   }
 }
+
