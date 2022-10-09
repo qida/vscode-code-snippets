@@ -69,7 +69,7 @@
     "scope": "go",
     "prefix": ["gf download"],
     "body": [
-      "file_path := \"$1\"",
+      "file_path := \"${1:E:\\data\\test.txt}\"",
       "file, _err = os.Open(file_path)",
       "if _err != nil {",
       "  ",
@@ -83,7 +83,11 @@
       "if _, err := io.Copy(buf, file); err != nil {",
       "",
       "}",
-      "fmt.Println(buf.Bytes())"
+      "fmt.Println(buf.Bytes())",
+      "paths, fileName := filepath.Split(file_path)",
+      "fmt.Println(paths, fileName)      //获取路径中的目录及文件名 E:\\data\\  test.txt",
+      "fmt.Println(filepath.Base(files)) //获取路径中的文件名test.txt",
+      "fmt.Println(path.Ext(files))      //获取路径中的文件的后缀 .txt"
     ],
     "description": "打开文件"
   }
