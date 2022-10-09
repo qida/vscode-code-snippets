@@ -67,7 +67,7 @@
   },
   "打开文件": {
     "scope": "go",
-    "prefix": ["gf download"],
+    "prefix": ["gf open file"],
     "body": [
       "file_path := \"${1:E:\\data\\test.txt}\"",
       "file, _err = os.Open(file_path)",
