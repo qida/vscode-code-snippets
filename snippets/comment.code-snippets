@@ -38,11 +38,12 @@
     "prefix": ["snippets"],
     "body": [
       "\"${1:名称}\": {",
-      "  \"prefix\": [\"$2\"],",
+      "  \"scope\": [\"${2|go,json,html,js|}\"],",
+      "  \"prefix\": [\"$3\"],",
       "  \"body\": [",
       "    \"$4\"",
       "  ],",
-      "  \"description\": \"${1:名称}$3\"",
+      "  \"description\": \"${1:名称}\"",
       "}"
     ],
     "description": "Snippets初始化"

@@ -84,11 +84,12 @@
 |---|---|
 |gf main|主函数main|
 |gf []byte2string|[]byte转string|
-|gf good_quit|优雅退出|
+|gf good_quit|退出|
 |gf download|文件下载带进度条|
 |gf open file|打开文件|
 |g tcp|TCP端口复用|
 |g udp|UDP端口复用|
+|g exit|优雅退出|
 
 ## 用法 Usage <html.code-snippets>
 
