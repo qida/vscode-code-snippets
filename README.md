@@ -72,7 +72,8 @@
 |gf good_quit|优雅退出|
 |gf download|文件下载带进度条|
 |gf open file|打开文件|
-|g dkfy|端口复用|
+|g tcp|TCP端口复用|
+|g udp|UDP端口复用|
 ## 用法 Usage <html.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
