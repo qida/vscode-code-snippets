@@ -71,7 +71,7 @@ function UpdateREADME() {
     writeStream.on('error', function (err) {
         console.log(err);
     });
-    let mdContent = "";
+    let mdContent = "#\r\n";
     snippetsFiles.forEach(function (item) {
         let content = getContent(item);
         let obj = JSON.parse(content);
@@ -93,7 +93,7 @@ function UpdateREADME() {
  * 获取头部
  */
 function getHeader(obj) {
-    return "## 用法 Usage <" + obj + ">\r\n";
+    return "\r\n## 用法 Usage <" + obj + ">\r\n\r\n";
 }
 
 /**
@@ -124,9 +124,9 @@ function getTrContent(prefix, description) {
  * 获取footer内容
  */
 function getFooterContent() {
-    let content = "## Thanks   \r\n"
+    let content = "\r\n## Thanks\r\n\r\n"
     thanks.forEach(function (item) {
-        content += item + "   \r\n"
+        content += item + "\r\n"
     })
     return content;
 }
