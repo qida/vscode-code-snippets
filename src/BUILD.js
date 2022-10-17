@@ -33,11 +33,19 @@ function getContent(filePath) {
 }
 
 
-function buildCmd() {
+function buildCmd(vsix_name_old) {
     nodeCmd.run(
         `vsce package `,
         function (err, data, stderr) {
             console.log('success: ', data)
+            if (!err) {
+                fs.unlink(vsix_name_old, function (err) {
+                    if (err) {
+                        return console.error(err);
+                    }
+                    console.log('删除成功')
+                })
+            }
         }
     );
 
@@ -54,6 +62,7 @@ function BUILD() {
     //获取package.json文件
     let content = getContent(packagePath);
     let obj = JSON.parse(content);
+    let vsix_name_old = obj.name + "-" + obj.version + ".vsix";
     obj.version = version_add(obj.version);
     //更新package.json中的版本号
     let writeStream = fs.createWriteStream(packagePath, {
@@ -63,9 +72,9 @@ function BUILD() {
     writeStream.on('error', function (err) {
         console.log(err);
     });
-    writeStream.write(JSON.stringify(obj,null,"\t"), 'utf8');
+    writeStream.write(JSON.stringify(obj, null, "\t"), 'utf8');
     writeStream.end();
     //Building
-    buildCmd();
+    buildCmd(vsix_name_old);
 }
 BUILD();

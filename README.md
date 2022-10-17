@@ -31,6 +31,7 @@
 |zsksjs,开始结束|开始结束|
 |zsk,注释块|注释块|
 |zssjk,数据库操作|数据库操作|
+|snippets|Snippets初始化|
 ## 用法 Usage <docker.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|
@@ -70,7 +71,8 @@
 |gf []byte2string|[]byte转string|
 |gf good_quit|优雅退出|
 |gf download|文件下载带进度条|
-|gf download|打开文件|
+|gf open file|打开文件|
+|g dkfy|端口复用|
 ## 用法 Usage <html.code-snippets>
 |前缀 prefix|说明 description|
 |---|---|

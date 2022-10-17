@@ -54,7 +54,8 @@ function runCmd(fileName) {
 }
 
 function INSTALL() {
-    //获取文件
-    runCmd("qida-go-snippets-" + JSON.parse(getContent(packagePath)).version + ".vsix");
+    //获取文件名
+    let vsix_name = JSON.parse(getContent(packagePath)).name + "-" + JSON.parse(getContent(packagePath)).version + ".vsix";
+    runCmd(vsix_name);
 }
 INSTALL();
