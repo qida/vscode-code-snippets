@@ -82,14 +82,25 @@
 
 |前缀 prefix|说明 description|
 |---|---|
-|gf main|主函数main|
-|gf []byte2string|[]byte转string|
-|gf good_quit|退出|
-|gf download|文件下载带进度条|
-|gf open file|打开文件|
+|g main|主函数main|
+|g []byte2string|[]byte转string|
+|g good_quit|退出|
+|g download|文件下载带进度条|
+|g open file|打开文件|
 |g tcp|TCP端口复用|
 |g udp|UDP端口复用|
 |g exit|优雅退出|
+
+## 用法 Usage <go_thrift.code-snippets>
+
+|前缀 prefix|说明 description|
+|---|---|
+|t.server|thrift server|
+|t.server|完整的Thrift服务|
+|t.client|thrift client|
+|t.client|完整Thrift客户端|
+|t.ife|if err != nil return _err|
+|t.test|测试用例|
 
 ## 用法 Usage <html.code-snippets>
 
@@ -110,17 +121,6 @@
 |前缀 prefix|说明 description|
 |---|---|
 |kill|Kill指定端口进程,第二行为PID|
-
-## 用法 Usage <thrift_go.code-snippets>
-
-|前缀 prefix|说明 description|
-|---|---|
-|t.server|thrift server|
-|t.server|完整的Thrift服务|
-|t.client|thrift client|
-|t.client|完整Thrift客户端|
-|t.ife|if err != nil return _err|
-|t.test|测试用例|
 
 ## Thanks
 
