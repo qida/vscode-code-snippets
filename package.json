@@ -44,11 +44,15 @@
 			},
 			{
 				"language": "go",
-				"path": "./snippets/go.code-snippets"
+				"path": "./snippets/go_func.code-snippets"
 			},
 			{
 				"language": "go",
-				"path": "./snippets/go_func.code-snippets"
+				"path": "./snippets/go_thrift.code-snippets"
+			},
+			{
+				"language": "go",
+				"path": "./snippets/go.code-snippets"
 			},
 			{
 				"language": "html",
@@ -59,10 +63,6 @@
 			},
 			{
 				"path": "./snippets/linux.code-snippets"
-			},
-			{
-				"language": "go",
-				"path": "./snippets/thrift_go.code-snippets"
 			}
 		]
 	},

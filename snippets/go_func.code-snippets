@@ -1,6 +1,6 @@
 {
   "主函数main": {
-    "prefix": "gf main",
+    "prefix": "g main",
     "body": [
       "func main()  {",
       "  ${1}",
@@ -11,7 +11,7 @@
   "[]byte转string": {
     "scope": "go",
     "prefix": [
-      "gf []byte2string"
+      "g []byte2string"
     ],
     "body": [
       "$2 := *(*string)(unsafe.Pointer(&$1))"
@@ -21,7 +21,7 @@
   "退出": {
     "scope": "go",
     "prefix": [
-      "gf good_quit"
+      "g good_quit"
     ],
     "body": [
       "sig := make(chan os.Signal)",
@@ -49,7 +49,7 @@
   "文件下载带进度条": {
     "scope": "go",
     "prefix": [
-      "gf download"
+      "g download"
     ],
     "body": [
       "import (",
@@ -74,7 +74,7 @@
   "打开文件": {
     "scope": "go",
     "prefix": [
-      "gf open file"
+      "g open file"
     ],
     "body": [
       "file_path := \"${1:E:\\data\\test.txt}\"",

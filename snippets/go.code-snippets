@@ -100,7 +100,7 @@
       "g func(){}()"
     ],
     "body": [
-      "g func() {$1}()"
+      "go func() {$1}()"
     ],
     "description": "匿名函数"
   }
