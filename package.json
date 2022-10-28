@@ -22,7 +22,8 @@
 		"readme": "node ./src/README.js",
 		"install": "node ./src/INSTALL.js",
 		"build": "node ./src/BUILD.js",
-		"all": "npm run readme && npm run build && npm run install"
+		"upload": "node ./src/UPLOAD.js",
+		"all": "npm run readme && npm run build && npm run install && npm run upload"
 	},
 	"contributes": {
 		"snippets": [
