@@ -267,5 +267,47 @@
       "}"
     ],
     "description": "优雅退出"
+  },
+  "HTTP请求": {
+    "scope": "go",
+    "prefix": ["g http"],
+    "body": [
+      "func Http() {",
+      "",
+      " url := \"http://192.168.103.251:38090/v1/watcher\"",
+      " method := \"POST\"",
+      " payload := strings.NewReader(`{\"service_name\": \"LabelCenter\"}`)",
+      "",
+      " client := &http.Client{}",
+      " req, err := http.NewRequest(method, url, payload)",
+      "",
+      " if err != nil {",
+      "   fmt.Println(err)",
+      "   return",
+      " }",
+      " req.Header.Add(\"User-Agent\", \"Apifox/1.0.0 (https://www.apifox.cn)\")",
+      " req.Header.Add(\"Content-Type\", \"application/json\")",
+      " req.Header.Add(\"Accept\", \"*/*\")",
+      " req.Header.Add(\"Host\", \"192.168.103.251:38090\")",
+      " req.Header.Add(\"Connection\", \"keep-alive\")",
+      "",
+      " res, err := client.Do(req)",
+      " if err != nil {",
+      "   fmt.Println(err)",
+      "   return",
+      " }",
+      " defer res.Body.Close()",
+      "",
+      " body, err := io.ReadAll(res.Body)",
+      " if err != nil {",
+      "   fmt.Println(err)",
+      "   return",
+      " }",
+      " fmt.Printf(\"%s\\r\\n\", strings.Repeat(\"**\", 30))",
+      " fmt.Println(string(body))",
+      " fmt.Printf(\"%s\\r\\n\", strings.Repeat(\"**\", 30))",
+      "}"
+    ],
+    "description": "HTTP请求"
   }
 }

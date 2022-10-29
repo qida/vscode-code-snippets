@@ -90,6 +90,7 @@
 |g tcp|TCP端口复用|
 |g udp|UDP端口复用|
 |g exit|优雅退出|
+|g http|HTTP请求|
 
 ## 用法 Usage <go_thrift.code-snippets>
 
