@@ -1,12 +1,12 @@
 {
-	"name": "qida-go-snippets",
+	"name": "qida-code-snippets",
 	"displayName": "code-snippets",
 	"description": "vscode code snippets",
-	"version": "0.0.53",
+	"version": "0.0.58",
 	"publisher": "qida",
 	"icon": "images/golang.jpg",
 	"repository": {
-		"url": "https://github.com/qida/vscode-go-snippets"
+		"url": "https://github.com/qida/vscode-code-snippets"
 	},
 	"author": {
 		"name": "qida",

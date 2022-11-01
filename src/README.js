@@ -19,7 +19,7 @@ process.on('uncaughtException', function (err) {
 
 const thanks = [
     "<https://blog.csdn.net/weixin_36719607/article/details/103345353>",
-    "<https://github.com/masterZSH/vscode-go-snippets>"
+    "<https://github.com/masterZSH/vscode-code-snippets>"
 ];
 
 
