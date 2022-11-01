@@ -1,0 +1,107 @@
+{
+  "go-package": {
+    "prefix": "g package",
+    "body": [
+      "package ${1}",
+      "  ${2}"
+    ],
+    "description": "declare go package"
+  },
+  "go-import-m": {
+    "prefix": "g import multiple",
+    "body": [
+      "import (",
+      "  \"${1}\"",
+      ")"
+    ],
+    "description": "multiple packages"
+  },
+  "go-import-s": {
+    "prefix": "g import single",
+    "body": [
+      "import \"${1}\""
+    ],
+    "description": "single packages"
+  },
+  "go-func": {
+    "prefix": "g func",
+    "body": [
+      "func ${1}() ${2} {",
+      "  ${3}",
+      "}"
+    ],
+    "description": "function"
+  },
+  "go-struct": {
+    "prefix": "g struct",
+    "body": [
+      "type ${1} struct {",
+      "  ${2}",
+      "}"
+    ],
+    "description": "struct"
+  },
+  "分隔线": {
+    "prefix": [
+      "g fgx"
+    ],
+    "body": [
+      "fmt.Printf(\"%s\\r\\n\", strings.Repeat(\"${1:=}\", ${2:30}))"
+    ],
+    "description": "分隔线"
+  },
+  "_err return": {
+    "prefix": [
+      "g if err",
+      "g if err r"
+    ],
+    "body": [
+      "if err != nil {",
+      "  _err = err",
+      "  fmt.Printf(\"$1 错误 %s\", _err.Error())",
+      "  return",
+      "}"
+    ],
+    "description": "_err"
+  },
+  "_err error": {
+    "prefix": [
+      "g _err"
+    ],
+    "body": [
+      "_err error"
+    ],
+    "description": "_err error"
+  },
+  "err error": {
+    "prefix": [
+      "g err"
+    ],
+    "body": [
+      "err error"
+    ],
+    "description": "err error"
+  },
+  "error printf": {
+    "prefix": [
+      "g ife",
+      "g if err p"
+    ],
+    "body": [
+      "if err != nil {",
+      "  fmt.Printf(\"$1 错误 %s\", err.Error())",
+      "  return",
+      "}"
+    ],
+    "description": "错误打印"
+  },
+  "匿名函数": {
+    "prefix": [
+      "g func(){}()"
+    ],
+    "body": [
+      "go func() {$1}()"
+    ],
+    "description": "匿名函数"
+  }
+}

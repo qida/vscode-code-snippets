@@ -1,0 +1,73 @@
+{
+	"name": "qida-code-snippets",
+	"displayName": "code-snippets",
+	"description": "vscode code snippets",
+	"version": "0.0.59",
+	"publisher": "qida",
+	"icon": "images/golang.jpg",
+	"repository": {
+		"url": "https://github.com/qida/vscode-code-snippets"
+	},
+	"author": {
+		"name": "qida",
+		"email": "qidasun@gmail.com"
+	},
+	"engines": {
+		"vscode": "^1.70.0"
+	},
+	"categories": [
+		"Snippets"
+	],
+	"scripts": {
+		"readme": "node ./src/README.js",
+		"install": "node ./src/INSTALL.js",
+		"build": "node ./src/BUILD.js",
+		"upload": "node ./src/UPLOAD.js",
+		"all": "npm run readme && npm run build && npm run install && npm run upload"
+	},
+	"contributes": {
+		"snippets": [
+			{
+				"language": "go",
+				"path": "./snippets/beego.code-snippets"
+			},
+			{
+				"path": "./snippets/comment.code-snippets"
+			},
+			{
+				"path": "./snippets/docker.code-snippets"
+			},
+			{
+				"path": "./snippets/flutter.code-snippets"
+			},
+			{
+				"path": "./snippets/git.code-snippets"
+			},
+			{
+				"language": "go",
+				"path": "./snippets/go_func.code-snippets"
+			},
+			{
+				"language": "go",
+				"path": "./snippets/go_thrift.code-snippets"
+			},
+			{
+				"language": "go",
+				"path": "./snippets/go.code-snippets"
+			},
+			{
+				"language": "html",
+				"path": "./snippets/html.code-snippets"
+			},
+			{
+				"path": "./snippets/json.code-snippets"
+			},
+			{
+				"path": "./snippets/linux.code-snippets"
+			}
+		]
+	},
+	"devDependencies": {
+		"node-cmd": "^5.0.0"
+	}
+}

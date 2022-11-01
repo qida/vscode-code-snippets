@@ -1,0 +1,12 @@
+{
+  "解决显示AndroidStudio没有安装": {
+    "prefix": [
+      "not install"
+    ],
+    "body": [
+      "flutter config --android-studio-dir=\"$1:D:\\AndriodStudio\""
+    ],
+    "description": "解决显示AndroidStudio没有安装"
+  }
+}
+

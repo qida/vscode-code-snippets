@@ -1,0 +1,10 @@
+{
+  "CDN": {
+    "scope": "javascript,typescript,html",
+    "prefix": "cdn",
+    "body": [
+      "<script src='//$1.cdn.sunqida.cn/$2/$3/$4.js'></script>"
+    ],
+    "description": "CDN"
+  }
+}
