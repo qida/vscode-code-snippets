@@ -45,7 +45,7 @@ function UPLOAD() {
         });
     });
     client.connect({
-        host: 'ftp.sunqida.cn',
+        host: '10.0.0.2',
         port: '21',
         user: 'vsix',
         password: 'vsixvsix',
