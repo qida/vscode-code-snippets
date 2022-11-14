@@ -206,7 +206,7 @@
         "",
         "_err = services.BaseImageFileFromSlave(context.Background(),//调用方法",
         "  &base_image.ReqBaseImageFile{",
-        "    ImageKey:    req.ImageKey,",
+        "    ImageName:    req.ImageName,",
         "    ImageBinary: req.ImageBinary,",
         "  })",
         "if _err != nil {",
