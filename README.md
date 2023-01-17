@@ -66,23 +66,23 @@
 
 |前缀 prefix|说明 description|
 |---|---|
-|g package|declare go package|
-|g import multiple|multiple packages|
-|g import single|single packages|
-|g func|function|
-|g struct|struct|
-|g fgx|分隔线|
-|g if err,g if err r|_err|
-|g _err|_err error|
-|g err|err error|
-|g ife,g if err p|错误打印|
+|package|declare go package|
+|import multiple|multiple packages|
+|import single|single packages|
+|func|function|
+|type|struct|
+|fgx|分隔线|
+|if err|err|
+|_err|_err error|
+|err|err error|
+|if _err|错误打印|
 |g func(){}()|匿名函数|
 
 ## 用法 Usage <go_func.code-snippets>
 
 |前缀 prefix|说明 description|
 |---|---|
-|g main|主函数main|
+|func main|主函数main|
 |g []byte2string|[]byte转string|
 |g good_quit|退出|
 |g download|文件下载带进度条|

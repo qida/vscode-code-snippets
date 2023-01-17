@@ -45,7 +45,7 @@ function UPLOAD() {
         });
     });
     client.connect({
-        host: '10.0.0.2',
+        host: '10.10.10.1',
         port: '21',
         user: 'vsix',
         password: 'vsixvsix',

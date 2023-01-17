@@ -1,6 +1,6 @@
 {
   "go-package": {
-    "prefix": "g package",
+    "prefix": "package",
     "body": [
       "package ${1}",
       "  ${2}"
@@ -8,7 +8,7 @@
     "description": "declare go package"
   },
   "go-import-m": {
-    "prefix": "g import multiple",
+    "prefix": "import multiple",
     "body": [
       "import (",
       "  \"${1}\"",
@@ -17,14 +17,14 @@
     "description": "multiple packages"
   },
   "go-import-s": {
-    "prefix": "g import single",
+    "prefix": "import single",
     "body": [
       "import \"${1}\""
     ],
     "description": "single packages"
   },
   "go-func": {
-    "prefix": "g func",
+    "prefix": "func",
     "body": [
       "func ${1}() ${2} {",
       "  ${3}",
@@ -33,7 +33,7 @@
     "description": "function"
   },
   "go-struct": {
-    "prefix": "g struct",
+    "prefix": "type",
     "body": [
       "type ${1} struct {",
       "  ${2}",
@@ -43,7 +43,7 @@
   },
   "分隔线": {
     "prefix": [
-      "g fgx"
+      "fgx"
     ],
     "body": [
       "fmt.Printf(\"%s\\r\\n\", strings.Repeat(\"${1:=}\", ${2:30}))"
@@ -52,8 +52,7 @@
   },
   "_err return": {
     "prefix": [
-      "g if err",
-      "g if err r"
+      "if err"
     ],
     "body": [
       "if err != nil {",
@@ -62,11 +61,11 @@
       "  return",
       "}"
     ],
-    "description": "_err"
+    "description": "err"
   },
   "_err error": {
     "prefix": [
-      "g _err"
+      "_err"
     ],
     "body": [
       "_err error"
@@ -75,7 +74,7 @@
   },
   "err error": {
     "prefix": [
-      "g err"
+      "err"
     ],
     "body": [
       "err error"
@@ -84,12 +83,10 @@
   },
   "error printf": {
     "prefix": [
-      "g ife",
-      "g if err p"
+      "if _err"
     ],
     "body": [
-      "if err != nil {",
-      "  fmt.Printf(\"$1 错误 %s\", err.Error())",
+      "if _err != nil {",
       "  return",
       "}"
     ],

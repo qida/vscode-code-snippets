@@ -1,6 +1,7 @@
 {
   "主函数main": {
-    "prefix": "g main",
+    "scope": "go",
+    "prefix": "func main",
     "body": [
       "func main()  {",
       "  ${1}",

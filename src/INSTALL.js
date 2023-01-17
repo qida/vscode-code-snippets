@@ -42,13 +42,27 @@ function runCmd(fileName) {
     //         console.log('examples dir now contains the example file along with : ', data)
     //     }
     // );
-
+    // $env:VSCOE_HOME="$env:S\:\\VSCode-insider";$env:PATH+=";$env:VSCOE_HOME\\bin";
     //安装
     nodeCmd.run(
         //需要将code-insiders添加到系统环境变量
-        `code-insiders --install-extension ${fileName}`,
+        `set VSCODE_BIN=S:\\VSCode-insider\\bin & set PATH=%PATH%;%VSCODE_BIN%`,
         function (err, data, stderr) {
             console.log('Good Job : ', data, "err: ", err, "stderr: ", stderr)
+            nodeCmd.run(
+                //需要将code-insiders添加到系统环境变量
+                `path`,
+                function (err, data, stderr) {
+                    console.log('Good Job : ', data, "err: ", err, "stderr: ", stderr)
+                    nodeCmd.run(
+                        //需要将code-insiders添加到系统环境变量
+                        `code-insiders --install-extension ${fileName}`,
+                        function (err, data, stderr) {
+                            console.log('Good Job : ', data, "err: ", err, "stderr: ", stderr)
+                        }
+                    );
+                }
+            );
         }
     );
 }
