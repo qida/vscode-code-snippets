@@ -44,6 +44,7 @@ function UPLOAD() {
             });
         });
     });
+    //npm install ftp
     client.connect({
         host: '10.10.10.1',
         port: '21',

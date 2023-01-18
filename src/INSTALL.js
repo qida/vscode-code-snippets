@@ -46,25 +46,14 @@ function runCmd(fileName) {
     //安装
     nodeCmd.run(
         //需要将code-insiders添加到系统环境变量
-        `set VSCODE_BIN=S:\\VSCode-insider\\bin & set PATH=%PATH%;%VSCODE_BIN%`,
-        function (err, data, stderr) {
-            console.log('Good Job : ', data, "err: ", err, "stderr: ", stderr)
-            nodeCmd.run(
-                //需要将code-insiders添加到系统环境变量
-                `path`,
-                function (err, data, stderr) {
-                    console.log('Good Job : ', data, "err: ", err, "stderr: ", stderr)
-                    nodeCmd.run(
-                        //需要将code-insiders添加到系统环境变量
-                        `code-insiders --install-extension ${fileName}`,
-                        function (err, data, stderr) {
-                            console.log('Good Job : ', data, "err: ", err, "stderr: ", stderr)
-                        }
-                    );
-                }
-            );
-        }
-    );
+        nodeCmd.run(
+            //需要将code-insiders添加到系统环境变量
+            `code-insiders --install-extension ${fileName}`,
+            function (err, data, stderr) {
+                console.log('Good Job : ', data, "err: ", err, "stderr: ", stderr)
+            }
+        )
+    )
 }
 
 function INSTALL() {

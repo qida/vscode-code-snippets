@@ -24,10 +24,10 @@
     "description": "single packages"
   },
   "go-func": {
-    "prefix": "func",
+    "prefix": "func _err",
     "body": [
-      "func ${1}() ${2} {",
-      "  ${3}",
+      "func ${1}() (_err err) {",
+      "  ${2}",
       "}"
     ],
     "description": "function"

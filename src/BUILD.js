@@ -37,14 +37,17 @@ function buildCmd(vsix_name_old) {
     nodeCmd.run(
         `vsce package `,
         function (err, data, stderr) {
-            console.log('success: ', data)
             if (!err) {
+                console.log('success: ', data)
                 fs.unlink(vsix_name_old, function (err) {
                     if (err) {
                         return console.error(err);
                     }
                     console.log('删除成功')
                 })
+            } else {                
+                console.log('error: ', err)
+                console.log('需要安装vsce: npm install -g vsce')
             }
         }
     );

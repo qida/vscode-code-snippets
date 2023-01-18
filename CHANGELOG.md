@@ -1,13 +1,13 @@
-# Change Log
+## 开发前准备
 
+#### 安装nodejs 
+
+#### 安装组件  
+
+``` nodejs
+npm install -g yo generator-code vsce ftp
 ```
-npm install -g yo generator-code vsce
-```
-
-All notable changes to the "go-snippets" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+#### 添加环境变量  
+   需要将code-insiders.exe添加到系统环境变量
+   
+ 

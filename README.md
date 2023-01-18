@@ -69,7 +69,7 @@
 |package|declare go package|
 |import multiple|multiple packages|
 |import single|single packages|
-|func|function|
+|func _err|function|
 |type|struct|
 |fgx|分隔线|
 |if err|err|
