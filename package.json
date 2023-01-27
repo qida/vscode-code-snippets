@@ -2,7 +2,7 @@
 	"name": "qida-code-snippets",
 	"displayName": "code-snippets",
 	"description": "vscode code snippets",
-	"version": "0.0.102",
+	"version": "0.0.104",
 	"publisher": "qida",
 	"icon": "images/golang.jpg",
 	"repository": {

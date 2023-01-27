@@ -45,6 +45,7 @@
 |d alpine|使用Alpine镜像|
 |d golang|构建golang环境|
 |d ubuntu|基本ubuntu环境|
+|d debian|基本debian环境|
 
 ## 用法 Usage <flutter.code-snippets>
 
