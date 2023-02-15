@@ -74,9 +74,9 @@
 |type|struct|
 |fgx|分隔线|
 |if err|err|
-|_err|_err error|
-|err|err error|
 |if _err|错误打印|
+|err|err error|
+|_err|_err error|
 |g func(){}()|匿名函数|
 
 ## 用法 Usage <go_func.code-snippets>

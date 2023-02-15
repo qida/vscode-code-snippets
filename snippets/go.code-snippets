@@ -57,20 +57,23 @@
     "body": [
       "if err != nil {",
       "  _err = err",
-      "  fmt.Printf(\"$1 错误 %s\", _err.Error())",
+      "  logger.Errorf(\"$1 错误:%s\", _err.Error())",
       "  return",
       "}"
     ],
     "description": "err"
   },
-  "_err error": {
+  "error printf": {
     "prefix": [
-      "_err"
+      "if _err"
     ],
     "body": [
-      "_err error"
+      "if _err != nil {",
+      "  logger.Errorf(\"$1 错误:%s\", _err.Error())",
+      "  return",
+      "}"
     ],
-    "description": "_err error"
+    "description": "错误打印"
   },
   "err error": {
     "prefix": [
@@ -81,17 +84,16 @@
     ],
     "description": "err error"
   },
-  "error printf": {
+  "_err error": {
     "prefix": [
-      "if _err"
+      "_err"
     ],
     "body": [
-      "if _err != nil {",
-      "  return",
-      "}"
+      "_err error"
     ],
-    "description": "错误打印"
+    "description": "_err error"
   },
+
   "匿名函数": {
     "prefix": [
       "g func(){}()"
