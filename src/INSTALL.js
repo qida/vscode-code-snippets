@@ -44,15 +44,13 @@ function runCmd(fileName) {
     // );
     // $env:VSCOE_HOME="$env:S\:\\VSCode-insider";$env:PATH+=";$env:VSCOE_HOME\\bin";
     //安装
+    //需要将code-insiders添加到系统环境变量
     nodeCmd.run(
         //需要将code-insiders添加到系统环境变量
-        nodeCmd.run(
-            //需要将code-insiders添加到系统环境变量
-            `code-insiders --force --install-extension ${fileName}`,
-            function (err, data, stderr) {
-                console.log('Good Job : ', data, "err: ", err, "stderr: ", stderr)
-            }
-        )
+        `code-insiders --trace-deprecation --install-extension ${fileName}`,
+        function (err, data, stderr) {
+            console.log('Good Job : ', data, "err: ", err, "stderr: ", stderr)
+        }
     )
 }
 

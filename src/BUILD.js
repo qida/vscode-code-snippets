@@ -45,7 +45,7 @@ function buildCmd(vsix_name_old) {
                     }
                     console.log('删除成功')
                 })
-            } else {                
+            } else {
                 console.log('error: ', err)
                 console.log('需要安装vsce: npm install -g vsce')
             }
@@ -54,7 +54,7 @@ function buildCmd(vsix_name_old) {
 
 }
 // 版本比较
-function version_add(version, inc) {
+function version_add(version) {
     //将两个版本号拆成数组
     var vers = version.split('.')
     vers[vers.length - 1] = parseInt(vers[vers.length - 1]) + 1
