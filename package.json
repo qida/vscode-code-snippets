@@ -2,7 +2,7 @@
 	"name": "qida-code-snippets",
 	"displayName": "code-snippets",
 	"description": "vscode code snippets",
-	"version": "0.0.109",
+	"version": "0.0.113",
 	"publisher": "qida",
 	"icon": "images/golang.jpg",
 	"repository": {
@@ -20,10 +20,10 @@
 	],
 	"scripts": {
 		"readme": "node ./src/README.js",
-		"install": "node ./src/INSTALL.js",
+		"installx": "node ./src/INSTALL.js",
 		"build": "node ./src/BUILD.js",
 		"upload": "node ./src/UPLOAD.js",
-		"all": "npm run readme && npm run build && npm run install && npm run upload"
+		"all": "npm run readme && npm run build && npm run installx && npm run upload"
 	},
 	"contributes": {
 		"snippets": [
@@ -72,6 +72,6 @@
 	},
 	"dependencies": {
 		"ftp": "^0.3.10",
-		"vsce": "^2.17.0"
+		"@vscode/vsce": "^2.17.0"
 	}
 }

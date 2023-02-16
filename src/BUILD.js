@@ -47,7 +47,7 @@ function buildCmd(vsix_name_old) {
                 })
             } else {
                 console.log('error: ', err)
-                console.log('需要安装vsce: npm install -g vsce')
+                console.log('需要安装vsce: npm install --global @vscode/vsce --force')
             }
         }
     );
