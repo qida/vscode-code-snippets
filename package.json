@@ -2,7 +2,7 @@
 	"name": "qida-code-snippets",
 	"displayName": "code-snippets",
 	"description": "vscode code snippets",
-	"version": "0.0.113",
+	"version": "0.0.119",
 	"publisher": "qida",
 	"icon": "images/golang.jpg",
 	"repository": {
@@ -71,7 +71,7 @@
 		"node-cmd": "^5.0.0"
 	},
 	"dependencies": {
-		"ftp": "^0.3.10",
-		"@vscode/vsce": "^2.17.0"
+		"@vscode/vsce": "^2.17.0",
+		"ftp": "^0.3.10"
 	}
 }

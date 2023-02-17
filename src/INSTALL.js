@@ -1,10 +1,3 @@
-/**
- * nodejs 脚本
- *
- * 用于将go.json中的代码片段描述更新README.md文件
- *
- * @summary 更新readme文件
- */
 
 const fs = require('fs');
 const path = require('path');
@@ -46,10 +39,12 @@ function runCmd(fileName) {
     //安装
     //需要将code-insiders添加到系统环境变量
     nodeCmd.run(
-        //需要将code-insiders添加到系统环境变量
-        `code-insiders --trace-deprecation --install-extension ${fileName}`,
+        `code-insiders --enable-proposed-api --disable-workspace-trust --install-extension ${fileName}`,
         function (err, data, stderr) {
-            console.log('Good Job : ', data, "err: ", err, "stderr: ", stderr)
+            if (err != null) {
+                console.log("err: ", err, "stderr: ", stderr)
+            }
+            console.log("data", data)
         }
     )
 }

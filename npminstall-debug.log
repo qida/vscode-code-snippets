@@ -7,7 +7,7 @@
   cacheDir: null,
   env: {
     npm_config_registry: 'https://registry.npmmirror.com',
-    npm_config_argv: '{"remain":[],"cooked":["--fix-bug-versions","--china","--userconfig=C:\\\\Users\\\\qida\\\\.cnpmrc","--disturl=https://npmmirror.com/mirrors/node","--registry=https://registry.npmmirror.com"],"original":["--fix-bug-versions","--china","--userconfig=C:\\\\Users\\\\qida\\\\.cnpmrc","--disturl=https://npmmirror.com/mirrors/node","--registry=https://registry.npmmirror.com"]}',
+    npm_config_argv: '{"remain":[],"cooked":["--fix-bug-versions","--china","--userconfig=C:\\\\Users\\\\qida\\\\.cnpmrc","--disturl=https://npmmirror.com/mirrors/node","--registry=https://registry.npmmirror.com","--global","@vscode/vsce","--force"],"original":["--fix-bug-versions","--china","--userconfig=C:\\\\Users\\\\qida\\\\.cnpmrc","--disturl=https://npmmirror.com/mirrors/node","--registry=https://registry.npmmirror.com","--global","@vscode/vsce","--force"]}',
     npm_config_user_agent: 'npminstall/7.5.0 npm/? node/v19.4.0 win32 x64',
     NODE: 'C:\\Program Files\\nodejs\\node.exe',
     npm_node_execpath: 'C:\\Program Files\\nodejs\\node.exe',
@@ -176,11 +176,13 @@
   strictSSL: true,
   ignoreScripts: false,
   ignoreOptionalDependencies: false,
-  detail: false,
+  detail: true,
   forceLinkLatest: false,
   trace: false,
   engineStrict: false,
   registryOnly: false,
   client: false,
-  autoFixVersion: [Function: autoFixVersion]
+  autoFixVersion: [Function: autoFixVersion],
+  targetDir: null,
+  binDir: null
 }
