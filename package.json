@@ -1,8 +1,8 @@
 {
 	"name": "codes-snippets",
-	"displayName": "codes snippets",
-	"description": "vscode code snippets",
-	"version": "0.0.2",
+	"displayName": "Qida Snippets",
+	"description": "Golang Docker Thrift Beego snippets",
+	"version": "0.0.3",
 	"publisher": "qida",
 	"icon": "images/golang.jpg",
 	"repository": {
