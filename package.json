@@ -2,7 +2,7 @@
 	"name": "codes-snippets",
 	"displayName": "Qida Snippets",
 	"description": "Golang Docker Thrift Beego snippets",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"publisher": "qida",
 	"icon": "images/golang.jpg",
 	"repository": {
