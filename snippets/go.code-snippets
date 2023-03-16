@@ -96,10 +96,12 @@
 
   "匿名函数": {
     "prefix": [
-      "g func(){}()"
+      "defer"
     ],
     "body": [
-      "go func() {$1}()"
+      "defer func() {",
+      "   $1",
+      "}()"
     ],
     "description": "匿名函数"
   }

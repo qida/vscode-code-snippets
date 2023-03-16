@@ -2,7 +2,7 @@
 	"name": "codes-snippets",
 	"displayName": "Qida Snippets",
 	"description": "Golang Docker Thrift Beego snippets",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"publisher": "qida",
 	"icon": "images/golang.jpg",
 	"repository": {
@@ -23,7 +23,8 @@
 		"installx": "node ./src/INSTALL.js",
 		"build": "node ./src/BUILD.js",
 		"upload": "node ./src/UPLOAD.js",
-		"all": "npm run readme && npm run build && npm run installx && npm run upload"
+		"publish": "vsce publish",
+		"all": "npm run readme && npm run build && npm run installx && npm run upload && vsce publish"
 	},
 	"contributes": {
 		"snippets": [
