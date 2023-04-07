@@ -22,7 +22,7 @@
     "prefix": ["sh version"],
     "body": [
       "env_version=$$(awk '/ENV VERSION/ {print $$3}' Dockerfile.src)",
-      "new_version=$$(echo $$version | awk -F. '{$$NF = $$NF + 1;} 1' | sed 's/ /./g')",
+      "new_version=$$(echo $$env_version | awk -F. '{$$NF = $$NF + 1;} 1' | sed 's/ /./g')",
       "echo $$new_version",
       "sed -i \"s/ENV VERSION $$env_version/ENV VERSION $$new_version/g\" Dockerfile.src",
     ],
