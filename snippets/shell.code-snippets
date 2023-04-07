@@ -1,0 +1,20 @@
+{
+  "读取Dockerfile ENV并修改": {
+    "scope": "sh",
+    "prefix": ["sh version"],
+    "body": [
+      "env_version=$$(awk '/ENV VERSION/ {print $$3}' Dockerfile.src)",
+      "# 将版本号中的点号和v号用空格替换,得到三个数字部分",
+      "v1=$$(echo $$env_version | awk -F '[v.]' '{print $$2}')",
+      "v2=$$(echo $$env_version | awk -F '[v.]' '{print $$3}')",
+      "v3=$$(echo $$env_version | awk -F '[v.]' '{print $$4}')",
+      "# 对第三个数字部分进行加1操作",
+      "v3=$$((v3+1))",
+      "# 将三个数字部分重新组合成版本号",
+      "new_version=\"v$${v1}.$${v2}.$${v3}\"",
+      "echo $$new_version",
+      "sed -i \"s/ENV VERSION $$env_version/ENV VERSION $$new_version/g\" Dockerfile.src"
+    ],
+    "description": "读取Dockerfile ENV并修改"
+  }
+}

@@ -124,6 +124,12 @@
 |---|---|
 |kill|Kill指定端口进程,第二行为PID|
 
+## 用法 Usage <shell.code-snippets>
+
+|前缀 prefix|说明 description|
+|---|---|
+|sh version|读取Dockerfile ENV并修改|
+
 ## Thanks  
 
 <https://blog.csdn.net/weixin_36719607/article/details/103345353>  
