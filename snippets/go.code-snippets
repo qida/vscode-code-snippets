@@ -57,7 +57,7 @@
     "body": [
       "if err != nil {",
       "  _err = err",
-      "  logger.Errorf(\"$1 错误:%s\", _err.Error())",
+      "  logger.Errorf(\"$1 错误:%+v\", _err)",
       "  return",
       "}"
     ],
@@ -69,7 +69,7 @@
     ],
     "body": [
       "if _err != nil {",
-      "  logger.Errorf(\"$1 错误:%s\", _err.Error())",
+      "  logger.Errorf(\"$1 错误:%+v\", _err)",
       "  return",
       "}"
     ],

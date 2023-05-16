@@ -29,6 +29,20 @@
 |beecqsrq2|起始日期2|
 |beemain|程序测试main|
 
+## 用法 Usage <go_func.code-snippets>
+
+|前缀 prefix|说明 description|
+|---|---|
+|func main|主函数main|
+|g []byte2string|[]byte转string|
+|g good_quit|退出|
+|g download|文件下载带进度条|
+|g open file|打开文件|
+|g tcp|TCP端口复用|
+|g udp|UDP端口复用|
+|g exit|优雅退出|
+|g http|HTTP请求|
+
 ## 用法 Usage <comment.code-snippets>
 
 |前缀 prefix|说明 description|
@@ -79,20 +93,6 @@
 |_err|_err error|
 |defer|匿名函数|
 
-## 用法 Usage <go_func.code-snippets>
-
-|前缀 prefix|说明 description|
-|---|---|
-|func main|主函数main|
-|g []byte2string|[]byte转string|
-|g good_quit|退出|
-|g download|文件下载带进度条|
-|g open file|打开文件|
-|g tcp|TCP端口复用|
-|g udp|UDP端口复用|
-|g exit|优雅退出|
-|g http|HTTP请求|
-
 ## 用法 Usage <go_thrift.code-snippets>
 
 |前缀 prefix|说明 description|
@@ -129,6 +129,7 @@
 |前缀 prefix|说明 description|
 |---|---|
 |sh version|读取Dockerfile ENV并修改|
+|sh version|读取Dockerfile ENV并修改带引号|
 
 ## Thanks  
 

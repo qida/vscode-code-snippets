@@ -5,8 +5,10 @@
  *
  * @summary 更新readme文件
  */
-
+const fs = require('fs');
+const path = require('path');
 const nodeCmd = require('node-cmd');
+const packagePath = path.resolve(__dirname, '../package.json');
 const process = require('process');
 process.on('uncaughtException', function (err) {
     console.log('Caught Exception:' + err);
@@ -52,8 +54,28 @@ function publishCmd(vsix_name_old) {
     //手动发布 https://marketplace.visualstudio.com/manage/publishers/qida
 }
 
-function PUBLISH() {
+/**
+ * 获取文件内容
+ * @param {string} filePath -文件地址
+ * @returns {string} -返回的内容
+ */
+function getContent(filePath) {
+    let snippetsFilePath = filePath;
+    if (!fs.existsSync(snippetsFilePath)) {
+        throw new RangeError("no file exists");
+    }
+    let contentBuffer = fs.readFileSync(snippetsFilePath, {
+        encoding: 'utf8'
+    });
+    let content = contentBuffer.toString();
+    return content;
+}
 
+function PUBLISH() {
+    //获取package.json文件
+    let content = getContent(packagePath);
+    let obj = JSON.parse(content);
+    let vsix_name_old = obj.name + "-" + obj.version + ".vsix";
     publishCmd(vsix_name_old);
 }
 PUBLISH();
