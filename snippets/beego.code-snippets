@@ -256,16 +256,6 @@
     ],
     "description": "分页参数判断"
   },
-  "错误返回": {
-    "scope": "go",
-    "prefix": "iferr",
-    "body": [
-      "if err != nil {",
-      "  return",
-      "}"
-    ],
-    "description": "错误返回"
-  },
   "分页查询": {
     "scope": "go",
     "prefix": "beeorm",

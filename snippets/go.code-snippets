@@ -52,13 +52,13 @@
   },
   "_err return": {
     "prefix": [
-      "if err"
+      "iferr"
     ],
     "body": [
       "if err != nil {",
-      "  _err = err",
-      "  logger.Errorf(\"$1 错误:%+v\", _err)",
-      "  return",
+      "${1|  _err = err,|}",
+      "  logger.Errorf(\"错误:%+v\", err)",
+      "${2|  return,|  return nil, err}",
       "}"
     ],
     "description": "err"

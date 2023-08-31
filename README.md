@@ -16,7 +16,6 @@
 |beesqldelete|删除重复|
 |govalidatian|字段验证|
 |beemlimit|分页参数判断|
-|iferr|错误返回|
 |beeorm|分页查询|
 |beemfo|新建方法带分页排序|
 |beemfoqb|新建方法带分页排序|
@@ -28,20 +27,6 @@
 |beecqsrq1|起始日期1|
 |beecqsrq2|起始日期2|
 |beemain|程序测试main|
-
-## 用法 Usage <go_func.code-snippets>
-
-|前缀 prefix|说明 description|
-|---|---|
-|func main|主函数main|
-|g []byte2string|[]byte转string|
-|g good_quit|退出|
-|g download|文件下载带进度条|
-|g open file|打开文件|
-|g tcp|TCP端口复用|
-|g udp|UDP端口复用|
-|g exit|优雅退出|
-|g http|HTTP请求|
 
 ## 用法 Usage <comment.code-snippets>
 
@@ -87,11 +72,25 @@
 |func _err|function|
 |type|struct|
 |fgx|分隔线|
-|if err|err|
+|iferr|err|
 |if _err|错误打印|
 |err|err error|
 |_err|_err error|
 |defer|匿名函数|
+
+## 用法 Usage <go_func.code-snippets>
+
+|前缀 prefix|说明 description|
+|---|---|
+|func main|主函数main|
+|g []byte2string|[]byte转string|
+|g good_quit|退出|
+|g download|文件下载带进度条|
+|g open file|打开文件|
+|g tcp|TCP端口复用|
+|g udp|UDP端口复用|
+|g exit|优雅退出|
+|g http|HTTP请求|
 
 ## 用法 Usage <go_thrift.code-snippets>
 
