@@ -23,30 +23,29 @@ function getContent(filePath) {
     });
     let content = contentBuffer.toString();
     return content;
-}
-
+} 
 
 function runCmd(fileName) {
-    console.log("fileNames:" + fileName);
-    ////先卸载
-    // nodeCmd.run(
-    //     `code-insiders --uninstall-extension ${fileName}`,
-    //     function (err, data, stderr) {
-    //         console.log('examples dir now contains the example file along with : ', data)
-    //     }
-    // );
-    // $env:VSCOE_HOME="$env:S\:\\VSCode-insider";$env:PATH+=";$env:VSCOE_HOME\\bin";
-    //安装
-    //需要将code-insiders添加到系统环境变量
     nodeCmd.run(
         `code-insiders --enable-proposed-api --disable-workspace-trust --install-extension ${fileName}`,
         function (err, data, stderr) {
             if (err != null) {
-                console.log("err: ", err, "stderr: ", stderr)
+                console.log("安装插件出错: ", err);
+            } else {
+                console.log("插件安装成功");
             }
-            console.log("data", data)
         }
-    )
+    );
+    nodeCmd.run(
+        `code --enable-proposed-api --disable-workspace-trust --install-extension ${fileName}`,
+        function (err, data, stderr) {
+            if (err != null) {
+                console.log("安装插件出错: ", err);
+            } else {
+                console.log("插件安装成功");
+            }
+        }
+    );
 }
 
 function INSTALL() {

@@ -56,12 +56,12 @@
     ],
     "body": [
       "if err != nil {",
-      "${1|  _err = err,|}",
       "  logger.Errorf(\"错误:%+v\", err)",
-      "${2|  return,|  return nil, err}",
+      "${1|  _err = err, |}",
+      "${2|  return,  return nil, err|}",
       "}"
     ],
-    "description": "err"
+    "description": "打印错误"
   },
   "error printf": {
     "prefix": [
@@ -69,11 +69,11 @@
     ],
     "body": [
       "if _err != nil {",
-      "  logger.Errorf(\"$1 错误:%+v\", _err)",
+      "  logger.Errorf(\"错误:%+v\", _err)",
       "  return",
       "}"
     ],
-    "description": "错误打印"
+    "description": "打印错误"
   },
   "err error": {
     "prefix": [

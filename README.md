@@ -72,8 +72,8 @@
 |func _err|function|
 |type|struct|
 |fgx|分隔线|
-|iferr|err|
-|if _err|错误打印|
+|iferr|打印错误|
+|if _err|打印错误|
 |err|err error|
 |_err|_err error|
 |defer|匿名函数|
