@@ -271,7 +271,9 @@
   },
   "HTTP请求": {
     "scope": "go",
-    "prefix": ["g http"],
+    "prefix": [
+      "g http"
+    ],
     "body": [
       "func Http() {",
       "",
@@ -310,5 +312,23 @@
       "}"
     ],
     "description": "HTTP请求"
+  },
+  "log日志文件": {
+    "scope": "go",
+    "prefix": [
+      "g log"
+    ],
+    "body": [
+      "func init() {",
+      "  logFile, err := os.OpenFile(\"./log.txt\", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0766)",
+      "  if err != nil {",
+      "     panic(err)",
+      "  }",
+      "  log.SetOutput(logFile)",
+      "  log.SetPrefix(\"[${1}]\")",
+      "  log.SetFlags(log.LstdFlags | log.Lshortfile | log.Ltime)",
+      "}",
+    ],
+    "description": "log日志文件"
   }
 }
